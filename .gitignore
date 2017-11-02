@@ -5,6 +5,7 @@
 /vendor
 /.idea
 /.vagrant
+/laradock-mrss
 Homestead.json
 Homestead.yaml
 npm-debug.log
