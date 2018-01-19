@@ -8356,6 +8356,10 @@ button.close {
   background: #ddd;
 }
 
+.navbar-default .navbar-nav > li > a {
+  color: #555;
+}
+
 .footer {
   position: fixed;
   background: #333;
