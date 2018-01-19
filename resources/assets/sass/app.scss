@@ -1,12 +1,26 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// navbar
+
+
+.navbar { 
+  margin-bottom: 0px;
+  border: none;
+  background: #ddd;
+
+  
+}
+.navbar-header {
+  
+ 
+}
 
 
 .footer {
@@ -21,3 +35,31 @@
     padding:3px;
     padding-bottom:10px
 }
+
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .4s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease-out;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+// Carousel
+.carousel{
+    background: #3a5f95;
+    margin-top: 0px;
+}
+.carousel .item{
+    min-height: 280px; /* Prevent carousel from being distorted if for some reason image doesn't load */
+}
+.carousel .item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+}
+
+
+

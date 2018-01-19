@@ -1,9 +1,10 @@
 <template>
   <div>
-    
-    <h3>Storage Product Section </h3>
+ 
     <template v-for='product in products'>
+       
           <storage-module :product="product"></storage-module>
+
     </template>
 
   </div>

@@ -1,6 +1,5 @@
 <template>
   <div>
-<h3>Removal Product Section </h3>
 
 <template v-for='product in products'>
       <storage-module :product="product"></storage-module>

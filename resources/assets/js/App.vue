@@ -1,12 +1,19 @@
 <template>
-  <div id="app">
+  <div id="app" style="max-width:480px; margin: auto">
 
 
        <h1>Mr Self Storage Shop</h1>
        <service-selector @change="changed" :activeKey="activeSection.key" :tabs="tabs">Select the service you require</service-selector>
        
        <!-- Insert the Storage or the DIY Removal products section -->
+       <transition name ="slide-fade">
+         <h3 v-show="activeSection.key =='Storage' ">Storage Products</h3>
+       </transition>
+        <transition name ="slide-fade">
+          <h3 v-show="activeSection.key =='Removal' ">DIY Removal Products</h3>
+        </transition>
        <component :is="displaySection"></component>
+        
        
        <div class="footer" >
           <div><strong>Summary</strong></div>
