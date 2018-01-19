@@ -14,7 +14,7 @@
             <div class="item active">
                 <img src="images/slide1.png" alt="First Slide">
                  <div class="carousel-caption">
-                    <h3>We deliver</h3>
+                    <h3>We bring</h3>
                     <p>Lorem ipsum dolor sit amet...</p>
                  </div>
             </div>
