@@ -34,7 +34,7 @@
 ================================================== -->
   <body>
 
-      <div class="container" style="min-width: 500px; max-width: 780px; background: #fff; ">
+      <div class="container" style="min-width: 400px; max-width: 780px; background: #fff; ">
 
         @include('layouts.partials.masthead')
 
