@@ -34,14 +34,9 @@
 ================================================== -->
   <body>
 
-      <div class="container" style="min-width: 480px; max-width: 780px; background: #fff; ">
+      <div class="container" style="min-width: 320px; max-width: 780px; background: #fff; ">
 
-        <div class="header" style="height:80px; background: #3a5f95">
-            <img src="{{ asset('images/logo.jpeg') }}" style="float:left"/>
-            <div style="float:right;font-size:24px;color: white;margin-right: 10px; margin-top:5px">1800 123 456</div>
-        </div>
-
-
+        @include('layouts.partials.masthead')
 
         @include('layouts.partials.navbar')
         <div id="content-wrapper">

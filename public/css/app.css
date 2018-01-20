@@ -8360,6 +8360,20 @@ button.close {
   color: #555;
 }
 
+#phonebox {
+  float: right;
+  color: white;
+  margin-right: 10px;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+@media screen and (min-width: 500px) {
+  #phonebox {
+    font-size: 24px;
+  }
+}
+
 #content-wrapper {
   min-height: 250px;
 }
@@ -8371,7 +8385,7 @@ footer {
 }
 
 #booking-page {
-  width: 440px;
+  width: 320px;
   margin: 0px auto;
   position: relative;
 }
@@ -8380,7 +8394,7 @@ footer {
   z-index: 100;
   width: 110px;
   position: fixed;
-  margin-left: 330px;
+  margin-left: 210px;
   min-height: 50px;
   padding: 5px;
   border-radius: 5px 10px 3px;
