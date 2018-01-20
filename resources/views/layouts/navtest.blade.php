@@ -33,35 +33,30 @@
 <!-- NAVBAR
 ================================================== -->
   <body>
+@include('layouts.partials.masthead')
+      <div class="container" style="min-width: 460px; max-width: 780px; background: #fff; ">
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
 
-      <div class="container" style="min-width: 480px; max-width: 780px; background: #fff; ">
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
 
-        <div class="header" style="height:80px; background: #3a5f95">
-            <img src="{{ asset('images/logo.jpeg') }}" style="float:left"/>
-            <div style="float:right;font-size:24px;color: white;margin-right: 10px; margin-top:5px">1800 123 456</div>
-        </div>
+            </ul>
 
-
-
-        @include('layouts.partials.navbar')
-        <div id="content-wrapper">
-            <a name="top"></a>
-            @yield('content')
-        </div>
-
-        @include('layouts.partials.footer')
-
-    </div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ mix('js/app.js') }}"></script>
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
-
-    @yield('scripts')
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+</div>
   </body>
 </html>
