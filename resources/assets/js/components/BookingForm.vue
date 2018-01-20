@@ -1,8 +1,9 @@
 <template>
-  <div id="app" style="max-width:480px; margin: auto">
+ <div id="booking-page">
 
-
-       <h1>Mr Self Storage Shop</h1>
+  <div class="booking-sidebar">Order total: $23.00</div>
+  <h1>Prices &amp; Booking</h1>
+      
        <service-selector @change="changed" :activeKey="activeSection.key" :tabs="tabs">Select the service you require</service-selector>
        
        <!-- Insert the Storage or the DIY Removal products section -->
@@ -15,7 +16,7 @@
        <component :is="displaySection"></component>
         
        
-       <div class="footer" >
+       <div class="app-footer" >
           <div><strong>Summary</strong></div>
           <div style="display: flex">
             <div style="flex: 3">

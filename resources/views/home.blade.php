@@ -2,14 +2,16 @@
 
 @section('content')
 
-<!-- Marketing messaging and featurettes
+@include('layouts.partials.carousel')
+
+    <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
 
 
       <!-- Three columns of text below the carousel -->
-      <div class="row" style="background: #fff">
+      <div class="row" style="background: #fff; margin-top:10px;">
         <div class="col-sm-4">
           <div ><img   src="{{asset('images/we_bring.png') }}" alt="We Bring Icon" width="88" height="75"></div>
           <h2>We Bring</h2>

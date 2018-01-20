@@ -1,27 +1,12 @@
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 
-require('./bootstrap');
+
 
 
 import Vue from 'vue'
-import App from './App'
 import store from './vuex/store'
 
-
-
-
-// import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-default/index.css'
-// Vue.use(ElementUI)
-
-
-// import yesno from './components/quizset/YesNo2'
-
+Vue.component('BookingForm', require('./components/BookingForm.vue'))
 Vue.component('StorageModule', require('./components/StorageModule.vue'))
 Vue.component('ServiceSelector', require('./components/ServiceSelector.vue'))
 
@@ -38,8 +23,7 @@ Vue.config.productionTip = true
 
 /* eslint-disable no-new */
 new Vue({
-  el: 'app',
+  el: '#app',
   store,
-  template: '<App/>',
-  components: { App }
+ 
 })

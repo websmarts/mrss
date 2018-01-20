@@ -12,11 +12,11 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">Module Specifications</a></li>
-              <li><a href="#">Price &amp; Bookings</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/modules">Module Specifications</a></li>
+              <li><a href="/booking">Price &amp; Bookings</a></li>
+              <li><a href="/faqs">FAQs</a></li>
+              <li><a href="/contact">Contact Us</a></li>
 
             </ul>
 

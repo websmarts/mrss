@@ -14,3 +14,25 @@
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('modules', function () {
+    return view("pages.modules");
+});
+
+Route::get('faqs', function () {
+    return view("pages.faqs");
+});
+Route::get('contact', function () {
+    return view("pages.contact");
+});
+
+Route::get('privacy', function () {
+    return view("pages.privacy");
+});
+Route::get('terms', function () {
+    return view("pages.terms");
+});
+
+Route::get('booking', function () {
+    return view("booking");
+});
