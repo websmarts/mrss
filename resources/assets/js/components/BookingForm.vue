@@ -2,9 +2,9 @@
  <div id="booking-page">
 
   <div class="booking-sidebar">Order total: $23.00</div>
-  <h1>Prices &amp; Booking</h1>
+  <h3>Prices &amp; <br />Booking</h3>
       
-       <service-selector @change="changed" :activeKey="activeSection.key" :tabs="tabs">Select the service you require</service-selector>
+       <service-selector @change="changed" :activeKey="activeSection.key" :tabs="tabs">Select the service <br />you require</service-selector>
        
        <!-- Insert the Storage or the DIY Removal products section -->
        <transition name ="slide-fade">

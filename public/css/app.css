@@ -8385,21 +8385,34 @@ footer {
 }
 
 #booking-page {
-  width: 320px;
+  width: 480px;
   margin: 0px auto;
   position: relative;
 }
 
+@media screen and (max-width: 500px) {
+  #booking-page {
+    width: 320px;
+  }
+}
+
 .booking-sidebar {
   z-index: 100;
-  width: 110px;
   position: fixed;
-  margin-left: 210px;
+  width: 100px;
+  margin-left: 380px;
   min-height: 50px;
   padding: 5px;
   border-radius: 5px 10px 3px;
-  background: rgba(255, 51, 0, 0.7);
+  background: rgba(255, 51, 0, 0.8);
   color: white;
+}
+
+@media screen and (max-width: 500px) {
+  .booking-sidebar {
+    width: 80px;
+    margin-left: 240px;
+  }
 }
 
 .app-footer {

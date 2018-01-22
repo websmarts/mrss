@@ -46,19 +46,28 @@ footer {
 }
 
 #booking-page {
-  width: 320px; 
+
+  width: 480px; 
+  @media screen and (max-width: 500px){
+    width: 320px;
+  }
   margin: 0px auto; 
   position: relative; 
 }
 .booking-sidebar {
   z-index: 100;
-  width: 110px;
+  
   position: fixed; 
-  margin-left: 210px; 
+  width: 100px;
+  margin-left: 380px;
+  @media screen and (max-width: 500px){
+    width: 80px;
+    margin-left: 240px;
+  }
   min-height: 50px;
   padding:5px;
   border-radius:5px 10px 3px;
-  background: rgba(255, 51, 0, 0.7);
+  background: rgba(255, 51, 0, 0.8);
   color: white;
 }
 

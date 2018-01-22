@@ -684,7 +684,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "booking-sidebar"
-  }, [_vm._v("Order total: $23.00")]), _vm._v(" "), _c('h1', [_vm._v("Prices & Booking")]), _vm._v(" "), _c('service-selector', {
+  }, [_vm._v("Order total: $23.00")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('service-selector', {
     attrs: {
       "activeKey": _vm.activeSection.key,
       "tabs": _vm.tabs
@@ -692,7 +692,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "change": _vm.changed
     }
-  }, [_vm._v("Select the service you require")]), _vm._v(" "), _c('transition', {
+  }, [_vm._v("Select the service "), _c('br'), _vm._v("you require")]), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "slide-fade"
     }
@@ -716,8 +716,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }]
   }, [_vm._v("DIY Removal Products")])]), _vm._v(" "), _c(_vm.displaySection, {
     tag: "component"
-  }), _vm._v(" "), _vm._m(0)], 1)
+  }), _vm._v(" "), _vm._m(1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('h3', [_vm._v("Prices & "), _c('br'), _vm._v("Booking")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "app-footer"
   }, [_c('div', [_c('strong', [_vm._v("Summary")])]), _vm._v(" "), _c('div', {
