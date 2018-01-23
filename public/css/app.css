@@ -8461,3 +8461,11 @@ footer {
   /* Align slide image horizontally center */
 }
 
+.left-rounded {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.right-rounded {
+  border-radius: 0px 15px 15px 0px;
+}
+
