@@ -1,16 +1,21 @@
 <template>
 <div>
   
-  <div style="display:flex; padding:10px; border:1px solid #48c; background: #ededed">
+  <div style="display:flex; padding:10px; border:1px solid #444; background: #ededed">
     <div style="flex:.5"><span style="font-size: 160%" @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
-    <div style="flex:1">THUMB</div>
+    <div style="flex:1"><img src="/images/no_image_tn.jpg"></div>
     <div style="flex:2"> {{ product.name }}</div>
     
-    <div style="flex:1; display: flex">
-      <button  class="btn btn-primary left-rounded" @click="decrement"><span style="font-size:14px" class="glyphicon glyphicon-minus"></span></button>
-      <div  style="flex:1; text-align: center; font-size:24px;font-weight:900" >{{ product.qty }}</div>
-      <button    class="btn btn-primary right-rounded"  @click="increment"><span style="font-size:14px"  class="glyphicon glyphicon-plus"></span></button>
+    <div style="flex:1">
+      <div style="display: flex">
+        <button  class="btn btn-primary left-rounded" @click="decrement"><span style="font-size:14px" class="glyphicon glyphicon-minus"></span></button>
+        <div  style=" text-align: center; font-size:24px;font-weight:900" >{{ ordered }}</div>
+        <button    class="btn btn-primary right-rounded"  @click="increment"><span style="font-size:14px"  class="glyphicon glyphicon-plus"></span></button>
+      </div>
+      <div style="text-align: center; padding-top:15px;font-size:75%" v-show="product.options[0].price">( ${{ product.options[0].price.toFixed(2) }} ea)</div>
+      
     </div>
+
   </div>
 
 
@@ -19,7 +24,7 @@
 
 
     <div style="display: flex;">
-      <div style="flex:1"> IMAGE </div>
+      <div style="flex:1"><img src="/images/no_image.jpg"></div>
       <div style="flex:1" v-html="product.description"></div>
     </div>
     <div v-html="product.notes"></div>
@@ -41,25 +46,25 @@ export default {
     }
   },
   computed: {
-    cost() {
-      return this.product.price * this.product.qty
+    ordered() {
+       return this.$store.getters.getCartProductQuantity(this.product.id);
     },
     expandedClass() {
       if(this.expanded){
         return {
-            'glyphicon-circle-arrow-down': true,
-            'glyphicon-circle-arrow-right': false
+            'glyphicon-collapse-down': true,
+            'glyphicon-expand': false
           }
       }
       return {
-            'glyphicon-circle-arrow-down': false,
-            'glyphicon-circle-arrow-right': true
+            'glyphicon-collapse-down': false,
+            'glyphicon-expand': true
           }
     },
   },
   methods: {
     increment() {
-      
+  
       this.$store.dispatch('incrementProductQty',this.product)
     },
     decrement() {

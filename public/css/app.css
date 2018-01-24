@@ -8381,7 +8381,9 @@ button.close {
 footer {
   margin-top: 26px;
   padding: 10px;
-  background: #ccc;
+  text-align: center;
+  border-top: 3px solid #3a5f95;
+  border-bottom: 3px solid #3a5f95;
 }
 
 #booking-page {

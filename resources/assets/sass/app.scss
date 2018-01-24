@@ -42,7 +42,9 @@
 footer {
   margin-top: 26px;
   padding:10px;
-  background: #ccc;
+  text-align: center;
+  border-top:3px solid $app-blue;
+  border-bottom:3px solid $app-blue;
 }
 
 #booking-page {

@@ -9,6 +9,11 @@ export default new Vuex.Store({
 		today: new Date(),
 		
 		products: [],
+		cart: {
+			products: {},
+			customer: []
+		},
+
 		weeklyCharge: 0,
 		movingCharge: 0,
 		extrasCharge:0
@@ -20,16 +25,44 @@ export default new Vuex.Store({
 		INIT_PRODUCTS: function(state, products){
 			Vue.set(state, 'products', products)
 		},
-		INCREMENT_PRODUCT_QTY: function(state, product){
-			product.qty += 1
+		UPDATE_CART_PRODUCTS: function(state,payload){
+			// Use Vue set because we may be creating new properties
+			// and we need them to be reactive
+			// 
+			// if qty is zero then remove product
+			if(!payload.qty){
+				Vue.delete(state.cart.products,payload.id)
+			} else {
+				Vue.set(state.cart.products,payload.id,payload)	
+			}
+				
 		},
-		DECREMENT_PRODUCT_QTY: function(state, product){
-			product.qty > 0 ? product.qty -= 1 : 0
-		}
+		
 		
 		
 	},
 	getters: {
+		getCartProductQuantity: (state) => (id) =>{
+		  if(state.cart.products.hasOwnProperty(id) ){
+		    return state.cart.products[id].qty
+		  }
+		 return 0
+		},
+		getCost: (state) => {
+			let total ={weekly:0,fixed:0}
+			for(let key in state.cart.products){
+				if(state.cart.products[key].code.startsWith('M') || state.cart.products[key].code.startsWith('I')){
+					total.weekly += (state.cart.products[key].price * state.cart.products[key].qty)
+				}
+				if(state.cart.products[key].code.startsWith('E') ){
+					total.fixed += (state.cart.products[key].price * state.cart.products[key].qty)
+				}
+
+				
+			}
+			return total
+		},
+		
 		
 		
 	},
@@ -43,14 +76,31 @@ export default new Vuex.Store({
 			context.commit('INIT_PRODUCTS',productsWithCost)
 		},
 		incrementProductQty(context,product){
-			context.commit('INCREMENT_PRODUCT_QTY',product)
+			let currentQty = 0
+			if(context.state.cart.products.hasOwnProperty(product.id)){
+				// get the current qty from the cart
+				currentQty = context.state.cart.products[product.id].qty
+			} 
+			currentQty++
+			let payload = {id: product.id, code: product.options[0].code,qty:currentQty,price: product.options[0].price}
+			context.commit('UPDATE_CART_PRODUCTS',payload)
 		},
 		decrementProductQty(context,product){
-			if(product.qty > 0){
-				context.commit('DECREMENT_PRODUCT_QTY',product)
+			let currentQty = 0
+			if(context.state.cart.products.hasOwnProperty(product.id)){
+				// get the current qty from the cart
+				currentQty = context.state.cart.products[product.id].qty
 			}
-			
+			if(currentQty > 0){
+				currentQty--
+			}
+			let payload = {id: product.id, code: product.options[0].code,qty:currentQty,price: product.options[0].price}
+			context.commit('UPDATE_CART_PRODUCTS',payload)
 		},
+
+		updateCartProducts(context,payload){
+			context.commit('UPDATE_CART_PRODUCTS',payload)
+		}
 
 
 	}

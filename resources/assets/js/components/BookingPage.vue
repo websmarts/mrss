@@ -1,11 +1,11 @@
 <template>
  <div id="booking-page">
 
-  <booking-sidebar>Sidebar info</booking-sidebar>
+  <booking-sidebar>Cost summary</booking-sidebar>
 
   <h3>Prices &amp; <br />Booking</h3>
       
-       <service-selector v-model="service" :tabs="tabs" :selectedService="selectedService">Select the service <br />you require</service-selector>
+       <service-selector :value="service" @input="setService" :tabs="tabs" :selectedService="service">Select the service <br />you require</service-selector>
        
        
 
@@ -55,31 +55,22 @@ export default {
       service: {},//{name: 'Default',key: 'default'}
       pickupLocation: '',
       returnLocation: '',
-      modules: {},
-      extras: [],
-      insurance: {},
-      headings: {'module': 'Module options','extra': 'Extra products','insurance': 'Insurance options'}
-
-
       
-      
+      headings: {'module': 'Module options','extra': 'Extra products','insurance': 'Insurance options'},
+ 
     }
   },
   computed: {
-    selectedService() {
-      if (this.service.hasOwnProperty('name')){
-        return this.service
-      }
-      return false
-    }
-    
    
   },
   methods: {
+    setService(service) {
+      this.service=service
+      this.headings.module ='Select how many '+ service.name +' modules you require.' // adjust the heading for the module selector
+
+    },
     fetchProductsByType(product_type) {
-      let products = _.orderBy( _.filter(this.$store.state.products,['product_type',product_type]),['order'],['desc'])
-      //console.log('fetchProductByType for - '+product_type , products)
-      return products
+      return _.orderBy( _.filter(this.$store.state.products,['product_type',product_type]),['display_order'],['desc'])
     }
     
   },

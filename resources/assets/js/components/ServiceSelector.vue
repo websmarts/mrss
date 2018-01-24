@@ -12,8 +12,8 @@
   </div>
   <div style="display: flex" class="tabs">
     <template v-for="tab in tabs">
-      <div style="flex:1"  @click="select(tab)" :class="[selected.name == tab.name ? 'active' : '']">
-        {{ tab.name }} &nbsp;<span v-show="selected.name == tab.name" style="font-size: 140%" class="glyphicon glyphicon-ok" ></span>
+      <div style="flex:1"  @click="select(tab)" :class="[selectedService.name == tab.name ? 'active' : '']">
+        {{ tab.name }} &nbsp;<span v-show="selectedService.name == tab.name" style="font-size: 140%" class="glyphicon glyphicon-ok" ></span>
       </div>
 
      
@@ -29,26 +29,12 @@
 
 export default {
   props:['tabs','selectedService'],
-  data() {
-    return {
-      selected: {}
-    }
-  },
   methods: {
     select(tab) {
-      this.selected=tab
-      this.$emit('input', this.selected)
+      this.$emit('input', tab)
     }, 
-  },
-  created() {
-    // if this.startKey is defined then find the tab with that 
-    let findkey = this.activeKey
-    let tab = _.find(this.tabs, {'key': findkey})
-    console.log('Tab:', tab);
-    if(tab){
-      this.selected = tab
-    }
   }
+  
 }
 
 </script>

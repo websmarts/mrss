@@ -12,11 +12,11 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/modules">Module Specifications</a></li>
-              <li><a href="/booking">Price &amp; Bookings</a></li>
-              <li><a href="/faqs">FAQs</a></li>
-              <li><a href="/contact">Contact Us</a></li>
+              <li {{ (Request::is('/') ? 'class=active' : '') }}><a href="/">Home</a></li>
+              <li {{ (Request::is('modules') ? 'class=active' : '') }}><a href="/modules">Module Specifications</a></li>
+              <li {{ (Request::is('booking') ? 'class=active' : '') }}><a href="/booking">Price &amp; Bookings</a></li>
+              <li {{ (Request::is('faqs') ? 'class=active' : '') }}><a href="/faqs">FAQs</a></li>
+              <li {{ (Request::is('contact') ? 'class=active' : '') }}><a href="/contact">Contact Us</a></li>
 
             </ul>
 
