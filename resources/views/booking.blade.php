@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="app"><booking-page></booking-page></div>
+<app></app>
 
 @endsection
 

@@ -2,6 +2,10 @@
 <div>
 
   <h4><slot></slot></h4>
+  <div>
+    <el-radio v-model="radio7" label="1" border>Option A</el-radio>
+    <el-radio v-model="radio7" label="2" border>Option B</el-radio>
+  </div>
   <div v-show="! selectedService" style="padding-left:60px; font-style: italic">
   
   <p>Select <strong>Storage</strong> option if you require us to store your storage modules for you</p>
@@ -29,6 +33,11 @@
 
 export default {
   props:['tabs','selectedService'],
+  data() {
+    return {
+      radio7: ''
+    }
+  },
   methods: {
     select(tab) {
       this.$emit('input', tab)

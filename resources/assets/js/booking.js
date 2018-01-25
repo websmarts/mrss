@@ -4,8 +4,13 @@
 
 
 import Vue from 'vue'
+import Element from 'element-ui'
+import App from './App'
 import store from './vuex/store'
 
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.use(Element)
 
 Vue.component('BookingPage', require('./components/BookingPage.vue'))
 Vue.component('ServiceSelector', require('./components/ServiceSelector.vue'))
@@ -27,7 +32,8 @@ Vue.config.productionTip = true
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: 'app',
   store,
- 
+  template: '<App/>',
+  components: { App }
 })
