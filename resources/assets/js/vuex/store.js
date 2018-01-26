@@ -97,6 +97,16 @@ export default new Vuex.Store({
 			let payload = {id: product.id, code: product.options[0].code,qty:currentQty,price: product.options[0].price}
 			context.commit('UPDATE_CART_PRODUCTS',payload)
 		},
+		setProductQty(context,payload){
+			if(payload.qty < 1){
+				payload.qty = 0
+			}
+			
+			let mutationPayload = {id: payload.product.id, code: payload.product.options[payload.option].code,qty:payload.qty,price: payload.product.options[payload.option].price}
+
+			context.commit('UPDATE_CART_PRODUCTS',mutationPayload)
+			
+		},
 
 		updateCartProducts(context,payload){
 			context.commit('UPDATE_CART_PRODUCTS',payload)

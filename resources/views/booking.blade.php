@@ -19,6 +19,7 @@
 		description: 'Storage module description',
 		notes:'product one notes',
 		display_order: 0,
+		qty:0,
 		options: [
 			{code: 'M1', description:'M1 description', price:12.34, display_order: 1},
 			{code: 'M2', description:'M2 description', price:24.56, display_order: 2},
@@ -32,6 +33,7 @@
 		name: 'Product two',
 		notes:'product two notes',
 		display_order: 1,
+		qty:0,
 		options:[
 	 		{code: 'E2',  description: 'Product two description', price:15.0}
 		]
@@ -41,6 +43,7 @@
 		name: 'Product three',
 		notes:'product three notes',
 		display_order: 2,
+		qty:0,
 		options: [
 			{code: 'E3',  description: 'Product three description', price:9.12}
 		]
@@ -50,6 +53,7 @@
 		name: 'Product four',
 		notes:'product four notes',
 		display_order: 3,
+		qty:0,
 		options: [
 			{code: 'E4',  description: 'Product four description', price:12.34}
 			]
@@ -61,6 +65,7 @@
 		description: 'Insurance packages',
 		notes:'This is the Insurance product notes.',
 		display_order: 10,
+		qty:0,
 		options: [
 			{code: 'I1', description:'I1 description', price:2.34, display_order: 1},
 			{code: 'I2', description:'I2 description', price:4.34, display_order: 2},

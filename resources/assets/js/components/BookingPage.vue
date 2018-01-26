@@ -3,9 +3,9 @@
 
   <booking-sidebar>Cost summary</booking-sidebar>
 
-  <h3>Prices &amp; <br />Booking</h3>
+  <div class="h3">Prices &amp; Booking</div>
       
-       <service-selector :value="service" @input="setService" :tabs="tabs" :selectedService="service">Select the service <br />you require</service-selector>
+       <service-selector :value="service" @input="setService" :selectedService="service">Select the service you require</service-selector>
        
        
 
@@ -48,10 +48,7 @@ export default {
   name: 'app',
   data() {
     return {
-      tabs: [
-        {name: 'Storage', key: 'Storage'},
-        {name: 'DIY Removals',key: 'Removal'}
-      ],
+      
       service: {},//{name: 'Default',key: 'default'}
       pickupLocation: '',
       returnLocation: '',
@@ -66,7 +63,7 @@ export default {
   methods: {
     setService(service) {
       this.service=service
-      this.headings.module ='Select how many '+ service.name +' modules you require.' // adjust the heading for the module selector
+      this.headings.module ='Select how many '+ service +' modules you require.' // adjust the heading for the module selector
 
     },
     fetchProductsByType(product_type) {

@@ -8,7 +8,7 @@ import Element from 'element-ui'
 import App from './App'
 import store from './vuex/store'
 
-import 'element-ui/lib/theme-chalk/index.css'
+//import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(Element)
 
