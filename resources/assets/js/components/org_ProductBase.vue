@@ -1,18 +1,10 @@
 <template>
 <div>
-
   
-
-  
-  <div class="my-list-item" style="display:flex">
-    <div style="flex:.5"><span  @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
+  <div style="display:flex; padding:10px; border:1px solid #444; background: #ededed">
+    <div style="flex:.5"><span style="font-size: 220%" @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
     <div style="flex:1"><img src="/images/no_image_tn.jpg"></div>
-    <div style="flex:2">
-      {{ product.name }}<br />
-      {{ product.options[0].description }}<br />
-     
-
-    </div>
+    <div style="flex:2"> {{ product.name }}</div>
     
     <div style="flex:1">
       <!-- <div style="display: flex">
@@ -21,28 +13,24 @@
         <button    class="btn btn-primary right-rounded"  @click="increment"><span style="font-size:14px"  class="glyphicon glyphicon-plus"></span></button>
       </div>
       <div style="text-align: center; padding-top:15px;font-size:75%" v-show="product.options[0].price">( ${{ product.options[0].price.toFixed(2) }} ea)</div> -->
-      <el-input-number :value="ordered" @change="handleChange" :min="0" ></el-input-number> 
-      <p style="text-align: center; font-size:75%">
-      (${{ product.options[0].price.toFixed(2) }} @ea)</p>
-
-      <p style="text-align: center"><a @click="expanded = !expanded" >{{ expanded ? 'hide' : 'show' }} details</a></p>
+      <el-input-number :value="ordered" @change="handleChange" :min="0" ></el-input-number>
     </div>
 
   </div>
 
 
-  <el-collapse-transition>
-    <div v-if="expanded" class="my-list-item-expanded" >
+  <transition name="slide-fade">
+  <div v-if="expanded" style="padding:20px; border: 1px solid #222; border-left: 10px solid #222 " >
 
 
-      <div style="display: flex;">
-        <div style="flex:1"><img src="/images/no_image.jpg"></div>
-        <div style="flex:1" v-html="product.options[0].description"></div>
-      </div>
-      <div v-html="product.notes"></div>
-
+    <div style="display: flex;">
+      <div style="flex:1"><img src="/images/no_image.jpg"></div>
+      <div style="flex:1" v-html="product.description"></div>
     </div>
-  </el-collapse-transition>
+    <div v-html="product.notes"></div>
+
+  </div>
+</transition>
 
 </div>
 </template>
@@ -55,7 +43,6 @@ export default {
     return {
       expanded: false,
       quantity: 0,
-      activeNames:'',
       
       
     }
@@ -78,28 +65,23 @@ export default {
     },
   },
   methods: {
-    handleCollapseChange(panel){
-      console.log('panel',panel)
-    },
     handleChange(qty) {
      
      console.log(qty)
       let payload = {
-        'id': this.product.id,
-        'qty': qty,
-        'payment_code': this.product.options[0].payment_code,
-        'price': this.product.options[0].price
-
+        'product': this.product,
+        'option': 0,
+        'qty': qty
       }
       this.$store.dispatch('setProductQty', payload)
     },
-    // increment() {
+    increment() {
   
-    //   this.$store.dispatch('incrementProductQty',this.product)
-    // },
-    // decrement() {
-    //   this.$store.dispatch('decrementProductQty',this.product) 
-    // }
+      this.$store.dispatch('incrementProductQty',this.product)
+    },
+    decrement() {
+      this.$store.dispatch('decrementProductQty',this.product) 
+    }
   }
  
 }

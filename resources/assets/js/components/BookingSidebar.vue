@@ -1,17 +1,23 @@
 <template>
 
-  <div class="booking-sidebar" style="font-size:70%">
+  <div v-show="showMe()" class="booking-sidebar" style="font-size:70%">
     <slot></slot>
-    <div>Weekly($):<br />{{ cost.weekly.toFixed(2) }}</div>
-    <div>One off($):<br />{{ cost.fixed.toFixed(2) }}</div>
+    <div>Weekly($): {{ costs.weekly.toFixed(2) }}</div>
+    <div>One off($): {{ costs.fixed.toFixed(2) }}</div>
   </div>
 
 </template>
 
 <script>
 export default {
+  methods: {
+    showMe() {
+      let costs = this.costs
+      return costs.weekly + costs.fixed > 0
+    }
+  },
   computed: {
-    cost() {
+    costs() {
      return this.$store.getters.getCost;
     },
     

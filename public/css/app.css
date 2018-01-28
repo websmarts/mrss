@@ -72394,6 +72394,21 @@ button.close {
           box-sizing: border-box;
 }
 
+.my-list-item {
+  padding: 10px;
+  border: 1px solid #444;
+  background: transparent;
+}
+
+.my-list-item-expanded {
+  padding: 20px;
+  border: 1px solid #222;
+}
+
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .navbar {
   margin-bottom: 0px;
   border: none;
@@ -72445,7 +72460,7 @@ footer {
 .booking-sidebar {
   z-index: 100;
   position: fixed;
-  width: 100px;
+  width: 120px;
   margin-left: 380px;
   min-height: 50px;
   padding: 5px;
@@ -72456,8 +72471,8 @@ footer {
 
 @media screen and (max-width: 500px) {
   .booking-sidebar {
-    width: 80px;
-    margin-left: 240px;
+    width: 100px;
+    margin-left: 220px;
   }
 }
 
@@ -72471,6 +72486,7 @@ footer {
   min-height: 90px;
   padding: 3px;
   padding-bottom: 10px;
+  margin-top: 14px;
 }
 
 /* durations and timing functions.              */
@@ -72513,5 +72529,9 @@ footer {
 
 .right-rounded {
   border-radius: 0px 15px 15px 0px;
+}
+
+form .row {
+  margin-top: 15px;
 }
 

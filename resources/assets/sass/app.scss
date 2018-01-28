@@ -13,8 +13,16 @@ $--color-primary: teal;
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
-@import "~element-ui/packages/theme-chalk/src/index";
 
+
+
+@import "~element-ui/packages/theme-chalk/src/index";
+@import "spastuff";
+
+
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 // navbar
 
 
@@ -68,11 +76,11 @@ footer {
   z-index: 100;
   
   position: fixed; 
-  width: 100px;
+  width: 120px;
   margin-left: 380px;
   @media screen and (max-width: 500px){
-    width: 80px;
-    margin-left: 240px;
+    width: 100px;
+    margin-left: 220px;
   }
   min-height: 50px;
   padding:5px;
@@ -93,7 +101,8 @@ footer {
     right: 0;
     min-height: 90px;
     padding:3px;
-    padding-bottom:10px
+    padding-bottom:10px;
+    margin-top: 14px;
 }
 
 /* durations and timing functions.              */
@@ -129,6 +138,12 @@ footer {
 .right-rounded {
   border-radius: 0px 15px 15px 0px;
 }
+
+// Contact form
+form .row {
+  margin-top:15px;
+}
+
 
 
 

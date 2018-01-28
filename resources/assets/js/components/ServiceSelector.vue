@@ -10,7 +10,7 @@
   </div>
     
   
-  <div v-show="!selected" style="padding-left:60px; font-style: italic">
+  <div v-show="!selected" >
   
   <p>Select <strong>Storage</strong> option if you require us to store your storage modules for you</p>
 

@@ -1,21 +1,21 @@
 <template>
 <div>
   
-  <div class="my-list-item" style="display:flex">
-    <div style="flex:.5"><span  @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
+  <div class="my-list-item" style="display:flex;">
+    <div style="flex:.5"><span @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
     <div style="flex:1"><img src="/images/no_image_tn.jpg"></div>
     <div style="flex:3">
-       <select :value="selected.qty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
+      <select :value="selected.qty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
         <option value="">Select ...</option>
         <option :value="opt.qty" v-for="opt in product.options">{{ opt.description }} (${{ opt.price }})</option>
       </select>
     </div>
     
+    
   </div>
 
-
   <transition name="slide-fade">
-  <div v-if="expanded" class="my-list-item-expanded"  >
+  <div v-if="expanded" class="my-list-item-expanded" >
 
 
     <div style="display: flex;">
@@ -72,7 +72,7 @@ export default {
 
         this.selected = _.find(this.product.options,['qty',qty])
         this.qty = qty
-        this.price = this.selected.price
+        this.price = this.selected.price / qty
         this.payment_code = this.selected.payment_code 
         
       }  
@@ -82,7 +82,11 @@ export default {
   },
   
 }
- 
-
 
 </script>
+
+<style>
+
+
+
+</style>

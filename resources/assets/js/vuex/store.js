@@ -8,23 +8,15 @@ export default new Vuex.Store({
 	state: {
 		today: new Date(),
 		
-		products: [],
+		//products: [],
 		cart: {
 			products: {},
 			customer: []
 		},
-
-		weeklyCharge: 0,
-		movingCharge: 0,
-		extrasCharge:0
-		
-		,
 		
 	},
 	mutations: {
-		INIT_PRODUCTS: function(state, products){
-			Vue.set(state, 'products', products)
-		},
+		
 		UPDATE_CART_PRODUCTS: function(state,payload){
 			// Use Vue set because we may be creating new properties
 			// and we need them to be reactive
@@ -51,14 +43,12 @@ export default new Vuex.Store({
 		getCost: (state) => {
 			let total ={weekly:0,fixed:0}
 			for(let key in state.cart.products){
-				if(state.cart.products[key].code.startsWith('M') || state.cart.products[key].code.startsWith('I')){
+				if(state.cart.products[key].payment_code =='w'){ // w= WEEKLY
 					total.weekly += (state.cart.products[key].price * state.cart.products[key].qty)
 				}
-				if(state.cart.products[key].code.startsWith('E') ){
+				if(state.cart.products[key].payment_code =='f' ){ //f= FIXED
 					total.fixed += (state.cart.products[key].price * state.cart.products[key].qty)
-				}
-
-				
+				}				
 			}
 			return total
 		},
@@ -67,42 +57,13 @@ export default new Vuex.Store({
 		
 	},
 	actions: {
-		initStore(context,products){
-			// console.log('DATA',products)
-			// iterate through products to add qty property
-			var productsWithCost = _.map(products, function(product) { 
-			     return _.extend({}, product, {qty: 0});
-			}); 
-			context.commit('INIT_PRODUCTS',productsWithCost)
-		},
-		incrementProductQty(context,product){
-			let currentQty = 0
-			if(context.state.cart.products.hasOwnProperty(product.id)){
-				// get the current qty from the cart
-				currentQty = context.state.cart.products[product.id].qty
-			} 
-			currentQty++
-			let payload = {id: product.id, code: product.options[0].code,qty:currentQty,price: product.options[0].price}
-			context.commit('UPDATE_CART_PRODUCTS',payload)
-		},
-		decrementProductQty(context,product){
-			let currentQty = 0
-			if(context.state.cart.products.hasOwnProperty(product.id)){
-				// get the current qty from the cart
-				currentQty = context.state.cart.products[product.id].qty
-			}
-			if(currentQty > 0){
-				currentQty--
-			}
-			let payload = {id: product.id, code: product.options[0].code,qty:currentQty,price: product.options[0].price}
-			context.commit('UPDATE_CART_PRODUCTS',payload)
-		},
+			
 		setProductQty(context,payload){
 			if(payload.qty < 1){
 				payload.qty = 0
 			}
 			
-			let mutationPayload = {id: payload.product.id, code: payload.product.options[payload.option].code,qty:payload.qty,price: payload.product.options[payload.option].price}
+			let mutationPayload = {id: payload.id,qty:payload.qty,payment_code: payload.payment_code, price: payload.price}
 
 			context.commit('UPDATE_CART_PRODUCTS',mutationPayload)
 			
