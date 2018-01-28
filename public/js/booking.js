@@ -1626,20 +1626,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
 
-      service: {}, //{name: 'Default',key: 'default'}
-      serviceSelected: false,
       pickupLocation: '',
       returnLocation: ''
     };
   },
 
+  computed: {
+    service: function service() {
+      return this.$store.getters.getService;
+    }
+  },
   methods: {
-    setService: function setService(service) {
-      this.service = service;
-      this.serviceSelected = true;
-    },
     fetchProductsByType: function fetchProductsByType(product_type) {
       return _.orderBy(_.filter(PRODUCTS, ['product_type', product_type]), ['display_order'], ['desc']);
+    },
+    serviceSelected: function serviceSelected() {
+      return this.service;
     }
   }
 });
@@ -2118,17 +2120,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['selectedService'],
-  data: function data() {
-    return {
-      selected: 0
-    };
-  },
 
+  computed: {
+    service: function service() {
+      return this.$store.getters.getService;
+    }
+  },
   methods: {
-    setService: function setService(e) {
-      this.selected = 1;
-      this.$emit('input', e);
+    setService: function setService(service) {
+      this.$store.commit('SET_SERVICE', service);
     }
   }
 
@@ -46032,7 +46032,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "app" } }, [_c("router-view")], 1)
+  return _c(
+    "div",
+    { attrs: { id: "app" } },
+    [_c("keep-alive", [_c("router-view")], 1)],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -46062,10 +46067,7 @@ var render = function() {
       [
         _c(
           "el-radio-group",
-          {
-            attrs: { value: _vm.selectedService },
-            on: { input: _vm.setService }
-          },
+          { attrs: { value: _vm.service }, on: { input: _vm.setService } },
           [
             _c("el-radio", { attrs: { label: "storage", border: "" } }, [
               _vm._v("Storage")
@@ -46088,8 +46090,8 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: !_vm.selected,
-            expression: "!selected"
+            value: !_vm.service,
+            expression: "!service"
           }
         ]
       },
@@ -46429,14 +46431,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "h3" }, [_vm._v("Prices & Booking")]),
       _vm._v(" "),
-      _c(
-        "service-selector",
-        {
-          attrs: { value: _vm.service, selectedService: _vm.service },
-          on: { input: _vm.setService }
-        },
-        [_vm._v("Select the service you require")]
-      ),
+      _c("service-selector", [_vm._v("Select the service you require")]),
       _vm._v(" "),
       _c(
         "div",
@@ -46445,8 +46440,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.serviceSelected,
-              expression: "serviceSelected"
+              value: _vm.service,
+              expression: "service"
             }
           ],
           staticStyle: {
@@ -46518,8 +46513,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.serviceSelected,
-              expression: "serviceSelected"
+              value: _vm.service,
+              expression: "service"
             }
           ],
           attrs: { id: "products" }
@@ -46582,8 +46577,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.serviceSelected,
-              expression: "serviceSelected"
+              value: _vm.service,
+              expression: "service"
             }
           ],
           staticClass: "app-footer"
@@ -62343,6 +62338,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 	strict: true,
 	state: {
 		today: new Date(),
+		service: false,
 
 		//products: [],
 		cart: {
@@ -62352,6 +62348,10 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 
 	},
 	mutations: {
+
+		SET_SERVICE: function SET_SERVICE(state, service) {
+			state.service = service;
+		},
 
 		UPDATE_CART_PRODUCTS: function UPDATE_CART_PRODUCTS(state, payload) {
 			// Use Vue set because we may be creating new properties
@@ -62367,6 +62367,9 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 
 	},
 	getters: {
+		getService: function getService(state) {
+			return state.service;
+		},
 		getCartProductQuantity: function getCartProductQuantity(state) {
 			return function (id) {
 				if (state.cart.products.hasOwnProperty(id)) {

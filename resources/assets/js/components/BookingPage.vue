@@ -4,12 +4,12 @@
   <booking-sidebar >Costs</booking-sidebar>
 
   <div class="h3">Prices &amp; Booking</div>
-      
-       <service-selector :value="service" @input="setService" :selectedService="service">Select the service you require</service-selector>
-       
-       
 
-      <div style="border: 1px solid #444; padding:10px; margin-bottom: 10px;margin-top: 15px;" v-show="serviceSelected">
+      
+       <service-selector>Select the service you require</service-selector>
+
+
+      <div style="border: 1px solid #444; padding:10px; margin-bottom: 10px;margin-top: 15px;" v-show="service">
         <location-selector v-model="pickupLocation">
           <h4>Your Location</h4>
           <p>This is where we deliver the Modules for loading.</p>
@@ -28,7 +28,7 @@
        <!-- <component :is="displaySection"></component> -->
        <!-- <module-selector v-model="modules" :products="fetchProductByType('storage_module')">Select the number of Modules </module-selector>
        <extras-selector v-model="extras" :products="fetchProductByType('extra')"></extras-selector> -->
-       <div id="products" v-show="serviceSelected">
+       <div id="products" v-show="service">
           <div>
             <div>Storage modules</div>
             <storage-module-selector :product="fetchProductsByType('storage-module')[0]"></storage-module-selector>
@@ -53,7 +53,7 @@
 
        </div><!-- end #products -->
        
-       <div class="app-footer" v-show="serviceSelected">
+       <div class="app-footer" v-show="service">
           <booking-summary></booking-summary>
       </div>
 
@@ -69,20 +69,22 @@ export default {
   data() {
     return {
       
-      service: {},//{name: 'Default',key: 'default'}
-      serviceSelected: false,
       pickupLocation: '',
       returnLocation: '',
       }
   },
+  computed: {
+    service() {
+      return this.$store.getters.getService;
+    }
+  },
   methods: {
-    setService(service) {
-      this.service=service
-      this.serviceSelected = true
-      
-    },
+    
     fetchProductsByType(product_type) {
      return _.orderBy( _.filter(PRODUCTS,['product_type',product_type]),['display_order'],['desc'])
+    },
+    serviceSelected() {
+      return this.service;
     }
     
   }

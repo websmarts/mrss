@@ -7,6 +7,7 @@ export default new Vuex.Store({
 	strict: true,
 	state: {
 		today: new Date(),
+		service: false,
 		
 		//products: [],
 		cart: {
@@ -16,6 +17,10 @@ export default new Vuex.Store({
 		
 	},
 	mutations: {
+
+		SET_SERVICE: function(state,service){
+			state.service = service
+		},
 		
 		UPDATE_CART_PRODUCTS: function(state,payload){
 			// Use Vue set because we may be creating new properties
@@ -29,11 +34,15 @@ export default new Vuex.Store({
 			}
 				
 		},
+
 		
 		
 		
 	},
 	getters: {
+		getService: (state) => {
+			return state.service
+		},
 		getCartProductQuantity: (state) => (id) =>{
 		  if(state.cart.products.hasOwnProperty(id) ){
 		    return state.cart.products[id].qty
