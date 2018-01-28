@@ -72476,6 +72476,10 @@ footer {
   }
 }
 
+.el-notification.right {
+  right: 40px;
+}
+
 .app-footer {
   background: #333;
   color: #fff;
