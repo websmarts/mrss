@@ -52,15 +52,33 @@ export default new Vuex.Store({
 		getCost: (state) => {
 			let total ={weekly:0,fixed:0}
 			for(let key in state.cart.products){
-				if(state.cart.products[key].payment_code =='w'){ // w= WEEKLY
-					total.weekly += (state.cart.products[key].price * state.cart.products[key].qty)
-				}
-				if(state.cart.products[key].payment_code =='f' ){ //f= FIXED
-					total.fixed += (state.cart.products[key].price * state.cart.products[key].qty)
-				}				
+				key = parseInt(key) // must be int
+				let product = _.find(PRODUCTS,['id',parseInt(key)])
+				if( product ){
+					if(product.payment_code =='w'){ // w= WEEKLY
+						total.weekly += (state.cart.products[key].price * state.cart.products[key].qty)
+					}
+					if(product.payment_code =='f' ){ //f= FIXED
+						total.fixed += (state.cart.products[key].price * state.cart.products[key].qty)
+					}	
+				}						
 			}
 			return total
 		},
+		getCartProducts: (state) => (product_type) => {
+			// Get list of all products of product_type
+			let products = _.filter(PRODUCTS,['product_type',product_type]);
+
+			// Now get any of the products that are in the cart
+			let cartItems=[]
+			products.forEach(function(product){
+				if(state.cart.products.hasOwnProperty(product.id)){
+					cartItems.push(state.cart.products[product.id])
+				}
+			})
+
+			return cartItems
+		}
 		
 		
 		
@@ -72,7 +90,7 @@ export default new Vuex.Store({
 				payload.qty = 0
 			}
 			
-			let mutationPayload = {id: payload.id,qty:payload.qty,payment_code: payload.payment_code, price: payload.price}
+			let mutationPayload = {id: payload.id,qty:payload.qty,price: payload.price}
 
 			context.commit('UPDATE_CART_PRODUCTS',mutationPayload)
 			

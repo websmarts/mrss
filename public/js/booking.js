@@ -1745,11 +1745,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       prepayment_interest: ''
+
     };
   },
 
@@ -1757,13 +1765,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     costs: function costs() {
       return this.$store.getters.getCost;
     },
-    storageProducts: function storageProducts() {
-      // cart product_i  where product_type='module'
-      var id = _.find(PRODUCTS, ['product_type', 'storage_module']);
-      console.log('ID', id);
+    extraProducts: function extraProducts() {
+      return this.$store.getters.getCartProducts('extra');
+    }
+  },
+  methods: {
+    productInfo: function productInfo(pid) {
+      return _.find(PRODUCTS, ['id', pid]);
     },
-    extraProducts: function extraProducts() {},
-    insuranceProducts: function insuranceProducts() {}
+    itemQty: function itemQty(product_type) {
+      // return the number of storage modules in cart
+      var product = _.find(PRODUCTS, ['product_type', product_type]);
+      var qty = null;
+      if (product && this.$store.state.cart.products.hasOwnProperty(product.id)) {
+        qty = this.$store.state.cart.products[product.id].qty;
+      }
+      return qty;
+    }
   }
 
 });
@@ -1860,7 +1878,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var payload = {
         'id': this.product.id,
         'qty': qty,
-        'payment_code': this.product.options[0].payment_code,
         'price': this.product.options[0].price
 
       };
@@ -1916,8 +1933,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       expanded: false,
       selected: {},
       price: 0,
-      qty: 0,
-      payment_code: ''
+      qty: 0
 
     };
   },
@@ -1949,10 +1965,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.selected = _.find(this.product.options, ['qty', qty]);
         this.qty = qty;
         this.price = this.selected.price;
-        this.payment_code = this.selected.payment_code;
       }
 
-      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, payment_code: this.selected.payment_code, price: this.price });
+      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, price: this.price });
     }
   }
 
@@ -1965,7 +1980,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -2043,8 +2057,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       expanded: false,
       selected: {},
       price: 0,
-      qty: 0,
-      payment_code: ''
+      qty: 0
 
     };
   },
@@ -2076,10 +2089,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.selected = _.find(this.product.options, ['qty', qty]);
         this.qty = qty;
         this.price = this.selected.price / qty;
-        this.payment_code = this.selected.payment_code;
       }
 
-      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, payment_code: this.selected.payment_code, price: this.price });
+      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, price: this.price });
     }
   }
 
@@ -2180,8 +2192,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       expanded: false,
       selected: {},
       price: 0,
-      qty: 0,
-      payment_code: ''
+      qty: 0
 
     };
   },
@@ -2213,10 +2224,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.selected = _.find(this.product.options, ['qty', qty]);
         this.qty = qty;
         this.price = this.selected.price / qty;
-        this.payment_code = this.selected.payment_code;
       }
 
-      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, payment_code: this.selected.payment_code, price: this.price });
+      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, price: this.price });
     }
   }
 
@@ -3885,7 +3895,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -3915,7 +3925,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -46387,19 +46397,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._t("notes"),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              _vm.showNotes()
-            }
-          }
-        },
-        [_vm._v("show location notes")]
-      )
+      _vm._t("notes")
     ],
     2
   )
@@ -46735,11 +46733,47 @@ var render = function() {
   return _c("div", [
     _c("h4", [_vm._v("Enquiry Summary")]),
     _vm._v(" "),
-    _c("h5", [_vm._v(" Storage fee (Weekly)")]),
+    _c("p", { staticStyle: { "font-weight": "900" } }, [
+      _vm._v(" Storage fee (Weekly) : $" + _vm._s(_vm.costs.weekly.toFixed(2)))
+    ]),
     _vm._v(" "),
     _c("p", [_vm._v("Includes:")]),
+    _vm._v(
+      "\r\n    Number of storage modules: " +
+        _vm._s(_vm.itemQty("storage-module"))
+    ),
+    _c("br"),
+    _vm._v(
+      "\r\n    Number of removal modules: " +
+        _vm._s(_vm.itemQty("removal-module"))
+    ),
+    _c("br"),
+    _vm._v(
+      "\r\n    Number of insurance units: " + _vm._s(_vm.itemQty("insurance"))
+    ),
+    _c("br"),
     _vm._v(" "),
-    _c("h5", [_vm._v("Paching Supplies and Exras:")]),
+    _c("p", { staticStyle: {} }, [
+      _vm._v(
+        "Packing Supplies and Extras:  $" + _vm._s(_vm.costs.fixed.toFixed(2))
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      _vm._l(_vm.extraProducts, function(product) {
+        return _c("li", [
+          _vm._v(
+            " " +
+              _vm._s(_vm.productInfo(product.id).description) +
+              " ($" +
+              _vm._s(product.price) +
+              "), X " +
+              _vm._s(product.qty)
+          )
+        ])
+      })
+    ),
     _vm._v(" "),
     _c("h5", [_vm._v("Transport:")]),
     _vm._v(" "),
@@ -62381,16 +62415,36 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 		getCost: function getCost(state) {
 			var total = { weekly: 0, fixed: 0 };
 			for (var key in state.cart.products) {
-				if (state.cart.products[key].payment_code == 'w') {
-					// w= WEEKLY
-					total.weekly += state.cart.products[key].price * state.cart.products[key].qty;
-				}
-				if (state.cart.products[key].payment_code == 'f') {
-					//f= FIXED
-					total.fixed += state.cart.products[key].price * state.cart.products[key].qty;
+				key = parseInt(key); // must be int
+				var product = _.find(PRODUCTS, ['id', parseInt(key)]);
+				if (product) {
+					if (product.payment_code == 'w') {
+						// w= WEEKLY
+						total.weekly += state.cart.products[key].price * state.cart.products[key].qty;
+					}
+					if (product.payment_code == 'f') {
+						//f= FIXED
+						total.fixed += state.cart.products[key].price * state.cart.products[key].qty;
+					}
 				}
 			}
 			return total;
+		},
+		getCartProducts: function getCartProducts(state) {
+			return function (product_type) {
+				// Get list of all products of product_type
+				var products = _.filter(PRODUCTS, ['product_type', product_type]);
+
+				// Now get any of the products that are in the cart
+				var cartItems = [];
+				products.forEach(function (product) {
+					if (state.cart.products.hasOwnProperty(product.id)) {
+						cartItems.push(state.cart.products[product.id]);
+					}
+				});
+
+				return cartItems;
+			};
 		}
 
 	},
@@ -62400,7 +62454,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 				payload.qty = 0;
 			}
 
-			var mutationPayload = { id: payload.id, qty: payload.qty, payment_code: payload.payment_code, price: payload.price };
+			var mutationPayload = { id: payload.id, qty: payload.qty, price: payload.price };
 
 			context.commit('UPDATE_CART_PRODUCTS', mutationPayload);
 		},

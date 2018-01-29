@@ -39,7 +39,7 @@ export default {
       selected: {},
       price: 0,
       qty: 0,
-      payment_code: ''
+      
       
 
     }
@@ -73,11 +73,11 @@ export default {
         this.selected = _.find(this.product.options,['qty',qty])
         this.qty = qty
         this.price = this.selected.price
-        this.payment_code = this.selected.payment_code 
+        
         
       }  
   
-      this.$store.dispatch('updateCartProducts',{id: this.product.id,qty: this.qty,payment_code: this.selected.payment_code, price: this.price})
+      this.$store.dispatch('updateCartProducts',{id: this.product.id,qty: this.qty, price: this.price})
     }  
   },
   

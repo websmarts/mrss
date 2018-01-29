@@ -7,7 +7,6 @@
     <option value="Warragul">Warragul</option>
   </select>
   <slot name="notes"></slot>
-  <button @click="showNotes()">show location notes</button>
 </div>
 </template>
 
