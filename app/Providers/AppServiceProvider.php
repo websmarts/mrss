@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Chunk;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // share chunks with all views
-        View::share('chunks', Chunk::all());
+        // View::share('chunks', Chunk::all());
     }
 
     /**
