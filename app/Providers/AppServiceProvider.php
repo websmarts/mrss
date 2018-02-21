@@ -13,6 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Fix for max length key violation error
+        Schema::defaultStringLength(191);
+
         // share chunks with all views
         // View::share('chunks', Chunk::all());
     }
