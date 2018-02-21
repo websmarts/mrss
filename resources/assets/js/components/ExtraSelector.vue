@@ -21,7 +21,7 @@
         <button    class="btn btn-primary right-rounded"  @click="increment"><span style="font-size:14px"  class="glyphicon glyphicon-plus"></span></button>
       </div>
       <div style="text-align: center; padding-top:15px;font-size:75%" v-show="product.options[0].price">( ${{ product.options[0].price.toFixed(2) }} ea)</div> -->
-      <el-input-number :value="ordered" @change="handleChange" :min="0" ></el-input-number> 
+      <el-input-number :value="cartQty" @change="handleChange" :min="0" ></el-input-number> 
       <p style="text-align: center; font-size:75%">
       ($ {{ product.options[0].price.toFixed(2) }} @ea)</p>
 
@@ -61,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ordered() {
+    cartQty() {
        return this.$store.getters.getCartProductQuantity(this.product.id);
     },
     expandedClass() {
@@ -84,7 +84,8 @@ export default {
       let payload = {
         'id': this.product.id,
         'qty': qty,
-        'price': this.product.options[0].price
+        'price': this.product.options[0].price,
+        'ext_price': this.product.options[0].price * qty
 
       }
       this.$store.dispatch('setProductQty', payload)

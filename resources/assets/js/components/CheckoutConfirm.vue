@@ -48,10 +48,11 @@ export default {
     productInfo(pid){
       return _.find(PRODUCTS,['id',pid])
     },
-    itemQty(product_type) {
+    itemQty(product_group) {
       // return the number of storage modules in cart
-      let product = _.find(PRODUCTS,['product_type',product_type]);
       let qty = null
+      let product = _.find(PRODUCTS,['product_group',product_group]);
+      
       if (product && this.$store.state.cart.products.hasOwnProperty(product.id)){
         qty = this.$store.state.cart.products[product.id].qty
       }

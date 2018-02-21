@@ -1,13 +1,8 @@
 
-
-
-
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Element from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
-
 
 import App from './App'
 import store from './vuex/store'
@@ -15,10 +10,6 @@ import store from './vuex/store'
 //import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(Element, { locale })
 Vue.use(VueRouter)
-
-
-
-
 
 Vue.component('ServiceSelector', require('./components/ServiceSelector.vue'))
 Vue.component('LocationSelector', require('./components/LocationSelector.vue'))

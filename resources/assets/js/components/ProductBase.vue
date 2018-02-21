@@ -87,7 +87,7 @@ export default {
       let payload = {
         'id': this.product.id,
         'qty': qty,
-        'payment_code': this.product.options[0].payment_code,
+        'payment_code': this.product.options[0].payment_period,
         'price': this.product.options[0].price
 
       }

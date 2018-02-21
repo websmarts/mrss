@@ -3,8 +3,8 @@
   
   <slot></slot>
   <select class="form-control" :value="value" @input="updateLocation($event.target.value)">
-    <option value="Rokeby">Rokeby</option>
-    <option value="Warragul">Warragul</option>
+    
+    <option v-for="location in locations()" value="location.id" v-html="location.suburb"></option>
   </select>
   <slot name="notes"></slot>
 </div>
@@ -17,6 +17,9 @@ export default {
   methods: {
     updateLocation: function(location) {
       this.$emit('input',location)
+    },
+    locations() {
+      return LOCATIONS;
     },
     showNotes() {
       this.$notify({

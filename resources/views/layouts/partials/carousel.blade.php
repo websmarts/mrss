@@ -1,8 +1,9 @@
 <!-- Carousel======================================= -->
 
 <!-- https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-carousel.php -->
+<!-- https://www.w3schools.com/bootstrap/bootstrap_carousel.asp -->
     <div class="myCarousel-container">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
         <!-- Carousel indicators -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -12,25 +13,16 @@
         <!-- Wrapper for carousel items -->
         <div class="carousel-inner">
             <div class="item active">
-                <img src="images/slide1.png" alt="First Slide">
-                 <div class="carousel-caption">
-                    <h3>We bring</h3>
-                    <p>Lorem ipsum dolor sit amet...</p>
-                 </div>
+                <img src="{{ asset('images/slides/slide1.png')}}" alt="First Slide">
+
             </div>
             <div class="item">
-                <img src="images/slide2.png" alt="Second Slide">
-                <div class="carousel-caption">
-                    <h3>You pack</h3>
-                    <p>Lorem ipsum dolor sit amet...</p>
-                 </div>
+                <img src="{{ asset('images/slides/slide2.png')}}" alt="Second Slide">
+
             </div>
             <div class="item">
-                <img src="images/slide3.png" alt="Third Slide">
-                <div class="carousel-caption">
-                    <h3>We store</h3>
-                    <p>Lorem ipsum dolor sit amet...</p>
-                 </div>
+                <img src="{{asset('images/slides/slide3.png')}}" alt="Third Slide">
+
             </div>
         </div>
         <!-- Carousel controls -->

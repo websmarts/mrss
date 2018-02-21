@@ -20,6 +20,15 @@ export default new Vuex.Store({
 
 		SET_SERVICE: function(state,service){
 			state.service = service
+			// delete any items in cart that belong to the unselecetd service
+			let productGroup = 'removal-module'
+
+			if(service == 'removal'){
+				productGroup = 'storage-module'
+			}
+			_.each(_.filter(PRODUCTS,['product_group',productGroup]), function(p){
+					Vue.delete(state.cart.products,p.id)
+				});
 		},
 		
 		UPDATE_CART_PRODUCTS: function(state,payload){
@@ -55,19 +64,20 @@ export default new Vuex.Store({
 				key = parseInt(key) // must be int
 				let product = _.find(PRODUCTS,['id',parseInt(key)])
 				if( product ){
-					if(product.payment_code =='w'){ // w= WEEKLY
-						total.weekly += (state.cart.products[key].price * state.cart.products[key].qty)
+				 
+					if(product.payment_period =='weekly'){ // w= WEEKLY
+						total.weekly += (state.cart.products[key].ext_price) //  * state.cart.products[key].qty
 					}
-					if(product.payment_code =='f' ){ //f= FIXED
-						total.fixed += (state.cart.products[key].price * state.cart.products[key].qty)
+					if(product.payment_period =='once off' ){ //f= FIXED
+						total.fixed += (state.cart.products[key].ext_price ) // * state.cart.products[key].qty
 					}	
 				}						
 			}
 			return total
 		},
-		getCartProducts: (state) => (product_type) => {
-			// Get list of all products of product_type
-			let products = _.filter(PRODUCTS,['product_type',product_type]);
+		getCartProducts: (state) => (product_group) => {
+			// Get list of all products of product_group
+			let products = _.filter(PRODUCTS,['product_group',product_group]);
 
 			// Now get any of the products that are in the cart
 			let cartItems=[]
@@ -90,7 +100,7 @@ export default new Vuex.Store({
 				payload.qty = 0
 			}
 			
-			let mutationPayload = {id: payload.id,qty:payload.qty,price: payload.price}
+			let mutationPayload = {id: payload.id,qty:payload.qty,ext_price: payload.ext_price,price: payload.price}
 
 			context.commit('UPDATE_CART_PRODUCTS',mutationPayload)
 			

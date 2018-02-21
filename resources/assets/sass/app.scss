@@ -4,50 +4,54 @@
 // Variables
 @import "variables";
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
-/* element-ui theme color */
-$--color-primary: teal;
-
-/* icon font path, required */
-$--font-path: '~element-ui/lib/theme-chalk/fonts';
-
-
-
-
-@import "~element-ui/packages/theme-chalk/src/index";
 @import "spastuff";
 
 
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
+  color: #00629a;
+}
+
+.editable {
+  border: 1px dashed #ccccee;
+}
+
 // navbar
-
-
-.navbar { 
+.navbar {
+  border-radius: 0;
+}
+.navbar-default { 
   margin-bottom: 0px;
   border: none;
-  background: #ddd;
+  background: #00629a;
 
   
 }
 .navbar-default .navbar-nav > li > a {
-
-    color: #555;
-
+    color: #fff;
 }
+.navbar-default .navbar-nav > .active > a {
+  color: #eee;
+   background:#025685;
+}
+.navbar-default .navbar-nav > .active > a:hover {
+  color: #fff;
+  background:#00639a;
+}
+
 
 #phonebox {
   float:right;  
-  color: white;
+  color: #2789b5;
   margin-right: 10px; 
   margin-top:5px;
   font-size: 12px;
   
   @media screen and (min-width: 500px){
-    font-size: 24px;
+    font-size: 34px;
   }
 }
 
@@ -126,15 +130,103 @@ footer {
 
 // Carousel
 .carousel{
-    background: $app-blue;
+    background: #00629a;
     margin-top: 0px;
 }
 .carousel .item{
-    min-height: 280px; /* Prevent carousel from being distorted if for some reason image doesn't load */
+    min-height: 190px; /* Prevent carousel from being distorted if for some reason image doesn't load */
 }
 .carousel .item img{
     margin: 0 auto; /* Align slide image horizontally center */
 }
+.carousel-indicators {
+  display: none;
+}
+/*
+  Bootstrap Carousel Fade Transition (for Bootstrap 3.3.x)
+  CSS from:       http://codepen.io/transportedman/pen/NPWRGq
+  and:            http://stackoverflow.com/questions/18548731/bootstrap-3-carousel-fading-to-new-slide-instead-of-sliding-to-new-slide
+  Inspired from:  http://codepen.io/Rowno/pen/Afykb 
+*/
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  transition-property: opacity;
+}
+
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+
+/*
+  WHAT IS NEW IN 3.3: "Added transforms to improve carousel performance in modern browsers."
+  Need to override the 3.3 new styles for modern browsers & apply opacity
+*/
+@media all and (transform-3d), (-webkit-transform-3d) {
+    .carousel-fade .carousel-inner > .item.next,
+    .carousel-fade .carousel-inner > .item.active.right {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.prev,
+    .carousel-fade .carousel-inner > .item.active.left {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.next.left,
+    .carousel-fade .carousel-inner > .item.prev.right,
+    .carousel-fade .carousel-inner > .item.active {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+}
+
+// Media object
+.media * {
+  margin:0;
+  padding:0;
+}
+
+.media {
+  display: flex;
+  width: 100%;
+}
+.media-left {
+  margin-right: 1em;
+}
+.media-content {
+  flex:1;
+}
+.media-content textarea {
+  width: 100%;
+  padding:0;
+  min-height:80px;
+  border-color: #cecece;
+}
+
+.box {
+  border: 1px solid #cecece;
+  padding: 20px;
+}
+
 
 // product qty buttons
 // 
@@ -148,6 +240,53 @@ footer {
 // Contact form
 form .row {
   margin-top:15px;
+}
+
+.louder {
+  text-align: center;
+  font-size:115%; 
+  margin:30px 0;
+  color: $app-blue
+}
+
+.el-radio.is-bordered {
+  border: 2px;
+  background: #63b5db;
+}
+.el-radio.is-bordered.is-checked {
+  border: 2px solid #2789b5;
+  background: #24a6e2;
+
+}
+
+
+.el-radio__input + .el-radio__label {
+  color: #eee;
+}
+.el-radio__input.is-checked + .el-radio__label {
+  color: #fff;
+}
+.el-radio.is-checked .el-radio__inner {
+  border-color: #ffffff;
+  background: #2789b5;
+}
+.el-radio__inner::after {
+  background-color:#2789b5;
+}
+
+// Admin Sidenav
+.sidenav a {
+    padding: 4px 4px 4px 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
 }
 
 

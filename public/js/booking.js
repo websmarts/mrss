@@ -1637,12 +1637,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
-    fetchProductsByType: function fetchProductsByType(product_type) {
-      return _.orderBy(_.filter(PRODUCTS, ['product_type', product_type]), ['display_order'], ['desc']);
+    fetchGroupProducts: function fetchGroupProducts(product_group) {
+      return _.orderBy(_.filter(PRODUCTS, ['product_group', product_group]), ['display_order'], ['desc']);
     },
     serviceSelected: function serviceSelected() {
       return this.service;
     }
+  },
+  mounted: function mounted() {
+    //console.log('PRODUCTS',PRODUCTS)
   }
 });
 
@@ -1773,10 +1776,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     productInfo: function productInfo(pid) {
       return _.find(PRODUCTS, ['id', pid]);
     },
-    itemQty: function itemQty(product_type) {
+    itemQty: function itemQty(product_group) {
       // return the number of storage modules in cart
-      var product = _.find(PRODUCTS, ['product_type', product_type]);
       var qty = null;
+      var product = _.find(PRODUCTS, ['product_group', product_group]);
+
       if (product && this.$store.state.cart.products.hasOwnProperty(product.id)) {
         qty = this.$store.state.cart.products[product.id].qty;
       }
@@ -1856,7 +1860,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
-    ordered: function ordered() {
+    cartQty: function cartQty() {
       return this.$store.getters.getCartProductQuantity(this.product.id);
     },
     expandedClass: function expandedClass() {
@@ -1878,7 +1882,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var payload = {
         'id': this.product.id,
         'qty': qty,
-        'price': this.product.options[0].price
+        'price': this.product.options[0].price,
+        'ext_price': this.product.options[0].price * qty
 
       };
       this.$store.dispatch('setProductQty', payload);
@@ -1930,15 +1935,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['product'],
   data: function data() {
     return {
-      expanded: false,
-      selected: {},
-      price: 0,
-      qty: 0
+      expanded: false
 
     };
   },
 
   computed: {
+    cartQty: function cartQty() {
+      return this.$store.getters.getCartProductQuantity(this.product.id);
+    },
     expandedClass: function expandedClass() {
       if (this.expanded) {
         return {
@@ -1955,19 +1960,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     selectProduct: function selectProduct(strqty) {
       var qty = parseInt(strqty);
-      if (!qty) {
-
-        this.selected = {};
-        this.qty = 0;
-        this.price = 0;
-      } else {
-
-        this.selected = _.find(this.product.options, ['qty', qty]);
-        this.qty = qty;
-        this.price = this.selected.price;
-      }
-
-      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, price: this.price });
+      var selectedOption = _.find(this.product.options, ['qty', qty]);
+      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: qty, ext_price: selectedOption.price });
     }
   }
 
@@ -1999,6 +1993,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     updateLocation: function updateLocation(location) {
       this.$emit('input', location);
+    },
+    locations: function locations() {
+      return LOCATIONS;
     },
     showNotes: function showNotes() {
       this.$notify({
@@ -2054,15 +2051,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['product'],
   data: function data() {
     return {
-      expanded: false,
-      selected: {},
-      price: 0,
-      qty: 0
+      expanded: false
 
     };
   },
 
   computed: {
+    cartQty: function cartQty() {
+      return this.$store.getters.getCartProductQuantity(this.product.id);
+    },
     expandedClass: function expandedClass() {
       if (this.expanded) {
         return {
@@ -2079,19 +2076,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     selectProduct: function selectProduct(strqty) {
       var qty = parseInt(strqty);
-      if (!qty) {
-
-        this.selected = {};
-        this.qty = 0;
-        this.price = 0;
-      } else {
-
-        this.selected = _.find(this.product.options, ['qty', qty]);
-        this.qty = qty;
-        this.price = this.selected.price / qty;
-      }
-
-      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, price: this.price });
+      var selectedOption = _.find(this.product.options, ['qty', qty]);
+      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: qty, ext_price: selectedOption.price });
     }
   }
 
@@ -2189,15 +2175,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['product'],
   data: function data() {
     return {
-      expanded: false,
-      selected: {},
-      price: 0,
-      qty: 0
+      expanded: false
 
     };
   },
 
   computed: {
+    cartQty: function cartQty() {
+      return this.$store.getters.getCartProductQuantity(this.product.id);
+    },
     expandedClass: function expandedClass() {
       if (this.expanded) {
         return {
@@ -2214,19 +2200,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     selectProduct: function selectProduct(strqty) {
       var qty = parseInt(strqty);
-      if (!qty) {
-
-        this.selected = {};
-        this.qty = 0;
-        this.price = 0;
-      } else {
-
-        this.selected = _.find(this.product.options, ['qty', qty]);
-        this.qty = qty;
-        this.price = this.selected.price / qty;
-      }
-
-      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: this.qty, price: this.price });
+      var selectedOption = _.find(this.product.options, ['qty', qty]);
+      this.$store.dispatch('updateCartProducts', { id: this.product.id, qty: qty, ext_price: selectedOption.price });
     }
   }
 
@@ -3895,7 +3870,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -3925,7 +3900,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -45848,7 +45823,7 @@ var render = function() {
               {
                 staticClass: "form-control",
                 attrs: { placeholder: "Select ..." },
-                domProps: { value: _vm.selected.qty },
+                domProps: { value: _vm.cartQty },
                 on: {
                   input: function($event) {
                     _vm.selectProduct($event.target.value)
@@ -46069,7 +46044,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [_vm._t("default")], 2),
+    _c("p", [_vm._t("default")], 2),
     _vm._v(" "),
     _c(
       "div",
@@ -46179,7 +46154,7 @@ var render = function() {
               {
                 staticClass: "form-control",
                 attrs: { placeholder: "Select ..." },
-                domProps: { value: _vm.selected.qty },
+                domProps: { value: _vm.cartQty },
                 on: {
                   input: function($event) {
                     _vm.selectProduct($event.target.value)
@@ -46287,7 +46262,7 @@ var render = function() {
             { staticStyle: { flex: "1" } },
             [
               _c("el-input-number", {
-                attrs: { value: _vm.ordered, min: 0 },
+                attrs: { value: _vm.cartQty, min: 0 },
                 on: { change: _vm.handleChange }
               }),
               _vm._v(" "),
@@ -46390,11 +46365,12 @@ var render = function() {
             }
           }
         },
-        [
-          _c("option", { attrs: { value: "Rokeby" } }, [_vm._v("Rokeby")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "Warragul" } }, [_vm._v("Warragul")])
-        ]
+        _vm._l(_vm.locations(), function(location) {
+          return _c("option", {
+            attrs: { value: "location.id" },
+            domProps: { innerHTML: _vm._s(location.suburb) }
+          })
+        })
       ),
       _vm._v(" "),
       _vm._t("notes")
@@ -46520,11 +46496,21 @@ var render = function() {
         [
           _c(
             "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.service == "storage",
+                  expression: "service == 'storage'"
+                }
+              ]
+            },
             [
               _c("div", [_vm._v("Storage modules")]),
               _vm._v(" "),
               _c("storage-module-selector", {
-                attrs: { product: _vm.fetchProductsByType("storage-module")[0] }
+                attrs: { product: _vm.fetchGroupProducts("storage-module")[0] }
               })
             ],
             1
@@ -46532,11 +46518,21 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.service == "removal",
+                  expression: "service == 'removal'"
+                }
+              ]
+            },
             [
               _c("div", [_vm._v("Removal modules")]),
               _vm._v(" "),
               _c("removal-module-selector", {
-                attrs: { product: _vm.fetchProductsByType("removal-module")[0] }
+                attrs: { product: _vm.fetchGroupProducts("removal-module")[0] }
               })
             ],
             1
@@ -46547,7 +46543,7 @@ var render = function() {
             [
               _c("div", [_vm._v("Packing supplies and Extras")]),
               _vm._v(" "),
-              _vm._l(_vm.fetchProductsByType("extra"), function(product) {
+              _vm._l(_vm.fetchGroupProducts("extra"), function(product) {
                 return [_c("extra-selector", { attrs: { product: product } })]
               })
             ],
@@ -46560,7 +46556,7 @@ var render = function() {
               _c("div", [_vm._v("Insurance options")]),
               _vm._v(" "),
               _c("insurance-selector", {
-                attrs: { product: _vm.fetchProductsByType("insurance")[0] }
+                attrs: { product: _vm.fetchGroupProducts("insurance")[0] }
               })
             ],
             1
@@ -46656,7 +46652,7 @@ var render = function() {
               {
                 staticClass: "form-control",
                 attrs: { placeholder: "Select ..." },
-                domProps: { value: _vm.selected.qty },
+                domProps: { value: _vm.cartQty },
                 on: {
                   input: function($event) {
                     _vm.selectProduct($event.target.value)
@@ -61720,7 +61716,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 //import 'element-ui/lib/theme-chalk/index.css'
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_element_ui___default.a, { locale: __WEBPACK_IMPORTED_MODULE_3_element_ui_lib_locale_lang_en___default.a });
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
@@ -62385,6 +62380,15 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 
 		SET_SERVICE: function SET_SERVICE(state, service) {
 			state.service = service;
+			// delete any items in cart that belong to the unselecetd service
+			var productGroup = 'removal-module';
+
+			if (service == 'removal') {
+				productGroup = 'storage-module';
+			}
+			_.each(_.filter(PRODUCTS, ['product_group', productGroup]), function (p) {
+				__WEBPACK_IMPORTED_MODULE_1_vue___default.a.delete(state.cart.products, p.id);
+			});
 		},
 
 		UPDATE_CART_PRODUCTS: function UPDATE_CART_PRODUCTS(state, payload) {
@@ -62418,22 +62422,23 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 				key = parseInt(key); // must be int
 				var product = _.find(PRODUCTS, ['id', parseInt(key)]);
 				if (product) {
-					if (product.payment_code == 'w') {
+
+					if (product.payment_period == 'weekly') {
 						// w= WEEKLY
-						total.weekly += state.cart.products[key].price * state.cart.products[key].qty;
+						total.weekly += state.cart.products[key].ext_price; //  * state.cart.products[key].qty
 					}
-					if (product.payment_code == 'f') {
+					if (product.payment_period == 'once off') {
 						//f= FIXED
-						total.fixed += state.cart.products[key].price * state.cart.products[key].qty;
+						total.fixed += state.cart.products[key].ext_price; // * state.cart.products[key].qty
 					}
 				}
 			}
 			return total;
 		},
 		getCartProducts: function getCartProducts(state) {
-			return function (product_type) {
-				// Get list of all products of product_type
-				var products = _.filter(PRODUCTS, ['product_type', product_type]);
+			return function (product_group) {
+				// Get list of all products of product_group
+				var products = _.filter(PRODUCTS, ['product_group', product_group]);
 
 				// Now get any of the products that are in the cart
 				var cartItems = [];
@@ -62454,7 +62459,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 				payload.qty = 0;
 			}
 
-			var mutationPayload = { id: payload.id, qty: payload.qty, price: payload.price };
+			var mutationPayload = { id: payload.id, qty: payload.qty, ext_price: payload.ext_price, price: payload.price };
 
 			context.commit('UPDATE_CART_PRODUCTS', mutationPayload);
 		},

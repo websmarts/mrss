@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
 @section('content')
-<h1>Privacy Policy</h1>
-
+<h2>{!! $page->element('page_heading')->content !!}</h2>
+{!! $page->element('page_content')->content !!}
 @endsection

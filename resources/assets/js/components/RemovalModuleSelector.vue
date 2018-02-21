@@ -5,7 +5,7 @@
     <div style="flex:.5"><span @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
     <div style="flex:1"><img src="/images/no_image_tn.jpg"></div>
     <div style="flex:3">
-      <select :value="selected.qty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
+      <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
         <option value="">Select ...</option>
         <option :value="opt.qty" v-for="opt in product.options">{{ opt.description }} (${{ opt.price }})</option>
       </select>
@@ -35,17 +35,15 @@ export default {
   props: ['product'],
   data() {
     return {
-      expanded: false,
-      selected: {},
-      price: 0,
-      qty: 0,
-      
-      
+      expanded: false,  
 
     }
   },
   computed: {
-  
+
+    cartQty() {
+      return this.$store.getters.getCartProductQuantity(this.product.id);
+    },
     expandedClass() {
       if(this.expanded){
         return {
@@ -62,21 +60,8 @@ export default {
   methods: {
     selectProduct(strqty){
       const qty = parseInt(strqty)
-      if(!qty){
-        
-        this.selected = {}
-        this.qty = 0
-        this.price = 0 
-        
-      } else {   
-
-        this.selected = _.find(this.product.options,['qty',qty])
-        this.qty = qty
-        this.price = this.selected.price / qty
-        
-      }  
-  
-      this.$store.dispatch('updateCartProducts',{id: this.product.id,qty: this.qty, price: this.price})
+      let selectedOption = _.find(this.product.options,['qty', qty])
+      this.$store.dispatch('updateCartProducts',{id: this.product.id,qty: qty, ext_price: selectedOption.price})
     }  
   },
   

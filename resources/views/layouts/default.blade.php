@@ -20,6 +20,7 @@
     <![endif]-->
 
     <!-- Custom styles for this template -->
+    <link href="{{ mix('css/base.css') }}" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -28,13 +29,16 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="{{ asset('/js/ie-emulation-modes-warning.js') }}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
   </head>
-<!-- NAVBAR
-================================================== -->
+
   <body>
 
-      <div class="container" style="min-width: 320px; max-width: 780px; background: #fff; ">
+      <div class="container" style="min-width: 320px; max-width: 780px; background: #fff;">
+
+        @yield('admin_menubar')
+
 
         @include('layouts.partials.masthead')
 
@@ -44,18 +48,27 @@
             @yield('content')
         </div>
 
+        <footer style="margin-top: 50px">
         @include('layouts.partials.footer')
+        </footer>
 
     </div><!-- /.container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
+
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ mix('js/main.js') }}"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
+
+    <script>
+      $(document).ready(function(){
+           $("#myCarousel").carousel({
+               interval : false,
+           });
+      });
+    </script>
 
     @yield('scripts')
   </body>

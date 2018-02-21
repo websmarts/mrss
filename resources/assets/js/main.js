@@ -7,5 +7,14 @@
 
 require('./bootstrap');
 
+// Remove alert messages after a few seconds
+$(document).ready(function(){
+    setTimeout(function() {
+        $(".alert").fadeOut('fast')
+    }, 3000);
+});
+
+
+
 
 

@@ -1,7 +1,7 @@
 <template>
 <div>
 
-  <div ><slot></slot></div>
+  <p><slot></slot></p>
   <div id="service-selector">
     <el-radio-group :value="service" @input="setService" >
       <el-radio   label="storage" border>Storage</el-radio>

@@ -10,7 +10,7 @@
 
 
       <div style="border: 1px solid #444; padding:10px; margin-bottom: 10px;margin-top: 15px;" v-show="service">
-        <location-selector v-model="pickupLocation">
+        <location-selector v-model="pickupLocation" >
           <h4>Your Location</h4>
           <p>This is where we deliver the Modules for loading.</p>
         </location-selector>
@@ -29,26 +29,26 @@
        <!-- <module-selector v-model="modules" :products="fetchProductByType('storage_module')">Select the number of Modules </module-selector>
        <extras-selector v-model="extras" :products="fetchProductByType('extra')"></extras-selector> -->
        <div id="products" v-show="service">
-          <div>
+          <div v-show="service == 'storage'">
             <div>Storage modules</div>
-            <storage-module-selector :product="fetchProductsByType('storage-module')[0]"></storage-module-selector>
+            <storage-module-selector :product="fetchGroupProducts('storage-module')[0]"></storage-module-selector>
           </div>
 
-          <div>
+          <div  v-show="service == 'removal'">
             <div>Removal modules</div>
-            <removal-module-selector :product="fetchProductsByType('removal-module')[0]"></removal-module-selector>
+            <removal-module-selector :product="fetchGroupProducts('removal-module')[0]"></removal-module-selector>
           </div>
 
           <div>
             <div>Packing supplies and Extras</div>
-             <template v-for="product in fetchProductsByType('extra')">
+             <template v-for="product in fetchGroupProducts('extra')">
                <extra-selector :product="product"></extra-selector>
              </template>
           </div>
 
           <div>
             <div>Insurance options</div>
-            <insurance-selector :product="fetchProductsByType('insurance')[0]"></insurance-selector>
+            <insurance-selector :product="fetchGroupProducts('insurance')[0]"></insurance-selector>
           </div>
 
        </div><!-- end #products -->
@@ -80,13 +80,16 @@ export default {
   },
   methods: {
     
-    fetchProductsByType(product_type) {
-     return _.orderBy( _.filter(PRODUCTS,['product_type',product_type]),['display_order'],['desc'])
+    fetchGroupProducts(product_group) {
+     return _.orderBy( _.filter(PRODUCTS,['product_group',product_group]),['display_order'],['desc'])
     },
     serviceSelected() {
       return this.service;
     }
     
+  },
+  mounted() {
+    //console.log('PRODUCTS',PRODUCTS)
   }
 }
 </script>

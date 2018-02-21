@@ -48397,9 +48397,23 @@ window.moment = __webpack_require__("./node_modules/moment/moment.js");
 
 __webpack_require__("./resources/assets/js/bootstrap.js");
 
+// Remove alert messages after a few seconds
+$(document).ready(function () {
+    setTimeout(function () {
+        $(".alert").fadeOut('fast');
+    }, 3000);
+});
+
 /***/ }),
 
 /***/ "./resources/assets/sass/app.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/assets/sass/base.scss":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -48410,6 +48424,7 @@ __webpack_require__("./resources/assets/js/bootstrap.js");
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./resources/assets/js/main.js");
+__webpack_require__("./resources/assets/sass/base.scss");
 module.exports = __webpack_require__("./resources/assets/sass/app.scss");
 
 
