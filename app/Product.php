@@ -13,6 +13,7 @@ class Product extends Model
         'notes',
         'display_order',
         'payment_period',
+        'image_path',
     ];
 
     public function options()

@@ -39,7 +39,13 @@ Route::get('logout', function () {
 
 Route::name('admin')->prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index');
+
     Route::get('products', 'AdminProductsController@index')->name('.products');
+    Route::get('products/{product}', 'AdminProductsController@edit')->name('.product.edit');
+    Route::post('products/{product}', 'AdminProductsController@update')->name('.product.update');
+
+    Route::get('locations', 'AdminLocationsController@index')->name('.locations');
+    Route::post('locations', 'AdminLocationsController@update')->name('locations.update');
 
     Route::get('pages/{page}', 'AdminPagesController@index')->name('.pages');
     Route::post('pages/{page}', 'AdminPagesController@update')->name('.page.update');

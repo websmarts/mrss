@@ -9,7 +9,7 @@ class Location extends Model
     protected $fillable = [
         'postcode',
         'suburb',
-        'servive_premium',
+        'service_premium',
     ];
 
     public $timestamps = false;

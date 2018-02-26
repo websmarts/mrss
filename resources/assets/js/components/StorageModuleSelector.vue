@@ -2,7 +2,7 @@
 <div>
   <div class="my-list-item" style="display:flex;">
     <div style="flex:.5"><span @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
-    <div style="flex:1"><img src="/images/no_image_tn.jpg"></div>
+    <div style="flex:1"><img :src="product.image_path" width="75"></div>
     <div style="flex:3">
       <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
         <option value="">Select ...</option>

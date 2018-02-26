@@ -46146,7 +46146,9 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticStyle: { flex: "1" } }, [
+            _c("img", { attrs: { src: _vm.product.image_path, width: "75" } })
+          ]),
           _vm._v(" "),
           _c("div", { staticStyle: { flex: "3" } }, [
             _c(
@@ -46200,16 +46202,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticStyle: { flex: "1" } }, [
-      _c("img", { attrs: { src: "/images/no_image_tn.jpg" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

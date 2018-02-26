@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('notes')->nullable();
             $table->float('display_order')->default(0);
             $table->enum('payment_period', ['weekly', 'once off'])->default('weekly');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }
