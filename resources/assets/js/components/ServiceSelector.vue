@@ -1,7 +1,5 @@
 <template>
 <div>
-
-  <p><slot></slot></p>
   <div id="service-selector">
     <el-radio-group :value="service" @input="setService" >
       <el-radio   label="storage" border>Storage</el-radio>
@@ -48,7 +46,7 @@ export default {
   width: 90%;
 }
 .is-bordered {
-  width: 40%;
+  width: 45%;
 }
 
 </style>

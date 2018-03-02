@@ -6,7 +6,7 @@
   
   <div class="my-list-item" style="display:flex">
     <div style="flex:.5"><span  @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
-    <div style="flex:1"><img src="/images/no_image_tn.jpg"></div>
+    <div style="flex:1"><img :src="product.image_path" class="item-image-small"></div>
     <div style="flex:2">
       {{ product.name }}<br />
     {{ product.options[0].description }}<br />
@@ -15,12 +15,7 @@
     </div>
     
     <div style="flex:1">
-      <!-- <div style="display: flex">
-        <button  class="btn btn-primary left-rounded" @click="decrement"><span style="font-size:14px" class="glyphicon glyphicon-minus"></span></button>
-        <div  style=" width:1.2em; text-align: center; font-size:24px;font-weight:normal;padding-top:4px;" >{{ ordered }}</div>
-        <button    class="btn btn-primary right-rounded"  @click="increment"><span style="font-size:14px"  class="glyphicon glyphicon-plus"></span></button>
-      </div>
-      <div style="text-align: center; padding-top:15px;font-size:75%" v-show="product.options[0].price">( ${{ product.options[0].price.toFixed(2) }} ea)</div> -->
+      
       <el-input-number :value="cartQty" @change="handleChange" :min="0" ></el-input-number> 
       <p style="text-align: center; font-size:75%">
       ($ {{ product.options[0].price.toFixed(2) }} @ea)</p>
@@ -36,7 +31,7 @@
 
 
       <div style="display: flex;">
-        <div style="flex:1"><img src="/images/no_image.jpg"></div>
+        <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
         <div style="flex:1" v-html="product.options[0].description"></div>
       </div>
       <div v-html="product.notes"></div>
@@ -79,16 +74,11 @@ export default {
   },
   methods: {
     
-    handleChange(qty) {
-     
-      let payload = {
-        'id': this.product.id,
-        'qty': qty,
-        'price': this.product.options[0].price,
-        'ext_price': this.product.options[0].price * qty
+    handleChange(qty) {  
 
-      }
-      this.$store.dispatch('setProductQty', payload)
+      var option = _.clone(this.product.options[0])
+      option.qty_ordered = qty
+      this.$store.dispatch('updateCartProducts', option)
     },
   }
 }

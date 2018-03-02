@@ -2,9 +2,9 @@
 <div>
   
   <slot></slot>
-  <select class="form-control" :value="value" @input="updateLocation($event.target.value)">
-    
-    <option v-for="location in locations()" value="location.id" v-html="location.suburb"></option>
+  <select class="form-control" :value="value.id" @input="updateLocation($event.target.value)">
+    <option value="0">Select location ...</option>
+    <option v-for="location in locations()" :value="location.id" v-html="location.suburb"></option>
   </select>
   <slot name="notes"></slot>
 </div>
@@ -15,8 +15,15 @@
 export default {
   props:['value'],
   methods: {
-    updateLocation: function(location) {
-      this.$emit('input',location)
+    updateLocation: function(locationId) {
+      
+      var location = {id:0} // default to no location
+
+      if(locationId > 0){
+        location = _.find(LOCATIONS,['id',parseInt(locationId)])
+      }
+    
+      this.$emit('update',location)
     },
     locations() {
       return LOCATIONS;

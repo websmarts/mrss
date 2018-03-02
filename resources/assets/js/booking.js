@@ -21,6 +21,9 @@ Vue.component('BookingSummary', require('./components/BookingSummary.vue'))
 Vue.component('BookingSidebar', require('./components/BookingSidebar.vue'))
 Vue.component('BookingEnquiry', require('./components/BookingEnquiry.vue'))
 
+Vue.component('CheckoutRemovalConfirm', require('./components/CheckoutRemovalConfirm.vue'))
+Vue.component('CheckoutStorageConfirm', require('./components/CheckoutStorageConfirm.vue'))
+
 
 Vue.filter('currency', function (cents) {
     return '$'+(cents/100)

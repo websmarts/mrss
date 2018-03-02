@@ -52,7 +52,7 @@ class AdminProductsController extends Controller
             if ($id < 1 && $data['qty'] > 0) {
                 $product->options()->create([
                     'qty' => $data['qty'],
-                    'price' => $data['price'],
+                    'price' => (float) $data['price'],
                     'description' => $data['description'],
                 ]);
             }
@@ -71,7 +71,7 @@ class AdminProductsController extends Controller
                     $productOption->update([
                         'qty' => $data['qty'],
                         'description' => $data['description'],
-                        'price' => $data['price'],
+                        'price' => (float) $data['price'],
                     ]);
 
                 }

@@ -10,9 +10,12 @@ export default new Vuex.Store({
 		service: false,
 		
 		//products: [],
+		
 		cart: {
 			products: {},
-			customer: []
+			customer: [],
+			pickupLocation: {id: 0},
+			returnLocation: {id: 0}	
 		},
 		
 	},
@@ -31,18 +34,25 @@ export default new Vuex.Store({
 				});
 		},
 		
-		UPDATE_CART_PRODUCTS: function(state,payload){
+		UPDATE_CART_PRODUCTS: function(state,option){
 			// Use Vue set because we may be creating new properties
 			// and we need them to be reactive
 			// 
 			// if qty is zero then remove product
-			if(!payload.qty){
-				Vue.delete(state.cart.products,payload.id)
+			if(!option.qty_ordered){
+				Vue.delete(state.cart.products,option.product_id)
 			} else {
-				Vue.set(state.cart.products,payload.id,payload)	
+
+				Vue.set(state.cart.products,option.product_id,option)	
 			}
 				
 		},
+		UPDATE_PICKUP_LOCATION: function(state,location){
+			state.cart.pickupLocation = location
+		},
+		UPDATE_RETURN_LOCATION: function(state,location){
+			state.cart.returnLocation = location
+		}
 
 		
 		
@@ -54,7 +64,7 @@ export default new Vuex.Store({
 		},
 		getCartProductQuantity: (state) => (id) =>{
 		  if(state.cart.products.hasOwnProperty(id) ){
-		    return state.cart.products[id].qty
+		    return state.cart.products[id].qty_ordered * state.cart.products[id].qty
 		  }
 		 return 0
 		},
@@ -75,6 +85,17 @@ export default new Vuex.Store({
 			}
 			return total
 		},
+		getLocationPremium: (state) => {
+			let premium = 0;
+			// TODO Update logic once business rule known
+			if(state.cart.pickupLocation.hasOwnProperty('service_premium') ){
+				premium += parseInt(state.cart.pickupLocation.service_premium)
+			}
+			if(state.cart.returnLocation.hasOwnProperty('service_premium') ){
+				premium += parseInt(state.cart.returnLocation.service_premium)
+			}
+		 	return premium
+		},
 		getCartProducts: (state) => (product_group) => {
 			// Get list of all products of product_group
 			let products = _.filter(PRODUCTS,['product_group',product_group]);
@@ -89,26 +110,23 @@ export default new Vuex.Store({
 
 			return cartItems
 		}
-		
-		
-		
+			
 	},
-	actions: {
-			
-		setProductQty(context,payload){
-			if(payload.qty < 1){
-				payload.qty = 0
-			}
-			
-			let mutationPayload = {id: payload.id,qty:payload.qty,ext_price: payload.ext_price,price: payload.price}
+	actions: {		
 
-			context.commit('UPDATE_CART_PRODUCTS',mutationPayload)
-			
+		updateCartProducts(context,option){
+			option.ext_price = option.qty_ordered * option.price
+			// console.log('option',option)
+			context.commit('UPDATE_CART_PRODUCTS',option)
 		},
 
-		updateCartProducts(context,payload){
-			context.commit('UPDATE_CART_PRODUCTS',payload)
-		}
+		updatePickupLocation(context, location){
+			// console.log('action location',location)
+			context.commit('UPDATE_PICKUP_LOCATION',location)
+		},
+		updateReturnLocation(context, location){
+			context.commit('UPDATE_RETURN_LOCATION',location)
+		},
 
 
 	}

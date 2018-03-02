@@ -273,6 +273,34 @@ form .row {
 .el-radio__inner::after {
   background-color:#2789b5;
 }
+.el-checkbox__inner {
+  width: 28px;
+  height:28px;
+  border: 1px solid #888;
+
+}
+
+.el-checkbox__inner::after {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    content: "";
+    border: 2px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    height: 12px;
+    left: 8px;
+    position: absolute;
+    top: 4px;
+    -webkit-transform: rotate(45deg) scaleY(0);
+    transform: rotate(45deg) scaleY(0);
+    width: 7px;
+    -webkit-transition: -webkit-transform 0.15s cubic-bezier(0.71, -0.46, 0.88, 0.6) 0.05s;
+    transition: -webkit-transform 0.15s cubic-bezier(0.71, -0.46, 0.88, 0.6) 0.05s;
+    transition: transform 0.15s cubic-bezier(0.71, -0.46, 0.88, 0.6) 0.05s;
+    transition: transform 0.15s cubic-bezier(0.71, -0.46, 0.88, 0.6) 0.05s, -webkit-transform 0.15s cubic-bezier(0.71, -0.46, 0.88, 0.6) 0.05s;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}
 
 // Admin Sidenav
 .sidenav a {
@@ -287,6 +315,17 @@ form .row {
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: #f1f1f1;
+}
+
+.item-heading {
+  font-size: 120%;
+  font-weight: 700;
+}
+img.item-image-small {
+  width: 75px;
+}
+img.item-image-large {
+  width: 100%;
 }
 
 
