@@ -8,11 +8,11 @@
         <td><span style="width: 100px;font-weight: 900; font-siz: 110%;color: #f48">${{  costs.weekly.toFixed(2) }}</span></td>
       </tr>
       <tr>
-        <td> - {{ getProperty('description',itemInfo('storage-module')) }}</td>
+        <td> - {{ getProperty('description','storage-module') }}</td>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td> - {{ getProperty('description',itemInfo('insurance')) }}</td>
+        <td> - {{ getProperty('description','insurance') }}</td>
         <td>&nbsp;</td>
       </tr>
 
@@ -81,9 +81,12 @@ export default {
   },
   methods: {
 
-    getProperty(prop,obj){
-      if(obj !== null && typeof obj === 'object' && obj.hasOwnProperty(prop)) {
-        return obj.prop
+    getProperty(prop,group){
+
+      var item = this.itemInfo(group)
+      
+      if(item !== null && typeof item === 'object' && item.hasOwnProperty(prop) ) {
+        return item[prop]
       } 
     },
     
