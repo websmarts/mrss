@@ -6,7 +6,7 @@
   <div class="h3">Prices &amp; Booking</div>
 
       <p v-if="! this.$store.state.service">Select the service you require</p>
-      <p v-show="this.$store.state.service =='removal'">Revoval service selected</p>
+      <p v-show="this.$store.state.service =='removal'">Removal service selected</p>
       <p v-show="this.$store.state.service =='storage'">Storage service selected</p>
       <service-selector></service-selector>
 
