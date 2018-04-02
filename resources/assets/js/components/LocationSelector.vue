@@ -2,7 +2,7 @@
 <div>
   
   <slot></slot>
-  <select class="form-control" :value="value.id" @input="updateLocation($event.target.value)">
+  <select class="form-control" :value="value.id" @keydown="keydown($event.target.value)" @input="updateLocation($event.target.value)">
     <option value="0">Select location ...</option>
     <option v-for="location in locations()" :value="location.id" v-html="location.suburb"></option>
   </select>
@@ -15,8 +15,11 @@
 export default {
   props:['value'],
   methods: {
+    keydown: function(val){
+      console.log('Keydown',val)
+    },
     updateLocation: function(locationId) {
-      
+      console.log('Updating location')
       var location = {id:0} // default to no location
 
       if(locationId > 0){

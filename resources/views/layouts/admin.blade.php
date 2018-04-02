@@ -81,10 +81,10 @@
 
     <div style="width:900px;display: flex; justify-content: space-between;">
 
-            <div style="width:150px">
+            <div style="width:180px">
                @include('layouts.partials.admin.sidemenu')
             </div>
-            <div style="width:720px;padding: 10px; background: #fff">
+            <div style="width:700px;padding: 10px; background: #fff">
                 @yield('content')
             </div>
     </div>

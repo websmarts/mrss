@@ -23,7 +23,7 @@ export default new Vuex.Store({
 
 		SET_SERVICE: function(state,service){
 			state.service = service
-			// delete any items in cart that belong to the unselecetd service
+			//  delete any items in cart that belong to the unselecetd service
 			let productGroup = 'removal-module'
 
 			if(service == 'removal'){
@@ -86,14 +86,21 @@ export default new Vuex.Store({
 			return total
 		},
 		getLocationPremium: (state) => {
-			let premium = 0;
-			// TODO Update logic once business rule known
-			if(state.cart.pickupLocation.hasOwnProperty('service_premium') ){
-				premium += parseInt(state.cart.pickupLocation.service_premium)
+			let premium = {pickup:0,return:0};
+
+			// Premium is the combo of the two locations service premium
+			
+			let location = _.find(LOCATIONS,{id: state.cart.pickupLocation})
+			if(location){	
+				premium.pickup = parseFloat(location.service_premium)
 			}
-			if(state.cart.returnLocation.hasOwnProperty('service_premium') ){
-				premium += parseInt(state.cart.returnLocation.service_premium)
+
+			location = _.find(LOCATIONS,{id: state.cart.returnLocation})
+			if(location){	
+				premium.return= parseFloat(location.service_premium)
 			}
+
+			
 		 	return premium
 		},
 		getCartProducts: (state) => (product_group) => {

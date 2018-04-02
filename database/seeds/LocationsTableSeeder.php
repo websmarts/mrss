@@ -12,8 +12,8 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        Location::create(['postcode' => '3821', 'suburb' => 'Rokeby']);
-        Location::create(['postcode' => '3820', 'suburb' => 'Warragul']);
-        Location::create(['postcode' => '3016', 'suburb' => 'Canterbury']);
+        Location::create(['postcode' => '3821', 'suburb' => 'Rokeby', 'service_premium' => 120]);
+        Location::create(['postcode' => '3820', 'suburb' => 'Warragul', 'service_premium' => 110]);
+        Location::create(['postcode' => '3016', 'suburb' => 'Canterbury', 'service_premium' => 0]);
     }
 }

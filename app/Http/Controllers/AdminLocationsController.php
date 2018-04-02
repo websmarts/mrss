@@ -27,7 +27,7 @@ class AdminLocationsController extends Controller
                 Location::create([
                     'suburb' => $l['suburb'],
                     'postcode' => $l['postcode'],
-                    'service_premium' => $l['service_premium'],
+                    'service_premium' => (float) $l['service_premium'],
                 ]);
             }
 

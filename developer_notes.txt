@@ -2,11 +2,12 @@ Development notes:
 
 At this stage the project has just been setup with a laravel 5.5 install.
 
-Probably not requiring the laravel backend in production, but using full package as the development app even if it ends up not requiring laravel.
+TODOs:(19/03/2018)
+Slider manager needs to be added
 
-The next step is to knock up a vue mockup to trial aspects of the app interface. Goal to make simple and consistent as possible across all aspects of the user experience. Not worried about the graphic design just yet - just the user experience and workflow.
+Add autocomplete selector for the location dropdowns
 
-Also need to research the floating summary panel with the Continue button - also need to think about if the continue button shoulkd be disabled if the form has not been completed sufficiently to actually 'continue'.
+Pricing in summaries needs to be adjusted to match the rules better
 
 
 

@@ -6,6 +6,8 @@
 
 @import "spastuff";
 
+@import "sidenav";
+
 
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -312,10 +314,7 @@ form .row {
     transition: 0.3s;
 }
 
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-    color: #f1f1f1;
-}
+
 
 .item-heading {
   font-size: 120%;

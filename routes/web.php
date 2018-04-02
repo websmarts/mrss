@@ -45,13 +45,19 @@ Route::name('admin')->prefix('admin')->group(function () {
     Route::post('products/{product}', 'AdminProductsController@update')->name('.product.update');
 
     Route::get('locations', 'AdminLocationsController@index')->name('.locations');
-    Route::post('locations', 'AdminLocationsController@update')->name('locations.update');
+    Route::post('locations', 'AdminLocationsController@update')->name('.locations.update');
+
+    Route::get('cartage/removal', 'AdminCartageController@removal_index')->name('.cartage.removal');
+    Route::post('cartage/removal', 'AdminCartageController@removal_update')->name('.cartage.removal.update');
+
+    Route::get('cartage/return', 'AdminCartageController@return_index')->name('.cartage.return');
+    Route::post('cartage/return', 'AdminCartageController@return_update')->name('.cartage.return.update');
 
     Route::get('pages/{page}', 'AdminPagesController@index')->name('.pages');
     Route::post('pages/{page}', 'AdminPagesController@update')->name('.page.update');
 
     Route::get('chunks', 'AdminChunksController@index')->name('.chunks');
-    Route::post('chunks', 'AdminChunksController@update')->name('update.chunks');
+    Route::post('chunks', 'AdminChunksController@update')->name('.update.chunks');
 });
 
 Route::get('standalone', function () {

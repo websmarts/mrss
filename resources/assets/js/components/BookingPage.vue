@@ -12,18 +12,40 @@
 
 
       <div style="border: 1px solid #444; padding:10px; margin-bottom: 10px;margin-top: 15px;" v-show="service">
-        <location-selector :value="pickupLocation" @update="updatePickupLocation">
+        <h4>Your Location</h4>
+        <el-select v-model="pickupLocation" filterable placeholder="Select pickup location">
+          <el-option
+            v-for="item in pickupLocations"
+            :key="item.id"
+            :label="item.suburb"
+            :value="item.id">
+          </el-option>
+        </el-select>
+
+
+        <!-- <location-selector :value="pickupLocation" @update="updatePickupLocation">
           <h4>Your Location</h4>
           <p>This is where we deliver the Modules for loading.</p>
-        </location-selector>
+        </location-selector> -->
 
-        <location-selector :value="returnLocation" @update="updateReturnLocation">
+        <!-- <location-selector :value="returnLocation" @update="updateReturnLocation">
           <h4>Your Return Location</h4>
           <p>This is where we deliver the Modules for unloading at the end of the storage term.</p>
           <template slot="notes">
             <p> If you do not know your return location yet, select "unknown" and let us know later on. If you chose DIY Removals, this is the location you are moving to.</p>
           </template>
-        </location-selector>
+        </location-selector> -->
+
+        <h4>Your Return Location</h4>
+        <el-select v-model="returnLocation" filterable placeholder="Select return location">
+          <el-option
+            v-for="item in returnLocations"
+            :key="item.id"
+            :label="item.suburb"
+            :value="item.id">
+          </el-option>
+        </el-select>
+
       </div>
 
 
@@ -40,11 +62,13 @@
             <div class="item-heading">Removal modules</div>
             <removal-module-selector :product="fetchGroupProducts('removal-module')[0]"></removal-module-selector>
           </div>
+ 
+                   
 
           <div>
             <div class="item-heading">Packing Supplies and Extras</div>
              <template v-for="product in fetchGroupProducts('extra')">
-               <extra-selector :product="product"></extra-selector>
+               <extra-selector :key="product.id" :product="product"></extra-selector>
              </template>
           </div>
 
@@ -70,18 +94,33 @@ export default {
   name: 'app',
   data() {
     return {
-      
+      pickupLocations: LOCATIONS,
+      returnLocations: LOCATIONS
+       
       }
   },
   computed: {
     service() {
       return this.$store.getters.getService;
     },
-    pickupLocation() {
-      return this.$store.state.cart.pickupLocation;
+    pickupLocation: {
+      get: function() {
+        
+        return this.$store.state.cart.pickupLocation > 0 ? this.$store.state.cart.pickupLocation : null ;
+      },
+      set: function(location){
+        this.$store.dispatch('updatePickupLocation',location)
+      }
+      
     },
-    returnLocation() {
-      return this.$store.state.cart.returnLocation;
+    returnLocation: {
+      get: function() {
+        return this.$store.state.cart.returnLocation > 0 ? this.$store.state.cart.returnLocation : null ;
+      },
+      set: function(location) {
+        this.$store.dispatch('updateReturnLocation',location)
+      }
+      
     }
   },
   methods: {
@@ -92,16 +131,11 @@ export default {
     serviceSelected() {
       return this.service;
     },
-    updatePickupLocation(location) {
-      this.$store.dispatch('updatePickupLocation',location)
-    },
-    updateReturnLocation(location) {
-      this.$store.dispatch('updateReturnLocation',location)
-    }
+    
     
   },
   mounted() {
-    //console.log('PRODUCTS',PRODUCTS)
+
   }
 }
 </script>

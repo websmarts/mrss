@@ -1,6 +1,8 @@
 <div id="mySidenav" class="sidenav" style="background: #111">
 
-	<a href="{{ route('admin.locations') }}">Locations</a>
+	<a href="{{ route('admin.locations') }}" >Locations</a>
+	<a href="{{ route('admin.cartage.removal') }}">DIY Removal Fees</a>
+	<a href="{{ route('admin.cartage.return') }}">Storage Return Fees</a>
 	<a href="{{ route('admin.products') }}">Products</a>
 	<p>Pages</p>
 	<a href="{{ route('admin.pages',['page'=>'home']) }}">Home</a>

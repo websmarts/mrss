@@ -6,7 +6,7 @@
     <div style="flex:3">
       <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
         <option value="0">Select ...</option>
-        <option :value="opt.qty" v-for="opt in product.options">{{ opt.description }} (${{ opt.price }})</option>
+        <option :value="opt.qty" v-for="opt in product.options">{{ opt.description }} (${{ (opt.price/opt.qty).toFixed(2) }} each)</option>
       </select>
     </div>
     

@@ -16,7 +16,7 @@
       </tr> 
       
       <tr v-for="product in extraProducts">
-        <td> {{ product.description }}  X {{ product.qty_ordered }}</td>
+        <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
         <td>${{ product.ext_price }}</td>
       </tr>
 
