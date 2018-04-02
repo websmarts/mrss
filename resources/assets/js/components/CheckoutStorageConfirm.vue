@@ -33,15 +33,15 @@
         <td colspn="2"><span style="font-weight: 900;">Delivery</span></td>
       </tr> 
       <tr>
-        <td> - {{ this.$store.state.cart.pickupLocation.suburb }} </td>
+        <td> - {{ pickupSuburb }} </td>
         <td> FREE </td>
       </tr>
       <tr>
         <td colspn="2"><span style="font-weight: 900;">Return (at end of storage)</span></td>
       </tr> 
       <tr>
-        <td> - {{ this.$store.state.cart.returnLocation.suburb }}</td>
-        <td>${{ locationPremium }} <i>per module</i></td>
+        <td> - {{ returnSuburb }}</td>
+        <td>${{  locationPremium.pickup + locationPremium.return   }} <i>per module</i></td>
       </tr>    
     </table>
 
@@ -76,7 +76,18 @@ export default {
     },
     service() {
       return this.$store.state.service
+    },
+    pickupSuburb() {
+      return this.$store.getters.pickupSuburb
+      
+    },
+    returnSuburb() {
+      return this.$store.getters.returnSuburb
+      
     }
+
+    
+
    
   },
   methods: {

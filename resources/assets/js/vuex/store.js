@@ -103,6 +103,31 @@ export default new Vuex.Store({
 			
 		 	return premium
 		},
+		getRemovalFee: (state,getters) => {
+			// number of DIY modules cost PLUS location premium
+			let product =  getters.getCartProducts('removal-module');
+      
+			if(product.length == 1){ // should only be 0 or 1
+				  
+			   let cartage =  _.find(CARTAGE['diy_removal'],{module_count: product[0].qty });
+			   if(cartage){
+				 let premium = getters.getLocationPremium
+				
+
+				 if (premium.pickup > -1 && premium.return > -1){ // -1 indicates user entered UNKNOWN for a location
+				   return cartage.cost_per_module * cartage.module_count + (premium.pickup + premium.return)
+				 } else {
+				   return 'POA'
+				 }
+				 
+			   } else {
+				 // Maybe more modules selected than listed in CARTAGE option data
+				 return 'POA'
+			   }
+			} else {
+			  return ''
+			}
+		},
 		getCartProducts: (state) => (product_group) => {
 			// Get list of all products of product_group
 			let products = _.filter(PRODUCTS,['product_group',product_group]);
@@ -116,6 +141,19 @@ export default new Vuex.Store({
 			})
 
 			return cartItems
+		},
+		returnSuburb: (state) => {
+			let location = _.find(LOCATIONS, {
+				id: state.cart.returnLocation
+			  });
+			  return location ? location.suburb : null;
+
+		},
+		pickupSuburb: (state) => {
+			let location = _.find(LOCATIONS, {
+				id: state.cart.pickupLocation
+			  });
+			  return location ? location.suburb : null;
 		}
 			
 	},

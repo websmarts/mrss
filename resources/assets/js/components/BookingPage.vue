@@ -1,7 +1,7 @@
 <template>
  <div id="booking-page">
 
-  <booking-sidebar >Costs</booking-sidebar>
+  <booking-sidebar :service="service" >Costs</booking-sidebar>
 
   <div class="h3">Prices &amp; Booking</div>
 
@@ -62,8 +62,7 @@
             <div class="item-heading">Removal modules</div>
             <removal-module-selector :product="fetchGroupProducts('removal-module')[0]"></removal-module-selector>
           </div>
- 
-                   
+         
 
           <div>
             <div class="item-heading">Packing Supplies and Extras</div>
@@ -72,7 +71,7 @@
              </template>
           </div>
 
-          <div>
+          <div  v-show="service == 'storage'">
             <div class="item-heading">Insurance options</div>
             <insurance-selector :product="fetchGroupProducts('insurance')[0]"></insurance-selector>
           </div>

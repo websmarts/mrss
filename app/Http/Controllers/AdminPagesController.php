@@ -25,6 +25,7 @@ class AdminPagesController extends Controller
 
         foreach ($data as $element) {
             if ($element['id']) {
+
                 $pageElement = PageElement::find($element['id']);
 
                 $pageElement->update($element);

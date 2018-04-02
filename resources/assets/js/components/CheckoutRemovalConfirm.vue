@@ -2,10 +2,13 @@
 <div>
     <h4>DIY Removal Summary</h4>
 
+    {{ pickupSuburb }}
+    {{ returnSuburb }}
+
     <table class="table">
       <tr>
         <td><span style="font-weight: 900;">DIY Removal Fee:</span></td>
-        <td><span style="width: 100px;font-weight: 900; font-siz: 110%;color: #f48">${{ costs.weekly.toFixed(2) }}</span></td>
+        <td><span style="width: 100px;font-weight: 900; font-siz: 110%;color: #f48">${{ removalFee }}</span></td>
       </tr>
     
 
@@ -15,7 +18,7 @@
         <td colspn="2"><span style="font-weight: 900;">Packing Supplies and Extras:</span></td>
       </tr> 
       
-      <tr v-for="product in extraProducts">
+      <tr v-for="product in extraProducts" :key="product.id">
         <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
         <td>${{ product.ext_price }}</td>
       </tr>
@@ -47,11 +50,20 @@ export default {
     extraProducts() {
         return this.$store.getters.getCartProducts('extra')
     },
-    locationPremium(){
-      return this.$store.getters.getLocationPremium;
-    },
     service() {
       return this.$store.state.service
+    },
+    removalFee() {
+      return this.$store.getters.getRemovalFee;
+        
+    },
+    pickupSuburb() {
+      return this.$store.getters.pickupSuburb
+      
+    },
+    returnSuburb() {
+      return this.$store.getters.returnSuburb
+      
     }
    
   },

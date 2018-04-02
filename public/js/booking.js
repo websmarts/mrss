@@ -1644,7 +1644,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1710,8 +1709,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['service'],
   methods: {
     showMe: function showMe() {
       var costs = this.costs;
@@ -1721,6 +1723,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     costs: function costs() {
       return this.$store.getters.getCost;
+    },
+    removalFee: function removalFee() {
+      return this.$store.getters.getRemovalFee;
+    },
+    isRemoval: function isRemoval() {
+      return this.service == 'removal';
+    },
+    isStorage: function isStorage() {
+      return this.service == 'storage';
     }
   }
 
@@ -1778,23 +1789,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.getters.getLocationPremium;
     },
     removalFee: function removalFee() {
-      // number of DIY modules cost PLUS location premium
-      return "No DIY module cost + locationpremium";
+      return this.$store.getters.getRemovalFee;
     },
     service: function service() {
       return this.$store.state.service;
     },
     pickupSuburb: function pickupSuburb() {
-      var location = _.find(LOCATIONS, {
-        id: this.$store.state.cart.pickupLocation
-      });
-      return location ? location.suburb : null;
+      return this.$store.getters.pickupSuburb;
     },
     returnSuburb: function returnSuburb() {
-      var location = _.find(LOCATIONS, {
-        id: this.$store.state.cart.returnLocation
-      });
-      return location ? location.suburb : null;
+      return this.$store.getters.returnSuburb;
     },
     another: function another() {}
   }
@@ -1875,6 +1879,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1891,11 +1898,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     extraProducts: function extraProducts() {
       return this.$store.getters.getCartProducts('extra');
     },
-    locationPremium: function locationPremium() {
-      return this.$store.getters.getLocationPremium;
-    },
     service: function service() {
       return this.$store.state.service;
+    },
+    removalFee: function removalFee() {
+      return this.$store.getters.getRemovalFee;
+    },
+    pickupSuburb: function pickupSuburb() {
+      return this.$store.getters.pickupSuburb;
+    },
+    returnSuburb: function returnSuburb() {
+      return this.$store.getters.returnSuburb;
     }
   },
   methods: {
@@ -2000,6 +2013,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
     service: function service() {
       return this.$store.state.service;
+    },
+    pickupSuburb: function pickupSuburb() {
+      return this.$store.getters.pickupSuburb;
+    },
+    returnSuburb: function returnSuburb() {
+      return this.$store.getters.returnSuburb;
     }
   },
   methods: {
@@ -45827,11 +45846,7 @@ var render = function() {
         _vm._m(4),
         _vm._v(" "),
         _c("tr", [
-          _c("td", [
-            _vm._v(
-              " - " + _vm._s(this.$store.state.cart.pickupLocation.suburb) + " "
-            )
-          ]),
+          _c("td", [_vm._v(" - " + _vm._s(_vm.pickupSuburb) + " ")]),
           _vm._v(" "),
           _c("td", [_vm._v(" FREE ")])
         ]),
@@ -45839,12 +45854,16 @@ var render = function() {
         _vm._m(5),
         _vm._v(" "),
         _c("tr", [
-          _c("td", [
-            _vm._v(" - " + _vm._s(this.$store.state.cart.returnLocation.suburb))
-          ]),
+          _c("td", [_vm._v(" - " + _vm._s(_vm.returnSuburb))]),
           _vm._v(" "),
           _c("td", [
-            _vm._v("$" + _vm._s(_vm.locationPremium) + " "),
+            _vm._v(
+              "$" +
+                _vm._s(
+                  _vm.locationPremium.pickup + _vm.locationPremium.return
+                ) +
+                " "
+            ),
             _c("i", [_vm._v("per module")])
           ])
         ])
@@ -46502,7 +46521,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h4", [_vm._v("DIY Removal Summary")]),
-    _vm._v(" "),
+    _vm._v(
+      "\r\n\r\n    " +
+        _vm._s(_vm.pickupSuburb) +
+        "\r\n    " +
+        _vm._s(_vm.returnSuburb) +
+        "\r\n\r\n    "
+    ),
     _c(
       "table",
       { staticClass: "table" },
@@ -46521,7 +46546,7 @@ var render = function() {
                   color: "#f48"
                 }
               },
-              [_vm._v("$" + _vm._s(_vm.costs.weekly.toFixed(2)))]
+              [_vm._v("$" + _vm._s(_vm.removalFee))]
             )
           ])
         ]),
@@ -46531,7 +46556,7 @@ var render = function() {
         _vm._m(2),
         _vm._v(" "),
         _vm._l(_vm.extraProducts, function(product) {
-          return _c("tr", [
+          return _c("tr", { key: product.id }, [
             _c("td", [
               _vm._v(
                 " " +
@@ -46638,7 +46663,35 @@ var render = function() {
     [
       _vm._t("default"),
       _vm._v(" "),
-      _c("div", [_vm._v("Weekly($): " + _vm._s(_vm.costs.weekly.toFixed(2)))]),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.isStorage,
+              expression: "isStorage"
+            }
+          ]
+        },
+        [_vm._v("Weekly($): " + _vm._s(_vm.costs.weekly.toFixed(2)))]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.isRemoval,
+              expression: "isRemoval"
+            }
+          ]
+        },
+        [_vm._v("DIY Removal($): " + _vm._s(_vm.removalFee))]
+      ),
       _vm._v(" "),
       _c("div", [_vm._v("One off($): " + _vm._s(_vm.costs.fixed.toFixed(2)))])
     ],
@@ -47059,7 +47112,9 @@ var render = function() {
     "div",
     { attrs: { id: "booking-page" } },
     [
-      _c("booking-sidebar", [_vm._v("Costs")]),
+      _c("booking-sidebar", { attrs: { service: _vm.service } }, [
+        _vm._v("Costs")
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "h3" }, [_vm._v("Prices & Booking")]),
       _vm._v(" "),
@@ -47248,6 +47303,16 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.service == "storage",
+                  expression: "service == 'storage'"
+                }
+              ]
+            },
             [
               _c("div", { staticClass: "item-heading" }, [
                 _vm._v("Insurance options")
@@ -63186,6 +63251,31 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 
 			return premium;
 		},
+		getRemovalFee: function getRemovalFee(state, getters) {
+			// number of DIY modules cost PLUS location premium
+			var product = getters.getCartProducts('removal-module');
+
+			if (product.length == 1) {
+				// should only be 0 or 1
+
+				var cartage = _.find(CARTAGE['diy_removal'], { module_count: product[0].qty });
+				if (cartage) {
+					var premium = getters.getLocationPremium;
+
+					if (premium.pickup > -1 && premium.return > -1) {
+						// -1 indicates user entered UNKNOWN for a location
+						return cartage.cost_per_module * cartage.module_count + (premium.pickup + premium.return);
+					} else {
+						return 'POA';
+					}
+				} else {
+					// Maybe more modules selected than listed in CARTAGE option data
+					return 'POA';
+				}
+			} else {
+				return '';
+			}
+		},
 		getCartProducts: function getCartProducts(state) {
 			return function (product_group) {
 				// Get list of all products of product_group
@@ -63201,6 +63291,18 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 
 				return cartItems;
 			};
+		},
+		returnSuburb: function returnSuburb(state) {
+			var location = _.find(LOCATIONS, {
+				id: state.cart.returnLocation
+			});
+			return location ? location.suburb : null;
+		},
+		pickupSuburb: function pickupSuburb(state) {
+			var location = _.find(LOCATIONS, {
+				id: state.cart.pickupLocation
+			});
+			return location ? location.suburb : null;
 		}
 
 	},

@@ -2,7 +2,9 @@
 
   <div v-show="showMe()" class="booking-sidebar" style="font-size:70%">
     <slot></slot>
-    <div>Weekly($): {{ costs.weekly.toFixed(2) }}</div>
+    
+    <div v-show="isStorage" >Weekly($): {{ costs.weekly.toFixed(2) }}</div>
+    <div v-show="isRemoval" >DIY Removal($): {{ removalFee }}</div>
     <div>One off($): {{ costs.fixed.toFixed(2) }}</div>
   </div>
 
@@ -10,6 +12,7 @@
 
 <script>
 export default {
+  props: ['service'],
   methods: {
     showMe() {
       let costs = this.costs
@@ -20,7 +23,16 @@ export default {
     costs() {
      return this.$store.getters.getCost;
     },
-    
+    removalFee() {
+      return this.$store.getters.getRemovalFee;
+        
+    },
+    isRemoval() {
+      return this.service == 'removal'
+    },
+    isStorage() {
+      return this.service == 'storage'
+    }
   }
 
 }

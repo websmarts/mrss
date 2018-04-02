@@ -43,23 +43,20 @@ export default {
       return this.$store.getters.getLocationPremium;
     },
     removalFee() {
-      // number of DIY modules cost PLUS location premium
-      return "No DIY module cost + locationpremium";
+      return this.$store.getters.getRemovalFee;
+        
+    
     },
     service() {
       return this.$store.state.service;
     },
     pickupSuburb() {
-      let location = _.find(LOCATIONS, {
-        id: this.$store.state.cart.pickupLocation
-      });
-      return location ? location.suburb : null;
+      return this.$store.getters.pickupSuburb
+      
     },
     returnSuburb() {
-      let location = _.find(LOCATIONS, {
-        id: this.$store.state.cart.returnLocation
-      });
-      return location ? location.suburb : null;
+      return this.$store.getters.returnSuburb
+      
     },
     another() {}
   }
