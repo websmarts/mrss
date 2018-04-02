@@ -57,8 +57,7 @@ export default {
     returnSuburb() {
       return this.$store.getters.returnSuburb
       
-    },
-    another() {}
+    }
   }
 };
 </script>

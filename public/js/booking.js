@@ -1799,8 +1799,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     returnSuburb: function returnSuburb() {
       return this.$store.getters.returnSuburb;
-    },
-    another: function another() {}
+    }
   }
 });
 
