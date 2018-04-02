@@ -22,7 +22,7 @@
         <td colspn="2"><span style="font-weight: 900;">Packing Supplies and Extras:</span></td>
       </tr> 
       
-      <tr v-for="product in extraProducts">
+      <tr v-for="product in extraProducts" :key="product.id">
         <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
         <td>${{ product.ext_price }}</td>
       </tr>

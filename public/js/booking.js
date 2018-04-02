@@ -45824,7 +45824,7 @@ var render = function() {
         _vm._m(2),
         _vm._v(" "),
         _vm._l(_vm.extraProducts, function(product) {
-          return _c("tr", [
+          return _c("tr", { key: product.id }, [
             _c("td", [
               _vm._v(
                 " " +
