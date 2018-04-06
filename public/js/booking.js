@@ -1725,7 +1725,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.getters.getCost;
     },
     removalFee: function removalFee() {
-      return this.$store.getters.getRemovalFee;
+      var fee = parseFloat(this.$store.getters.getRemovalFee);
+      if (isNaN(fee)) {
+        return this.$store.getters.getRemovalFee;
+      } else {
+        return fee.toFixed(2);
+      }
     },
     isRemoval: function isRemoval() {
       return this.service == 'removal';
@@ -1993,13 +1998,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      prepayment_interest: ''
+  // data() {
+  //   return {
+  //     prepayment_interest: ''
 
-    };
-  },
-
+  //   }
+  // },
   computed: {
     costs: function costs() {
       return this.$store.getters.getCost;
@@ -2018,7 +2022,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
     returnSuburb: function returnSuburb() {
       return this.$store.getters.returnSuburb;
+    },
+
+    prepayment_interest: {
+      get: function get() {
+        return this.$store.state.prepayment_interest;
+      },
+      set: function set(value) {
+        this.$store.dispatch('updatePrepaymentInterest', value);
+      }
     }
+
   },
   methods: {
     getProperty: function getProperty(prop, group) {
@@ -2488,6 +2502,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 //
 //
 //
@@ -2571,24 +2589,173 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var Errors = function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
+
+    this.errors = {};
+  }
+
+  _createClass(Errors, [{
+    key: 'set',
+    value: function set(errors) {
+
+      this.errors = errors;
+    }
+  }, {
+    key: 'get',
+    value: function get(field) {
+      if (this.errors.hasOwnProperty(field)) {
+        return this.errors[field][0];
+      }
+    }
+  }, {
+    key: 'has',
+    value: function has(field) {
+      return this.errors.hasOwnProperty(field);
+    }
+  }, {
+    key: 'count',
+    value: function count() {
+      return Object.keys(this.errors).length;
+    }
+  }, {
+    key: 'clear',
+    value: function clear(field) {
+      console.log('Clearing field:', field);
+      if (field && this.errors.hasOwnProperty(field)) {
+        delete this.errors[field];
+        this.errors = Object.assign({}, this.errors);
+      } else if (field == 'all') {
+        this.errors = {};
+      }
+    }
+  }]);
+
+  return Errors;
+}();
+
+var Form = function () {
+  function Form(inputs, errors) {
+    _classCallCheck(this, Form);
+
+    this.inputs = inputs;
+    this.errors = new Errors();
+  }
+
+  _createClass(Form, [{
+    key: 'update',
+    value: function update(data) {
+      for (var input in this.inputs) {
+        if (data.hasOwnProperty(input)) {
+          this.inputs[input] = data[input];
+        }
+      }
+    }
+  }, {
+    key: 'cancel',
+    value: function cancel() {
+      this.reset();
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {
+      for (var input in this.inputs) {
+        this.inputs[input] = null;
+      }
+    }
+  }, {
+    key: 'get',
+    value: function get(input) {
+      return this.inputs[input];
+    }
+  }, {
+    key: 'getData',
+    value: function getData() {
+      return this.inputs;
+    }
+  }]);
+
+  return Form;
+}();
+
+var formFields = {
+  firstname: "Ian",
+  lastname: "Maclagan",
+  address: "1065 Brandy Creek Rd",
+  suburb: "Rokeby",
+  postcode: "",
+  state: "",
+  email: "",
+  phone: "",
+  howhear: "",
+  module_delivery_date: "",
+  comments: ""
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      firstname: '',
-      lastname: '',
-      address: '',
-      suburb: '',
-      postcode: '',
-      state: '',
-      email: '',
-      phone: '',
-      howhear: '',
-      module_delivery_date: '',
-      comments: '',
-
-      howhearOptions: [{ label: 'Google or internet search', value: 'google' }, { label: 'Social media', value: 'social' }]
+      form: new Form(formFields),
+      howhearOptions: [{ label: "Google or internet search", value: "google" }, { label: "Social media", value: "social" }]
     };
+  },
+
+  methods: {
+    cancel: function cancel() {
+      this.form.cancel();
+      this.$emit("cancel");
+    },
+    submit: function submit() {
+      var _this = this;
+
+      // Save the data
+
+
+      // Clear out all previous errors
+      this.form.errors.clear('all');
+
+      var data = {
+        contact_data: this.form.getData(),
+        cart: this.$store.state.cart,
+        service: this.$store.getters.getService,
+        cost: this.$store.getters.getCost,
+        premiums: this.$store.getters.getLocationPremium,
+        removal_fee: this.$store.getters.getRemovalFee,
+        prepayment_interest: this.$store.state.prepayment_interest
+
+      };
+
+      console.log('Submitting', data);
+
+      axios.post('/api/submit', data).then(function (response) {
+        console.log(response.data);
+
+        //this.hide()
+        //return response.data;
+      }).catch(function (error) {
+        // console.log(error.response)
+        // console.log("DATA ERRORS", error.response.data.errors);
+        // alert(error.response.data.message)
+        _this.form.errors.set(error.response.data.errors);
+      });
+    }
   }
 });
 
@@ -4106,21 +4273,6 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-329605c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/BookingSummary.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.btn.btn-rounded {\r\n  border-radius: 18px;\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-73e0958d\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/ServiceSelector.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4129,7 +4281,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.el-radio-group {\r\n  width: 90%;\n}\n.is-bordered {\r\n  width: 45%;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .el-radio-group {\r\n  width: 100%;\r\n} */\r\n/* .is-bordered {\r\n  width: 45%;\r\n} */\n#service-selector .el-radio-group {\r\n display: -webkit-box;\r\n display: -ms-flexbox;\r\n display: flex;\r\n -webkit-box-pack: justify;\r\n     -ms-flex-pack: justify;\r\n         justify-content: space-between;\n}\n#service-selector .el-radio-group label {\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\r\n  /* border: 1px solid red; */\n}\r\n", ""]);
 
 // exports
 
@@ -45998,279 +46150,419 @@ var render = function() {
   return _c("div", [
     _c("h4", [_vm._v("Send Enquiry")]),
     _vm._v(" "),
-    _c("form", { staticClass: "form-horizontal" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("First name*")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.firstname,
-                callback: function($$v) {
-                  _vm.firstname = $$v
-                },
-                expression: "firstname"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("Last name*")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.lastname,
-                callback: function($$v) {
-                  _vm.lastname = $$v
-                },
-                expression: "lastname"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("Address*")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.address,
-                callback: function($$v) {
-                  _vm.address = $$v
-                },
-                expression: "address"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("Suburb*")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.suburb,
-                callback: function($$v) {
-                  _vm.suburb = $$v
-                },
-                expression: "suburb"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("Postcode")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-2" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.postcode,
-                callback: function($$v) {
-                  _vm.postcode = $$v
-                },
-                expression: "postcode"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-2 col-sm-offset-1" }, [
-          _vm._v("State")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-2" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.state,
-                callback: function($$v) {
-                  _vm.state = $$v
-                },
-                expression: "state"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("Email*")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.email,
-                callback: function($$v) {
-                  _vm.email = $$v
-                },
-                expression: "email"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("Phone*")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-input", {
-              model: {
-                value: _vm.phone,
-                callback: function($$v) {
-                  _vm.phone = $$v
-                },
-                expression: "phone"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [
-          _vm._v("How did you hear about us?*")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c(
-              "el-select",
-              {
-                attrs: { placeholder: "Select" },
+    _c(
+      "form",
+      {
+        staticClass: "form-horizontal",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            _vm.submit($event)
+          },
+          keydown: function($event) {
+            _vm.form.errors.clear($event.target.name)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("First name*")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-input", {
+                attrs: { name: "firstname" },
                 model: {
-                  value: _vm.howhear,
+                  value: _vm.form.inputs.firstname,
                   callback: function($$v) {
-                    _vm.howhear = $$v
+                    _vm.$set(_vm.form.inputs, "firstname", $$v)
                   },
-                  expression: "howhear"
+                  expression: "form.inputs.firstname"
                 }
-              },
-              _vm._l(_vm.howhearOptions, function(item) {
-                return _c("el-option", {
-                  key: item.value,
-                  attrs: {
-                    label: item.label,
-                    value: item.value,
-                    disabled: item.disabled
-                  }
-                })
-              })
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [
-          _vm._v("Preferred Module delivey date:")
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("firstname")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("firstname"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-date-picker", {
-              attrs: { type: "date", placeholder: "Pick a day" },
-              model: {
-                value: _vm.module_delivery_date,
-                callback: function($$v) {
-                  _vm.module_delivery_date = $$v
-                },
-                expression: "module_delivery_date"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-4" }, [_vm._v("Comments")]),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("Last name*")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-input", {
+                attrs: { name: "lastname" },
+                model: {
+                  value: _vm.form.inputs.lastname,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "lastname", $$v)
+                  },
+                  expression: "form.inputs.lastname"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("lastname")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("lastname"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm-7" },
-          [
-            _c("el-input", {
-              attrs: { type: "textarea", rows: 2 },
-              model: {
-                value: _vm.comments,
-                callback: function($$v) {
-                  _vm.comments = $$v
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("Address*")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-input", {
+                attrs: { name: "address" },
+                model: {
+                  value: _vm.form.inputs.address,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "address", $$v)
+                  },
+                  expression: "form.inputs.address"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("address")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("address"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("Suburb*")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-input", {
+                attrs: { name: "suburb" },
+                model: {
+                  value: _vm.form.inputs.suburb,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "suburb", $$v)
+                  },
+                  expression: "form.inputs.suburb"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("suburb")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("suburb"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("Postcode")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-2" },
+            [
+              _c("el-input", {
+                attrs: { name: "postcode" },
+                model: {
+                  value: _vm.form.inputs.postcode,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "postcode", $$v)
+                  },
+                  expression: "form.inputs.postcode"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("postcode")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("postcode"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-2 col-sm-offset-1" }, [
+            _vm._v("State")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-2" },
+            [
+              _c("el-input", {
+                attrs: { name: "state" },
+                model: {
+                  value: _vm.form.inputs.state,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "state", $$v)
+                  },
+                  expression: "form.inputs.state"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("state")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("state"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("Email*")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-input", {
+                attrs: { name: "email" },
+                model: {
+                  value: _vm.form.inputs.email,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "email", $$v)
+                  },
+                  expression: "form.inputs.email"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("email")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("email"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("Phone*")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-input", {
+                attrs: { name: "phone" },
+                model: {
+                  value: _vm.form.inputs.phone,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "phone", $$v)
+                  },
+                  expression: "form.inputs.phone"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("phone")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("phone"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [
+            _vm._v("How did you hear about us?*")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c(
+                "el-select",
+                {
+                  attrs: { name: "howhear", placeholder: "Select" },
+                  on: {
+                    change: function($event) {
+                      _vm.form.errors.clear("howhear")
+                    }
+                  },
+                  model: {
+                    value: _vm.form.inputs.howhear,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.inputs, "howhear", $$v)
+                    },
+                    expression: "form.inputs.howhear"
+                  }
                 },
-                expression: "comments"
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
+                _vm._l(_vm.howhearOptions, function(item) {
+                  return _c("el-option", {
+                    key: item.value,
+                    attrs: {
+                      label: item.label,
+                      value: item.value,
+                      disabled: item.disabled
+                    }
+                  })
+                })
+              ),
+              _vm._v(" "),
+              _vm.form.errors.has("howhear")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("howhear"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [
+            _vm._v("Preferred Module delivey date:")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-date-picker", {
+                attrs: {
+                  name: "module_delivery_date",
+                  type: "date",
+                  placeholder: "Pick a day"
+                },
+                on: {
+                  change: function($event) {
+                    _vm.form.errors.clear("module_delivery_date")
+                  }
+                },
+                model: {
+                  value: _vm.form.inputs.module_delivery_date,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "module_delivery_date", $$v)
+                  },
+                  expression: "form.inputs.module_delivery_date"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("module_delivery_date")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(
+                        _vm.form.errors.get("module_delivery_date")
+                      )
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-4" }, [_vm._v("Comments")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-sm-7" },
+            [
+              _c("el-input", {
+                attrs: { name: "comments", type: "textarea", rows: 2 },
+                model: {
+                  value: _vm.form.inputs.comments,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form.inputs, "comments", $$v)
+                  },
+                  expression: "form.inputs.comments"
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("comments")
+                ? _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("comments"))
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xs-5 col-xs-offset-5" }, [
         _c(
-          "div",
-          { staticClass: "col-xs-5 col-xs-offset-5" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "btn btn-success btn-rounded",
-                attrs: { to: "/confirm" }
-              },
-              [_vm._v("Continue")]
-            )
-          ],
-          1
+          "button",
+          {
+            staticClass: "btn btn-success btn-rounded",
+            attrs: { type: "submit" }
+          },
+          [_vm._v("Submit")]
         )
       ])
     ])
-  ])
-}
-var staticRenderFns = []
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -50140,33 +50432,6 @@ if (inBrowser && window.Vue) {
 
 /* harmony default export */ __webpack_exports__["a"] = (VueRouter);
 
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-329605c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/BookingSummary.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-329605c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/BookingSummary.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("b657178e", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-329605c4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BookingSummary.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-329605c4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BookingSummary.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
 
 /***/ }),
 
@@ -62596,10 +62861,6 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-329605c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/BookingSummary.vue")
-}
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
 var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/BookingSummary.vue")
@@ -62608,7 +62869,7 @@ var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/templa
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -63156,6 +63417,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 	state: {
 		today: new Date(),
 		service: false,
+		prepayment_interest: false,
 
 		//products: [],
 
@@ -63199,6 +63461,9 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 		},
 		UPDATE_RETURN_LOCATION: function UPDATE_RETURN_LOCATION(state, location) {
 			state.cart.returnLocation = location;
+		},
+		UPDATE_PREPAYMENT_INTEREST: function UPDATE_PREPAYMENT_INTEREST(state, value) {
+			state.prepayment_interest = value;
 		}
 
 	},
@@ -63317,6 +63582,9 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 		},
 		updateReturnLocation: function updateReturnLocation(context, location) {
 			context.commit('UPDATE_RETURN_LOCATION', location);
+		},
+		updatePrepaymentInterest: function updatePrepaymentInterest(context, value) {
+			context.commit('UPDATE_PREPAYMENT_INTEREST', value);
 		}
 	}
 }));

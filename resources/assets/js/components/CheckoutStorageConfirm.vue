@@ -58,12 +58,12 @@
 
 <script>
 export default {
-  data() {
-    return {
-      prepayment_interest: ''
+  // data() {
+  //   return {
+  //     prepayment_interest: ''
      
-    }
-  },
+  //   }
+  // },
   computed: {
     costs() {
      return this.$store.getters.getCost;
@@ -84,7 +84,16 @@ export default {
     returnSuburb() {
       return this.$store.getters.returnSuburb
       
+    },
+    prepayment_interest: {
+      get() {
+        return this.$store.state.prepayment_interest
+      },
+      set(value){
+        this.$store.dispatch('updatePrepaymentInterest',value)
+      }
     }
+
 
     
 

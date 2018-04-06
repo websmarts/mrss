@@ -61,8 +61,3 @@ export default {
   }
 };
 </script>
-<style>
-.btn.btn-rounded {
-  border-radius: 18px;
-}
-</style>

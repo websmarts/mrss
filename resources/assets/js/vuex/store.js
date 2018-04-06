@@ -8,6 +8,7 @@ export default new Vuex.Store({
 	state: {
 		today: new Date(),
 		service: false,
+		prepayment_interest: false,
 		
 		//products: [],
 		
@@ -52,6 +53,9 @@ export default new Vuex.Store({
 		},
 		UPDATE_RETURN_LOCATION: function(state,location){
 			state.cart.returnLocation = location
+		},
+		UPDATE_PREPAYMENT_INTEREST: function(state,value){
+			state.prepayment_interest = value
 		}
 
 		
@@ -172,6 +176,9 @@ export default new Vuex.Store({
 		updateReturnLocation(context, location){
 			context.commit('UPDATE_RETURN_LOCATION',location)
 		},
+		updatePrepaymentInterest(context, value){
+			context.commit('UPDATE_PREPAYMENT_INTEREST',value)
+		}
 
 
 	}

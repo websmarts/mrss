@@ -4,9 +4,13 @@
 // Variables
 @import "variables";
 
+@import "buttons";
+
 @import "spastuff";
 
 @import "sidenav";
+
+
 
 
 body {
@@ -71,9 +75,9 @@ footer {
 
 #booking-page {
 
-  width: 480px; 
-  @media screen and (max-width: 500px){
-    width: 320px;
+  width: 100%; 
+  @media screen and (min-width: 768px){
+    width: 480px;
   }
   margin: 0px auto; 
   position: relative; 
@@ -82,11 +86,12 @@ footer {
   z-index: 100;
   
   position: fixed; 
-  width: 120px;
-  margin-left: 380px;
-  @media screen and (max-width: 500px){
-    width: 100px;
-    margin-left: 220px;
+  width: 130px;
+  top:18%;
+  right: 16px;
+  
+  @media screen and (min-width: 468px){
+    width: 140px;
   }
   min-height: 50px;
   padding:5px;

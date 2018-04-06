@@ -42,11 +42,21 @@ export default {
 </script>
 
 <style>
-.el-radio-group {
-  width: 90%;
-}
-.is-bordered {
+/* .el-radio-group {
+  width: 100%;
+} */
+/* .is-bordered {
   width: 45%;
+} */
+
+#service-selector .el-radio-group {
+ display: flex;
+ justify-content: space-between;
+
 }
 
+#service-selector .el-radio-group label {
+  flex: 1;
+  /* border: 1px solid red; */
+}
 </style>
