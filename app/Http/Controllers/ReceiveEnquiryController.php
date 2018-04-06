@@ -55,6 +55,6 @@ class ReceiveEnquiryController extends Controller
 
         // $data['locations'] = Location::all();
         // dd($request->all());
-        Mail::to($to)->subject('New MRSS Enquiry')->send(new \App\Mail\NewEnquiry($request->all()));
+        Mail::to($to)->send(new \App\Mail\NewEnquiry($request->all()));
     }
 }

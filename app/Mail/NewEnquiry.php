@@ -31,6 +31,8 @@ class NewEnquiry extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.new_enquiry');
+        return $this->from('ian@tester.com')
+        ->subject('New enquiry')
+        ->view('emails.new_enquiry');
     }
 }
