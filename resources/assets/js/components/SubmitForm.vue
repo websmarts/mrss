@@ -220,11 +220,12 @@ export default {
         
       }
 
-      console.log('Submitting',data)
+      // console.log('Submitting',data)
     
       axios.post('/api/submit', data)
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
+          alert('Your details have been submitted')
 
           //this.hide()
           //return response.data;

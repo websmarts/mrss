@@ -2756,12 +2756,11 @@ var formFields = {
         removal_fee: this.$store.getters.getRemovalFee,
         prepayment_interest: this.$store.state.prepayment_interest
 
-      };
+        // console.log('Submitting',data)
 
-      console.log('Submitting', data);
-
-      axios.post('/api/submit', data).then(function (response) {
-        console.log(response.data);
+      };axios.post('/api/submit', data).then(function (response) {
+        // console.log(response.data);
+        alert('Your details have been submitted');
 
         //this.hide()
         //return response.data;
