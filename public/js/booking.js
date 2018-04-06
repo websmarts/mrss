@@ -1797,7 +1797,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.getters.getLocationPremium;
     },
     removalFee: function removalFee() {
-      return this.$store.getters.getRemovalFee;
+      var fee = parseFloat(this.$store.getters.getRemovalFee);
+      if (isNaN(fee)) {
+        return this.$store.getters.getRemovalFee;
+      } else {
+        return fee.toFixed(2);
+      }
     },
     service: function service() {
       return this.$store.state.service;
@@ -1909,7 +1914,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.state.service;
     },
     removalFee: function removalFee() {
-      return this.$store.getters.getRemovalFee;
+      var fee = parseFloat(this.$store.getters.getRemovalFee);
+      if (isNaN(fee)) {
+        return this.$store.getters.getRemovalFee;
+      } else {
+        return fee.toFixed(2);
+      }
     },
     pickupSuburb: function pickupSuburb() {
       return this.$store.getters.pickupSuburb;
@@ -2702,10 +2712,10 @@ var Form = function () {
 }();
 
 var formFields = {
-  firstname: "Ian",
-  lastname: "Maclagan",
-  address: "1065 Brandy Creek Rd",
-  suburb: "Rokeby",
+  firstname: "",
+  lastname: "",
+  address: "",
+  suburb: "",
   postcode: "",
   state: "",
   email: "",
@@ -46860,7 +46870,7 @@ var render = function() {
                 staticStyle: {
                   width: "100px",
                   "font-weight": "900",
-                  "font-siz": "110%",
+                  "font-size": "110%",
                   color: "#f48"
                 }
               },

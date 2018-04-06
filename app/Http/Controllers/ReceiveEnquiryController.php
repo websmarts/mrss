@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Location;
+
+
 
 
 class ReceiveEnquiryController extends Controller
@@ -40,7 +43,16 @@ class ReceiveEnquiryController extends Controller
     private function emailEnquiry($request)
     {
         $to = "iwmaclagan@gmail.com";
-        //dd($request->all());
+
+        $locations = Location::all();
+
+        // $raw = $request->all();
+
+        // $data['contact_data'] = $raw['contact_data'];
+
+
+        // $data['locations'] = Location::all();
+        // dd($request->all());
         Mail::to($to)->send(new \App\Mail\NewEnquiry($request->all()));
     }
 }

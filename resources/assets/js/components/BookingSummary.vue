@@ -46,7 +46,12 @@ export default {
       return this.$store.getters.getLocationPremium;
     },
     removalFee() {
-      return this.$store.getters.getRemovalFee;
+     let fee = parseFloat(this.$store.getters.getRemovalFee);
+      if ( isNaN(fee) ){
+        return this.$store.getters.getRemovalFee
+      } else {
+        return fee.toFixed(2);
+      }
         
     
     },

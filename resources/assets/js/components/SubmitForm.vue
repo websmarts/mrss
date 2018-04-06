@@ -173,10 +173,10 @@ class Form {
 }
 
 let formFields = {
-  firstname: "Ian",
-  lastname: "Maclagan",
-  address: "1065 Brandy Creek Rd",
-  suburb: "Rokeby",
+  firstname: "",
+  lastname: "",
+  address: "",
+  suburb: "",
   postcode: "",
   state: "",
   email: "",

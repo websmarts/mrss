@@ -8,7 +8,7 @@
     <table class="table">
       <tr>
         <td><span style="font-weight: 900;">DIY Removal Fee:</span></td>
-        <td><span style="width: 100px;font-weight: 900; font-siz: 110%;color: #f48">${{ removalFee }}</span></td>
+        <td><span style="width: 100px;font-weight: 900; font-size: 110%;color: #f48">${{ removalFee }}</span></td>
       </tr>
     
 
@@ -54,7 +54,12 @@ export default {
       return this.$store.state.service
     },
     removalFee() {
-      return this.$store.getters.getRemovalFee;
+      let fee = parseFloat(this.$store.getters.getRemovalFee);
+      if ( isNaN(fee) ){
+        return this.$store.getters.getRemovalFee
+      } else {
+        return fee.toFixed(2);
+      }
         
     },
     pickupSuburb() {
