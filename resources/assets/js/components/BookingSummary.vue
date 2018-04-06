@@ -26,7 +26,7 @@
       </div>
 
     </div>
-    <div style="flex:1"><router-link class="btn btn-success btn-rounded" to="/confirm">Continue</router-link></div>
+    <div style="flex:1"><router-link class="btn btn-success btn-rounded" :class="{disabled: isNotValid}" to="/confirm">Continue</router-link></div>
 
   </div>
 </div>
@@ -36,6 +36,9 @@
 <script>
 export default {
   computed: {
+    isNotValid() {
+      return !(parseFloat(this.costs.fixed) + parseFloat(this.costs.weekly)) > 0
+    },
     costs() {
       return this.$store.getters.getCost;
     },

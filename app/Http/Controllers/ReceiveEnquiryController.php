@@ -40,6 +40,7 @@ class ReceiveEnquiryController extends Controller
     private function emailEnquiry($request)
     {
         $to = "iwmaclagan@gmail.com";
+        //dd($request->all());
         Mail::to($to)->send(new \App\Mail\NewEnquiry($request->all()));
     }
 }

@@ -27,9 +27,9 @@
     </table>
 
  
-  <div style="display:flex; justify-content: space-between">
-    <router-link class="btn btn-success btn-rounded" to="/submit">Continue final submit</router-link>
-    <router-link class="btn btn-info btn-rounded" to="/">Back to booking</router-link>
+  <div style="display:flex; justify-content: space-between;margin-top:20px;">
+    <router-link class="btn btn-info btn-rounded" to="/">Back</router-link>
+    <router-link class="btn btn-success btn-rounded" to="/submit">Continue</router-link>
   </div>
 
 </div>

@@ -62,7 +62,8 @@
             :disabled="item.disabled">
           </el-option>
       </el-select>
-      <span style="color: red" v-if="form.errors.has('howhear')" v-text="form.errors.get('howhear')"></span>
+      <div v-if="form.errors.has('module_delivery_date')">
+      <span style="color: red" v-if="form.errors.has('howhear')" v-text="form.errors.get('howhear')"></span></div>
     </div>
   </div>
 
@@ -76,7 +77,8 @@
         type="date"
         placeholder="Pick a day">
       </el-date-picker>
-      <span style="color: red" v-if="form.errors.has('module_delivery_date')" v-text="form.errors.get('module_delivery_date')"></span>
+      <div v-if="form.errors.has('module_delivery_date')">
+      <span style="color: red"  v-text="form.errors.get('module_delivery_date')"></span></div>
     </div>
   </div>
 
@@ -86,9 +88,10 @@
     <span style="color: red" v-if="form.errors.has('comments')" v-text="form.errors.get('comments')"></span></div>
   </div>
   
-  <div class="row">
-    <div class="col-xs-5 col-xs-offset-5"><button type="submit" class="btn btn-success btn-rounded" >Submit</button></div>
-
+  
+  <div style="display:flex; justify-content: space-between; margin-top:20px">
+    <router-link class="btn btn-info btn-rounded" to="/">Back</router-link>
+    <button type="submit" class="btn btn-success btn-rounded" >Submit enquiry</button>
   </div>
   
 

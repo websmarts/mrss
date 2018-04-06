@@ -48,9 +48,9 @@
     <p>For prepayments of 12 or 24 months, discounts of up tp 15% are available</p>
     <p style="margin-top:12px;margin-bottom: 40px"><el-checkbox v-model="prepayment_interest"></el-checkbox> Tick to register your interest.</p>
  
-  <div style="display:flex; justify-content: space-between">
-    <router-link class="btn btn-success btn-rounded" to="/submit">Continue final submit</router-link>
-    <router-link class="btn btn-info btn-rounded" to="/">Back to booking</router-link>
+  <div style="display:flex; justify-content: space-between; margin-top:20px;">
+    <router-link class="btn btn-info btn-rounded" to="/">Back</router-link>
+    <router-link class="btn btn-success btn-rounded" to="/submit">Continue</router-link>
   </div>
 
 </div>

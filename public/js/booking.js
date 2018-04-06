@@ -1787,6 +1787,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
+    isNotValid: function isNotValid() {
+      return !(parseFloat(this.costs.fixed) + parseFloat(this.costs.weekly)) > 0;
+    },
     costs: function costs() {
       return this.$store.getters.getCost;
     },
@@ -2506,6 +2509,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//
+//
+//
 //
 //
 //
@@ -46048,21 +46054,27 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticStyle: { display: "flex", "justify-content": "space-between" } },
+      {
+        staticStyle: {
+          display: "flex",
+          "justify-content": "space-between",
+          "margin-top": "20px"
+        }
+      },
       [
+        _c(
+          "router-link",
+          { staticClass: "btn btn-info btn-rounded", attrs: { to: "/" } },
+          [_vm._v("Back")]
+        ),
+        _vm._v(" "),
         _c(
           "router-link",
           {
             staticClass: "btn btn-success btn-rounded",
             attrs: { to: "/submit" }
           },
-          [_vm._v("Continue final submit")]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { staticClass: "btn btn-info btn-rounded", attrs: { to: "/" } },
-          [_vm._v("Back to booking")]
+          [_vm._v("Continue")]
         )
       ],
       1
@@ -46451,13 +46463,17 @@ var render = function() {
                 })
               ),
               _vm._v(" "),
-              _vm.form.errors.has("howhear")
-                ? _c("span", {
-                    staticStyle: { color: "red" },
-                    domProps: {
-                      textContent: _vm._s(_vm.form.errors.get("howhear"))
-                    }
-                  })
+              _vm.form.errors.has("module_delivery_date")
+                ? _c("div", [
+                    _vm.form.errors.has("howhear")
+                      ? _c("span", {
+                          staticStyle: { color: "red" },
+                          domProps: {
+                            textContent: _vm._s(_vm.form.errors.get("howhear"))
+                          }
+                        })
+                      : _vm._e()
+                  ])
                 : _vm._e()
             ],
             1
@@ -46494,14 +46510,16 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.form.errors.has("module_delivery_date")
-                ? _c("span", {
-                    staticStyle: { color: "red" },
-                    domProps: {
-                      textContent: _vm._s(
-                        _vm.form.errors.get("module_delivery_date")
-                      )
-                    }
-                  })
+                ? _c("div", [
+                    _c("span", {
+                      staticStyle: { color: "red" },
+                      domProps: {
+                        textContent: _vm._s(
+                          _vm.form.errors.get("module_delivery_date")
+                        )
+                      }
+                    })
+                  ])
                 : _vm._e()
             ],
             1
@@ -46539,30 +46557,38 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c(
+          "div",
+          {
+            staticStyle: {
+              display: "flex",
+              "justify-content": "space-between",
+              "margin-top": "20px"
+            }
+          },
+          [
+            _c(
+              "router-link",
+              { staticClass: "btn btn-info btn-rounded", attrs: { to: "/" } },
+              [_vm._v("Back")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Submit enquiry")]
+            )
+          ],
+          1
+        )
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-xs-5 col-xs-offset-5" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success btn-rounded",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Submit")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -46781,6 +46807,7 @@ var render = function() {
             "router-link",
             {
               staticClass: "btn btn-success btn-rounded",
+              class: { disabled: _vm.isNotValid },
               attrs: { to: "/confirm" }
             },
             [_vm._v("Continue")]
@@ -46868,21 +46895,27 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticStyle: { display: "flex", "justify-content": "space-between" } },
+      {
+        staticStyle: {
+          display: "flex",
+          "justify-content": "space-between",
+          "margin-top": "20px"
+        }
+      },
       [
+        _c(
+          "router-link",
+          { staticClass: "btn btn-info btn-rounded", attrs: { to: "/" } },
+          [_vm._v("Back")]
+        ),
+        _vm._v(" "),
         _c(
           "router-link",
           {
             staticClass: "btn btn-success btn-rounded",
             attrs: { to: "/submit" }
           },
-          [_vm._v("Continue final submit")]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { staticClass: "btn btn-info btn-rounded", attrs: { to: "/" } },
-          [_vm._v("Back to booking")]
+          [_vm._v("Continue")]
         )
       ],
       1

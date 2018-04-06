@@ -12,5 +12,6 @@ class Location extends Model
         'service_premium',
     ];
 
+
     public $timestamps = false;
 }
