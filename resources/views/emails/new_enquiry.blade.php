@@ -6,17 +6,7 @@
 <body>
 
 <h1>New Enquiry Received</h1>
-<pre>'firstname' => 'required',
-            'lastname' => 'required',
-            'address' => 'required',
-            'suburb' => 'required',
-            'postcode' => 'required',
-            'state' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'howhear' => 'required',
-            'module_delivery_date' => 'required',
-            'comments' => '',</pre>
+
 
 <p>CONTACT DATA</p>
 <table>

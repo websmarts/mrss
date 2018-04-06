@@ -44,7 +44,9 @@ class ReceiveEnquiryController extends Controller
     {
         $to = "iwmaclagan@gmail.com";
 
-        $locations = Location::all();
+        // $to ="john@mrselfstorage.com.au"; 
+
+        // $locations = Location::all();
 
         // $raw = $request->all();
 
@@ -53,6 +55,6 @@ class ReceiveEnquiryController extends Controller
 
         // $data['locations'] = Location::all();
         // dd($request->all());
-        Mail::to($to)->send(new \App\Mail\NewEnquiry($request->all()));
+        Mail::to($to)->subject('New MRSS Enquiry')->send(new \App\Mail\NewEnquiry($request->all()));
     }
 }
