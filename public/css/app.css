@@ -238,11 +238,6 @@ footer {
   margin-top: 0px;
 }
 
-.carousel .item {
-  min-height: 190px;
-  /* Prevent carousel from being distorted if for some reason image doesn't load */
-}
-
 .carousel .item img {
   margin: 0 auto;
   /* Align slide image horizontally center */
