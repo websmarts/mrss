@@ -2,27 +2,27 @@
 <div>
     <h4>DIY Removal Summary</h4>
 
-    {{ pickupSuburb }}
-    {{ returnSuburb }}
+<p style="text-align: right; padding-right: 8px; font-size:90%">Drop-off location: {{ pickupSuburb }}<br />Pickup location: {{ returnSuburb }}</p>
 
     <table class="table">
       <tr>
         <td><span style="font-weight: 900;">DIY Removal Fee:</span></td>
-        <td><span style="width: 100px;font-weight: 900; font-size: 110%;color: #f48">${{ removalFee }}</span></td>
+        <td width="100" class="price">${{ removalFee }}</td>
       </tr>
     
 
       <tr><td colspan="2">&nbsp;</td></tr>
 
+  <template v-if="extraProducts.length">
       <tr>
         <td colspn="2"><span style="font-weight: 900;">Packing Supplies and Extras:</span></td>
       </tr> 
       
       <tr v-for="product in extraProducts" :key="product.id">
         <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
-        <td>${{ product.ext_price }}</td>
+       <td width="100" class="price">${{ product.ext_price }}</td>
       </tr>
-
+  </template>
       
     </table>
 

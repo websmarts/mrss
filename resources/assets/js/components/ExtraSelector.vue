@@ -4,42 +4,45 @@
   
 
   
-  <div class="my-list-item" style="display:flex">
-    <div style="flex:.5"><span  @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
-    <div style="flex:1"><img :src="product.image_path" class="item-image-small"></div>
-    <div style="flex:2">
-      {{ product.name }}<br />
-    {{ product.options[0].description }}<br />
-     
+  <div class="list-item" >
+    <div class="control"><span  @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
+    <div class="body">
+      <div class="body-top">
+        <div class="thumb"><img :src="product.image_path" class="responsive"></div>
 
-    </div>
-    
-    <div style="flex:1">
+          <div class="description">
+            {{ product.name }}<br />
+            {{ product.options[0].description }}<br />
+          </div>
+          
+          <div class="inputs">
+            <el-input-number :value="cartQty" @change="handleChange" :min="0" ></el-input-number> 
+            <p style="text-align: center; font-size:75%">
+            ($ {{ product.options[0].price.toFixed(2) }} @ea)</p>
+
+            <!-- <p style="text-align: center"><a @click="expanded = !expanded" >{{ expanded ? 'hide' : 'show' }} details</a></p> -->
+          </div>
+      </div><!-- end body-top -->
       
-      <el-input-number :value="cartQty" @change="handleChange" :min="0" ></el-input-number> 
-      <p style="text-align: center; font-size:75%">
-      ($ {{ product.options[0].price.toFixed(2) }} @ea)</p>
+      <el-collapse-transition>
+        <div v-if="expanded" class="body-bottom my-list-item-expanded" >
 
-      <p style="text-align: center"><a @click="expanded = !expanded" >{{ expanded ? 'hide' : 'show' }} details</a></p>
-    </div>
+
+          <div style="display: flex;">
+            <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
+            <div style="flex:1" v-html="product.options[0].description"></div>
+          </div>
+          <div v-html="product.notes"></div>
+
+        </div>
+      </el-collapse-transition>
+    </div><!-- end body -->
+    
+  </div><!-- end list-item -->
 
   </div>
+  
 
-
-  <el-collapse-transition>
-    <div v-if="expanded" class="my-list-item-expanded" >
-
-
-      <div style="display: flex;">
-        <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
-        <div style="flex:1" v-html="product.options[0].description"></div>
-      </div>
-      <div v-html="product.notes"></div>
-
-    </div>
-  </el-collapse-transition>
-
-</div>
 </template>
 
 <script>

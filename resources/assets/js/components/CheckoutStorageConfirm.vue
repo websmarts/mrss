@@ -5,7 +5,7 @@
     <table class="table">
       <tr>
         <td><span style="font-weight: 900;">Weekly Fee:</span></td>
-        <td><span style="width: 100px;font-weight: 900; font-siz: 110%;color: #f48">${{  costs.weekly.toFixed(2) }}</span></td>
+        <td width="100" class="price">${{  costs.weekly.toFixed(2) }}</span></td>
       </tr>
       <tr>
         <td> - {{ getProperty('description','storage-module') }}</td>
@@ -24,7 +24,7 @@
       
       <tr v-for="product in extraProducts" :key="product.id">
         <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
-        <td>${{ product.ext_price }}</td>
+        <td width="100" class="price">${{ product.ext_price }}</td>
       </tr>
 
       <tr><td colspan="2">&nbsp;</td></tr>
@@ -34,14 +34,14 @@
       </tr> 
       <tr>
         <td> - {{ pickupSuburb }} </td>
-        <td> FREE </td>
+        <td class="price"> FREE </td>
       </tr>
       <tr>
-        <td colspn="2"><span style="font-weight: 900;">Return (at end of storage)</span></td>
+        <td colspn="2"><span style="font-weight: 900;">Return (at end of storage) per module</span></td>
       </tr> 
       <tr>
         <td> - {{ returnSuburb }}</td>
-        <td>${{  locationPremium.pickup + locationPremium.return   }} <i>per module</i></td>
+        <td width="100" class="price">${{  storageReturnFee  }}</td>
       </tr>    
     </table>
 
@@ -73,6 +73,12 @@ export default {
     },
     locationPremium(){
       return this.$store.getters.getLocationPremium;
+    },
+    storageReturnFee() {
+      if((this.locationPremium.return < 0 ) || (this.locationPremium.pickup < 0 ) ){
+        return 'POA'
+      } 
+      return (this.locationPremium.pickup + this.locationPremium.return).toFixed(2)
     },
     service() {
       return this.$store.state.service

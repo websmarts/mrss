@@ -68,7 +68,7 @@ export default new Vuex.Store({
 		},
 		getCartProductQuantity: (state) => (id) =>{
 		  if(state.cart.products.hasOwnProperty(id) ){
-		    return state.cart.products[id].qty_ordered * state.cart.products[id].qty
+		    return state.cart.products[id].qty_ordered; // * state.cart.products[id].qty
 		  }
 		 return 0
 		},

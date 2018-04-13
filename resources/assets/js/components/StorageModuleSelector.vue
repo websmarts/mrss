@@ -1,30 +1,36 @@
 <template>
 <div>
-  <div class="my-list-item" style="display:flex;">
-    <div style="flex:.5"><span @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>
-    <div style="flex:1"><img :src="product.image_path" class="item-image-small"></div>
-    <div style="flex:3">
-      <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
-        <option value="0">Select ...</option>
-        <option :value="opt.qty" v-for="opt in product.options">{{ opt.description }} (${{ (opt.price/opt.qty).toFixed(2) }} each)</option>
-      </select>
-    </div>
+ 
+
+  <div class="list-item" >
+      <div class="control"><span  @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
+      <div class="body">
+        <div class="body-top">
+          <div class="thumb"><img :src="product.image_path" class="responsive"></div>
+
+            <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
+              <option value="0">Select ...</option>
+              <option :value="opt.qty" v-for="opt in product.options" :key="opt.id">{{ opt.description }} (${{ (opt.price).toFixed(2) }}pw each)</option>
+            </select>
+        </div><!-- end body-top -->
+        
+        <el-collapse-transition>
+          <div v-if="expanded" class="body-bottom my-list-item-expanded" >
+
+
+            <div style="display: flex;">
+              <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
+              <div style="flex:1" v-html="product.options[0].description"></div>
+            </div>
+            <div v-html="product.notes"></div>
+
+          </div>
+        </el-collapse-transition>
+      </div><!-- end body -->
     
-    
-  </div>
-
-  <transition name="slide-fade">
-  <div v-if="expanded" class="my-list-item-expanded" >
+  </div><!-- end list-item -->
 
 
-    <div style="display: flex;">
-      <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
-      <div style="flex:1" v-html="product.description"></div>
-    </div>
-    <div v-html="product.notes"></div>
-
-  </div>
-</transition>
 
 </div>
 </template>
@@ -64,7 +70,7 @@ export default {
            
       if(qty > 0){  
         selectedOption = _.find(this.product.options,['qty', qty])
-        selectedOption.qty_ordered = 1
+        selectedOption.qty_ordered = qty
       } else {
         selectedOption = {product_id: this.product.id, qty_ordered: 0 }
       } 

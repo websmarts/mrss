@@ -1,12 +1,65 @@
 
-
+.responsive {
+    width: 100%;
+    height: auto;
+}
 
 .my-list-item {
-	padding:10px; 
-	border:1px solid #444; 
+	padding:0px; 
+	border-top:1px solid #999;
 	background: transparent
 }
+
+
 .my-list-item-expanded {
 	padding:20px; 
-	border: 1px solid #222; 
+	
+	
 }
+.price {
+	font-size: 110%;
+	font-weight: 900;
+}
+
+.list-item {
+	display: flex;
+	margin-bottom: 6px;
+	border-top: 1px solid #333;
+}
+
+.list-item .control {
+	flex: 0 0 30px;
+	background: #6d8f8f;
+	color: #fff;
+}
+
+.list-item .body {
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+}
+.list-item .body-top {
+	flex:1;
+	display: flex;
+}
+
+.list-item .body-bottom {
+	flex-basis: 100%;
+}
+
+.list-item .thumb {
+	
+	flex: 0 0 75px;
+}
+.list-item .description {
+	
+	flex: 1;
+}
+
+.list-item .inputs {
+	
+	flex: 0 0 120px;
+}
+
+  
+
