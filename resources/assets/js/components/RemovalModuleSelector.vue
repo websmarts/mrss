@@ -10,7 +10,7 @@
 
             <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
               <option value="0">Select ...</option>
-              <option :value="opt.qty" v-for="opt in product.options" :key="opt.id">{{ opt.description }} (${{ (opt.price).toFixed(2) }}pw each)</option>
+              <option :value="opt.qty" v-for="opt in product.options" :key="opt.id">{{ opt.description }}</option>
             </select>
         </div><!-- end body-top -->
         

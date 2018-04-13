@@ -1660,6 +1660,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     service: function service() {
       return this.$store.getters.getService;
     },
+    validform: function validform() {
+      return this.service && this.pickupLocation && this.returnLocation;
+    },
 
     pickupLocation: {
       get: function get() {
@@ -1788,7 +1791,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     isNotValid: function isNotValid() {
-      return !(parseFloat(this.costs.fixed) + parseFloat(this.costs.weekly)) > 0;
+      if (this.service == "storage") {
+        return !(parseFloat(this.costs.fixed) + parseFloat(this.costs.weekly)) > 0;
+      }
+      if (this.service == "removal") {
+        return !parseFloat(this.removalFee) > 0;
+      }
     },
     costs: function costs() {
       return this.$store.getters.getCost;
@@ -1797,10 +1805,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.getters.getLocationPremium;
     },
     storageReturnFee: function storageReturnFee() {
-      if (this.locationPremium.return < 0 || this.locationPremium.pickup < 0) {
-        return 'POA';
+      var fee = parseFloat(this.$store.getters.storageReturnFee);
+      if (isNaN(fee)) {
+        return this.$store.getters.storageReturnFee;
+      } else {
+        return fee.toFixed(2);
       }
-      return (this.locationPremium.pickup + this.locationPremium.return).toFixed(2);
     },
     removalFee: function removalFee() {
       var fee = parseFloat(this.$store.getters.getRemovalFee);
@@ -2034,10 +2044,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       return this.$store.getters.getLocationPremium;
     },
     storageReturnFee: function storageReturnFee() {
-      if (this.locationPremium.return < 0 || this.locationPremium.pickup < 0) {
-        return 'POA';
+      var fee = parseFloat(this.$store.getters.storageReturnFee);
+      if (isNaN(fee)) {
+        return this.$store.getters.storageReturnFee;
+      } else {
+        return fee.toFixed(2);
       }
-      return (this.locationPremium.pickup + this.locationPremium.return).toFixed(2);
     },
     service: function service() {
       return this.$store.state.service;
@@ -46024,7 +46036,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("td", { staticClass: "price", attrs: { width: "100" } }, [
-              _vm._v("$" + _vm._s(product.ext_price))
+              _vm._v("$" + _vm._s(product.ext_price.toFixed(2)))
             ])
           ])
         }),
@@ -46045,7 +46057,9 @@ var render = function() {
           _c("td", [_vm._v(" - " + _vm._s(_vm.returnSuburb))]),
           _vm._v(" "),
           _c("td", { staticClass: "price", attrs: { width: "100" } }, [
-            _vm._v("$" + _vm._s(_vm.storageReturnFee))
+            _vm._v("$" + _vm._s(_vm.storageReturnFee)),
+            _c("br"),
+            _vm._v("per module")
           ])
         ])
       ],
@@ -46159,7 +46173,7 @@ var staticRenderFns = [
     return _c("tr", [
       _c("td", { attrs: { colspn: "2" } }, [
         _c("span", { staticStyle: { "font-weight": "900" } }, [
-          _vm._v("Return (at end of storage) per module")
+          _vm._v("Return (at end of storage)")
         ])
       ])
     ])
@@ -46803,7 +46817,9 @@ var render = function() {
                   _vm._v("- " + _vm._s(_vm.returnSuburb))
                 ]),
                 _c("div", { staticStyle: { flex: "1" } }, [
-                  _vm._v("$" + _vm._s(_vm.storageReturnFee) + " per module")
+                  _vm._v("$" + _vm._s(_vm.storageReturnFee)),
+                  _c("br"),
+                  _vm._v("per module")
                 ])
               ]
             )
@@ -46929,7 +46945,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "price", attrs: { width: "100" } }, [
-                    _vm._v("$" + _vm._s(product.ext_price))
+                    _vm._v("$" + _vm._s(product.ext_price.toFixed(2)))
                   ])
                 ])
               })
@@ -47724,8 +47740,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.service,
-              expression: "service"
+              value: _vm.validform,
+              expression: "validform"
             }
           ],
           staticClass: "app-footer"
@@ -47829,14 +47845,7 @@ var render = function() {
                   return _c(
                     "option",
                     { key: opt.id, domProps: { value: opt.qty } },
-                    [
-                      _vm._v(
-                        _vm._s(opt.description) +
-                          " ($" +
-                          _vm._s(opt.price.toFixed(2)) +
-                          "pw each)"
-                      )
-                    ]
+                    [_vm._v(_vm._s(opt.description))]
                   )
                 })
               ],
@@ -63644,7 +63653,32 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 
 					if (premium.pickup > -1 && premium.return > -1) {
 						// -1 indicates user entered UNKNOWN for a location
-						return cartage.cost_per_module * cartage.module_count + (premium.pickup + premium.return);
+						return cartage.cost_per_module + (premium.pickup + premium.return);
+					} else {
+						return 'POA';
+					}
+				} else {
+					// Maybe more modules selected than listed in CARTAGE option data
+					return 'POA';
+				}
+			} else {
+				return '';
+			}
+		},
+		storageReturnFee: function storageReturnFee(state, getters) {
+			var product = getters.getCartProducts('storage-module');
+
+			if (product.length == 1) {
+				// should only be 0 or 1
+
+				var cartage = _.find(CARTAGE['storage_return'], { module_count: product[0].qty });
+
+				if (cartage) {
+					var premium = getters.getLocationPremium;
+
+					if (premium.pickup > -1 && premium.return > -1) {
+						// -1 indicates user entered UNKNOWN for a location
+						return cartage.cost_per_module + (premium.pickup + premium.return);
 					} else {
 						return 'POA';
 					}

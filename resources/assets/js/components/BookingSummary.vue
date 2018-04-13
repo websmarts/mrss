@@ -13,7 +13,7 @@
           <div style="flex:2">Delivery:<br />- {{ pickupSuburb }}</div><div style="flex:1">FREE</div>  
         </div>
         <div style="display:flex; margin-top:10px;">
-          <div style="flex:2">Return (at end of storage):<br />- {{ returnSuburb }}</div><div style="flex:1">${{ storageReturnFee  }} per module</div>  
+          <div style="flex:2">Return (at end of storage):<br />- {{ returnSuburb }}</div><div style="flex:1">${{ storageReturnFee  }}<br />per module</div>  
         </div>
     </div>
 
@@ -37,7 +37,13 @@
 export default {
   computed: {
     isNotValid() {
-      return !(parseFloat(this.costs.fixed) + parseFloat(this.costs.weekly)) > 0
+      if(this.service == "storage"){
+        return !(parseFloat(this.costs.fixed) + parseFloat(this.costs.weekly)) > 0
+      }
+      if(this.service == "removal"){
+        return ! parseFloat(this.removalFee) > 0
+      }
+       
     },
     costs() {
       return this.$store.getters.getCost;
@@ -46,10 +52,13 @@ export default {
       return this.$store.getters.getLocationPremium;
     },
     storageReturnFee() {
-      if((this.locationPremium.return < 0 ) || (this.locationPremium.pickup < 0 ) ){
-        return 'POA'
-      } 
-      return (this.locationPremium.pickup + this.locationPremium.return).toFixed(2)
+      let fee = parseFloat(this.$store.getters.storageReturnFee);
+      if ( isNaN(fee) ){
+        return this.$store.getters.storageReturnFee
+      } else {
+        return fee.toFixed(2);
+      }
+
     },
     removalFee() {
      let fee = parseFloat(this.$store.getters.getRemovalFee);

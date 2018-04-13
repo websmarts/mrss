@@ -20,7 +20,7 @@
       
       <tr v-for="product in extraProducts" :key="product.id">
         <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
-       <td width="100" class="price">${{ product.ext_price }}</td>
+       <td width="100" class="price">${{ product.ext_price.toFixed(2) }}</td>
       </tr>
   </template>
       

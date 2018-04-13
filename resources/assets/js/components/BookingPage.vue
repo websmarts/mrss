@@ -78,7 +78,7 @@
 
        </div><!-- end #products -->
        
-       <div class="app-footer" v-show="service">
+       <div class="app-footer" v-show="validform">
           <booking-summary></booking-summary>
       </div>
 
@@ -101,6 +101,9 @@ export default {
   computed: {
     service() {
       return this.$store.getters.getService;
+    },
+    validform () {
+      return this.service && this.pickupLocation  && this.returnLocation
     },
     pickupLocation: {
       get: function() {

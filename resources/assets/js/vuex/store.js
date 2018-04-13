@@ -119,7 +119,7 @@ export default new Vuex.Store({
 				
 
 				 if (premium.pickup > -1 && premium.return > -1){ // -1 indicates user entered UNKNOWN for a location
-				   return cartage.cost_per_module * cartage.module_count + (premium.pickup + premium.return)
+				   return cartage.cost_per_module  + (premium.pickup + premium.return)
 				 } else {
 				   return 'POA'
 				 }
@@ -131,6 +131,33 @@ export default new Vuex.Store({
 			} else {
 			  return ''
 			}
+		},
+		storageReturnFee: (state,getters) => {
+			let product =  getters.getCartProducts('storage-module');
+			
+			if(product.length == 1){ // should only be 0 or 1
+				  
+			   let cartage =  _.find(CARTAGE['storage_return'],{module_count: product[0].qty });
+			
+			   if(cartage){
+				 let premium = getters.getLocationPremium
+				
+				
+
+				 if (premium.pickup > -1 && premium.return > -1){ // -1 indicates user entered UNKNOWN for a location
+				   return cartage.cost_per_module  + (premium.pickup + premium.return)
+				 } else {
+				   return 'POA'
+				 }
+				 
+			   } else {
+				 // Maybe more modules selected than listed in CARTAGE option data
+				 return 'POA'
+			   }
+			} else {
+			  return ''
+			}
+
 		},
 		getCartProducts: (state) => (product_group) => {
 			// Get list of all products of product_group

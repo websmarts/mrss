@@ -24,7 +24,7 @@
       
       <tr v-for="product in extraProducts" :key="product.id">
         <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
-        <td width="100" class="price">${{ product.ext_price }}</td>
+        <td width="100" class="price">${{ product.ext_price.toFixed(2) }}</td>
       </tr>
 
       <tr><td colspan="2">&nbsp;</td></tr>
@@ -37,11 +37,11 @@
         <td class="price"> FREE </td>
       </tr>
       <tr>
-        <td colspn="2"><span style="font-weight: 900;">Return (at end of storage) per module</span></td>
+        <td colspn="2"><span style="font-weight: 900;">Return (at end of storage)</span></td>
       </tr> 
       <tr>
         <td> - {{ returnSuburb }}</td>
-        <td width="100" class="price">${{  storageReturnFee  }}</td>
+        <td width="100" class="price">${{  storageReturnFee  }}<br />per module</td>
       </tr>    
     </table>
 
@@ -75,10 +75,13 @@ export default {
       return this.$store.getters.getLocationPremium;
     },
     storageReturnFee() {
-      if((this.locationPremium.return < 0 ) || (this.locationPremium.pickup < 0 ) ){
-        return 'POA'
-      } 
-      return (this.locationPremium.pickup + this.locationPremium.return).toFixed(2)
+      let fee = parseFloat(this.$store.getters.storageReturnFee);
+      if ( isNaN(fee) ){
+        return this.$store.getters.storageReturnFee
+      } else {
+        return fee.toFixed(2);
+      }
+
     },
     service() {
       return this.$store.state.service
