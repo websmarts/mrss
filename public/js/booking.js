@@ -46747,8 +46747,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "booking-summary-container" }, [
-    _c("div", [
-      _c("strong", [_vm._v("Summary (" + _vm._s(_vm.service) + ")")])
+    _c("div", { staticStyle: { color: "#fff", "margin-bottom": "15px" } }, [
+      _c("strong", [_vm._v("Booking summary (" + _vm._s(_vm.service) + ")")])
     ]),
     _vm._v(" "),
     _c("div", { staticStyle: { display: "flex" } }, [

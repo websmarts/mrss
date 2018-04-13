@@ -1,6 +1,6 @@
 <template>
 <div class="booking-summary-container">
-  <div><strong>Summary ({{ service }})</strong></div>
+  <div style="color:#fff;margin-bottom:15px;"><strong>Booking summary ({{ service }})</strong></div>
   <div style="display: flex">
     <div style="flex: 3" v-if="this.$store.state.service =='storage'">
         <div style="display:flex" >
