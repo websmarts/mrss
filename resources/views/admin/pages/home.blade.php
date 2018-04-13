@@ -20,7 +20,7 @@
             data-preview="holder_{{ $page->element('section_1_image')->id }}"
             src="{!! $page->element('section_1_image')->content !!}"
             alt="We Bring Icon"
-            width="400" >
+            width="300" >
             <input id="element_{{ $page->element('section_1_image')->id }}" class="lfm-input" type="hidden" name="filepath" value="{!!  $page->element('section_1_image')->content  !!}">
 
           </div>
@@ -45,7 +45,7 @@
             data-preview="holder_{{$page->element('section_2_image')->id }}"
             src="{!! $page->element('section_2_image')->content !!}"
             alt="We Move Icon"
-            width="400" >
+            width="300" >
             <input id="element_{{$page->element('section_2_image')->id}}" class="lfm-input" type="hidden" name="filepath" value="{!! $page->element('section_2_image')->content !!}">
 
 
