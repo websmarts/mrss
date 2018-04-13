@@ -2218,6 +2218,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['product'],
@@ -4356,7 +4357,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.el-input-number {\r\n  max-width:120px;\n}\n.el-input-number__increase,\r\n.el-input-number__decrease {\r\n  position: absolute;\r\n  z-index: 1;\r\n  top: 1px;\r\n  width: 40px;\r\n  height: auto;\r\n  text-align: center;\r\n  background: #004040;\r\n  color: #fff;\r\n  font-weight: 800;\r\n  cursor: pointer;\r\n  font-size: 16px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.el-input-number {\r\n  max-width:120px;\n}\n.el-input-number__increase,\r\n.el-input-number__decrease {\r\n  position: absolute;\r\n  z-index: 1;\r\n  top: 1px;\r\n  width: 40px;\r\n  height: auto;\r\n  text-align: center;\r\n  background: #00629A;\r\n  color: #fff;\r\n  font-weight: 800;\r\n  cursor: pointer;\r\n  font-size: 16px;\n}\n.el-input-number__increase:hover, .el-input-number__decrease:hover {\r\n  color:#eee;\n}\r\n\r\n", ""]);
 
 // exports
 

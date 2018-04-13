@@ -102,11 +102,14 @@ export default {
   width: 40px;
   height: auto;
   text-align: center;
-  background: #004040;
+  background: #00629A;
   color: #fff;
   font-weight: 800;
   cursor: pointer;
   font-size: 16px;
+}
+.el-input-number__increase:hover, .el-input-number__decrease:hover {
+  color:#eee;
 }
 
 </style>
