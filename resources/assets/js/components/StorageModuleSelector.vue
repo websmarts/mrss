@@ -3,7 +3,7 @@
  
 
   <div class="list-item" >
-      <div class="control"><span  @click="expanded = !expanded" class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
+      <div class="control"  @click="expanded = !expanded" ><span class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
       <div class="body">
         <div class="body-top">
           <div class="thumb"><img :src="product.image_path" class="responsive"></div>

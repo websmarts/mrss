@@ -46633,18 +46633,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "list-item" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("span", {
-          staticClass: "glyphicon",
-          class: _vm.expandedClass,
-          attrs: { "aria-hidden": "true" },
+      _c(
+        "div",
+        {
+          staticClass: "control",
           on: {
             click: function($event) {
               _vm.expanded = !_vm.expanded
             }
           }
-        })
-      ]),
+        },
+        [
+          _c("span", {
+            staticClass: "glyphicon",
+            class: _vm.expandedClass,
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -46792,7 +46798,7 @@ var render = function() {
               { staticStyle: { display: "flex", "margin-top": "10px" } },
               [
                 _c("div", { staticStyle: { flex: "2" } }, [
-                  _vm._v("Return(at end of storage):"),
+                  _vm._v("Return (at end of storage):"),
                   _c("br"),
                   _vm._v("- " + _vm._s(_vm.returnSuburb))
                 ]),
@@ -47190,18 +47196,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "list-item" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("span", {
-          staticClass: "glyphicon",
-          class: _vm.expandedClass,
-          attrs: { "aria-hidden": "true" },
+      _c(
+        "div",
+        {
+          staticClass: "control",
           on: {
             click: function($event) {
               _vm.expanded = !_vm.expanded
             }
           }
-        })
-      ]),
+        },
+        [
+          _c("span", {
+            staticClass: "glyphicon",
+            class: _vm.expandedClass,
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -47305,18 +47317,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "list-item" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("span", {
-          staticClass: "glyphicon",
-          class: _vm.expandedClass,
-          attrs: { "aria-hidden": "true" },
+      _c(
+        "div",
+        {
+          staticClass: "control",
           on: {
             click: function($event) {
               _vm.expanded = !_vm.expanded
             }
           }
-        })
-      ]),
+        },
+        [
+          _c("span", {
+            staticClass: "glyphicon",
+            class: _vm.expandedClass,
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -47761,18 +47779,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "list-item" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("span", {
-          staticClass: "glyphicon",
-          class: _vm.expandedClass,
-          attrs: { "aria-hidden": "true" },
+      _c(
+        "div",
+        {
+          staticClass: "control",
           on: {
             click: function($event) {
               _vm.expanded = !_vm.expanded
             }
           }
-        })
-      ]),
+        },
+        [
+          _c("span", {
+            staticClass: "glyphicon",
+            class: _vm.expandedClass,
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
