@@ -57,6 +57,7 @@
 
 
     <!-- Placed at the end of the document so the pages load faster -->
+    
     <script src="{{ mix('js/main.js') }}"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -65,7 +66,7 @@
     <script>
       $(document).ready(function(){
            $("#myCarousel").carousel({
-               interval : false,
+               
            });
       });
     </script>

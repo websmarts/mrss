@@ -13,7 +13,7 @@
           <div style="flex:2">Delivery:<br />- {{ pickupSuburb }}</div><div style="flex:1">FREE</div>  
         </div>
         <div style="display:flex; margin-top:10px;">
-          <div style="flex:2">Return(at end of storage):<br />- {{ returnSuburb }}</div><div style="flex:1">${{ storageReturnFee  }} per module</div>  
+          <div style="flex:2">Return (at end of storage):<br />- {{ returnSuburb }}</div><div style="flex:1">${{ storageReturnFee  }} per module</div>  
         </div>
     </div>
 
