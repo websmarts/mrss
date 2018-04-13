@@ -4,18 +4,7 @@
     height: auto;
 }
 
-.my-list-item {
-	padding:0px; 
-	border-top:1px solid #999;
-	background: transparent
-}
 
-
-.my-list-item-expanded {
-	padding:20px; 
-	
-	
-}
 .price {
 	font-size: 110%;
 	font-weight: 900;
@@ -24,12 +13,13 @@
 .list-item {
 	display: flex;
 	margin-bottom: 6px;
-	border-top: 1px solid #333;
+	border-top: 1px solid #24A6E2;
 }
 
 .list-item .control {
 	flex: 0 0 30px;
-	background: #6d8f8f;
+	margin-right: 5px;
+	background: #24A6E2;
 	color: #fff;
 }
 
@@ -41,6 +31,7 @@
 .list-item .body-top {
 	flex:1;
 	display: flex;
+	margin-top: 5px;
 }
 
 .list-item .body-bottom {
@@ -50,6 +41,7 @@
 .list-item .thumb {
 	
 	flex: 0 0 75px;
+	margin-right: 5px;
 }
 .list-item .description {
 	
@@ -61,5 +53,11 @@
 	flex: 0 0 120px;
 }
 
-  
+.item-image-large {
+	max-width: 80%;
+}
+
+.item-heading {
+	font-size: 150%;
+}
 

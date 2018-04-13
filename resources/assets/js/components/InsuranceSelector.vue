@@ -18,8 +18,9 @@
 
 
             <div style="display: flex;">
-              <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
+              
               <div style="flex:1" v-html="product.options[0].description"></div>
+              <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
             </div>
             <div v-html="product.notes"></div>
 
@@ -30,6 +31,7 @@
   </div><!-- end list-item -->
 
 </div>
+
 </template>
 
 <script>
