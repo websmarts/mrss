@@ -11,19 +11,19 @@
             <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
         <!-- Wrapper for carousel items -->
+        
         <div class="carousel-inner">
-            <div class="item active">
-                <img src="{{ asset('images/slides/slide1.png')}}" alt="First Slide">
+        @foreach($slides as $slide)
+       
+        
+        
+            <div class="item{{ $loop->first ? ' active': '' }}">
+                <img src="{{ asset('images/slides')}}/{{ $slide->getFilename()}}?{{$slide->getMTime()}}" alt="Slide_{{$loop->index}}">
 
             </div>
-            <div class="item">
-                <img src="{{ asset('images/slides/slide2.png')}}" alt="Second Slide">
 
-            </div>
-            <div class="item">
-                <img src="{{asset('images/slides/slide3.png')}}" alt="Third Slide">
-
-            </div>
+        @endforeach
+            
         </div>
         <!-- Carousel controls -->
         <!-- <a class="carousel-control left" href="#myCarousel" data-slide="prev">
