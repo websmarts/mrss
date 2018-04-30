@@ -44,7 +44,7 @@ class ReceiveEnquiryController extends Controller
     {
         //$to = "iwmaclagan@gmail.com";
 
-        $to ="john@mrselfstorage.com.au"; 
+        $to = env('MAIL_ENQUIRIES_TO', "john@mrselfstorage.com.au");
 
         // $locations = Location::all();
 
