@@ -5,21 +5,14 @@
     <div class="myCarousel-container">
     <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
         <!-- Carousel indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
+        
         <!-- Wrapper for carousel items -->
         
         <div class="carousel-inner">
         @foreach($slides as $slide)
        
-        
-        
             <div class="item{{ $loop->first ? ' active': '' }}">
                 <img src="{{ asset('images/slides')}}/{{ $slide->getFilename()}}?{{$slide->getMTime()}}" alt="Slide_{{$loop->index}}">
-
             </div>
 
         @endforeach

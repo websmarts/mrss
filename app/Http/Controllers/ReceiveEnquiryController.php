@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-use App\Location;
 
 
 
@@ -42,9 +42,9 @@ class ReceiveEnquiryController extends Controller
     }
     private function emailEnquiry($request)
     {
-        $to = "iwmaclagan@gmail.com";
+        //$to = "iwmaclagan@gmail.com";
 
-        // $to ="john@mrselfstorage.com.au"; 
+        $to ="john@mrselfstorage.com.au"; 
 
         // $locations = Location::all();
 
@@ -55,6 +55,38 @@ class ReceiveEnquiryController extends Controller
 
         // $data['locations'] = Location::all();
         // dd($request->all());
-        Mail::to($to)->send(new \App\Mail\NewEnquiry($request->all()));
+        $data=[];
+
+
+        // Prepart $request->cart
+        $cartFields = [
+            'description',
+            'qty_ordered',
+            'price',
+            'ext_price'
+        ];
+
+        $products = [];
+        foreach($request->cart['products'] as $p){
+            foreach($p as $key => $val){
+                if(in_array($key,$cartFields)){
+                    $products[$p['id']][$key] = $val;
+                }       
+            }
+        }
+
+        $data['contact_data'] = $request->contact_data;
+        $data['pickup_location'] = Location::find($request->cart['pickupLocation']);
+        $data['return_location'] = Location::find($request->cart['returnLocation']);
+        $data['products'] = $products;
+        $data['costs'] = $request->cost;
+        $data['premiums'] = $request->premiums;
+        $data['service'] = $request->service;
+        $data['removal'] = $request->removal_fee;
+        $data['prepayment_interest'] = $request->prepayment_interest;
+
+        //dd($data);
+
+        Mail::to($to)->send(new \App\Mail\NewEnquiry($data));
     }
 }

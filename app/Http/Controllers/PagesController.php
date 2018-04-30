@@ -16,7 +16,7 @@ class PagesController extends Controller
         // Slider images
         $dir = public_path('/images/slides');
         $slides = File::files($dir);
-        //dd($slides);
+        
 
         return view("pages.{$pagename}", ['page' => $page,'slides'=>$slides]);
 

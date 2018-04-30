@@ -18,4 +18,7 @@
 	<p>Chunks</p>
 	<a href="{{ route('admin.chunks') }}">Chunks</a>
 
+	<p>File Manager</p>
+	<a href="{{ route('admin.filemanager') }}">Files</a>
+
 </div>

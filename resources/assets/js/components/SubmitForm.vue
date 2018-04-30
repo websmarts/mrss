@@ -227,6 +227,8 @@ export default {
           // console.log(response.data);
           alert('Your details have been submitted')
 
+          window.location = '/home' // for now!
+
           //this.hide()
           //return response.data;
         })

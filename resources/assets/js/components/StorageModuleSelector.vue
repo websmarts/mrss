@@ -3,7 +3,7 @@
  
 
   <div class="list-item" >
-      <div class="control"  @click="expanded = !expanded" ><span class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
+      <div class="control" ><span class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
       <div class="body">
         <div class="body-top">
           <div class="thumb"><img :src="product.image_path" class="responsive"></div>
@@ -41,7 +41,7 @@ export default {
   props: ['product'],
   data() {
     return {
-      expanded: false,
+      expanded: true,// always expanded
 
     }
   },
@@ -52,16 +52,16 @@ export default {
     },
   
     expandedClass() {
-      if(this.expanded){
-        return {
-            'glyphicon glyphicon-menu-down': true,
-            'glyphicon glyphicon-menu-right': false
-          }
-      }
-      return {
-            'glyphicon glyphicon-menu-down': false,
-            'glyphicon glyphicon-menu-right': true
-          }
+      // if(this.expanded){
+      //   return {
+      //       'glyphicon glyphicon-menu-down': true,
+      //       'glyphicon glyphicon-menu-right': false
+      //     }
+      // }
+      // return {
+      //       'glyphicon glyphicon-menu-down': false,
+      //       'glyphicon glyphicon-menu-right': true
+      //     }
     },
   },
   methods: {

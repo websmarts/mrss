@@ -58,6 +58,8 @@ Route::name('admin')->prefix('admin')->group(function () {
 
     Route::get('chunks', 'AdminChunksController@index')->name('.chunks');
     Route::post('chunks', 'AdminChunksController@update')->name('.update.chunks');
+
+    Route::get('filemanager','AdminFileManagerController@index')->name('.filemanager');
 });
 
 Route::get('standalone', function () {

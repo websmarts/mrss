@@ -7,6 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+
 class NewEnquiry extends Mailable
 {
     use Queueable, SerializesModels;
@@ -20,7 +21,7 @@ class NewEnquiry extends Mailable
      */
     public function __construct($enquiry)
     {
-        
+
         $this->enquiry = $enquiry;
     }
 
@@ -31,8 +32,7 @@ class NewEnquiry extends Mailable
      */
     public function build()
     {
-        return $this->from('ian@tester.com')
-        ->subject('New enquiry')
+        return $this->subject('New enquiry')
         ->view('emails.new_enquiry');
     }
 }

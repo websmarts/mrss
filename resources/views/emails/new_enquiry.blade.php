@@ -5,68 +5,66 @@
 </head>
 <body>
 
-<h1>New Enquiry Received</h1>
+<h1>New ({{ $enquiry['service'] }}) enquiry </h1>
 
 
-<p>CONTACT DATA</p>
+<p style="font-weight: bold; font-size:14pt">Contact details</p>
 <table>
-    @php
-    foreach($enquiry['contact_data'] as $k =>$v){
-        echo '<tr><td>'.$k.'</td><td>'.$v.'</td></tr>';
-    }
-    @endphp
+   <tr><td>Firstname:</td><td>{{ $enquiry['contact_data']['firstname']}}</td></tr>
+   <tr><td>Lastname:</td><td>{{ $enquiry['contact_data']['lastname']}}</td></tr>
+   <tr><td>Address:</td><td>{{ $enquiry['contact_data']['address']}}</td></tr>
+   <tr><td>Suburb:</td><td>{{ $enquiry['contact_data']['suburb']}}</td></tr>
+   <tr><td>Postcode:</td><td>{{ $enquiry['contact_data']['postcode']}}</td></tr>
+   <tr><td>State:</td><td>{{ $enquiry['contact_data']['state']}}</td></tr>
+   <tr><td>Email:</td><td>{{ $enquiry['contact_data']['email']}}</td></tr>
+   <tr><td>Phone:</td><td>{{ $enquiry['contact_data']['phone']}}</td></tr>
 </table>
 
-<p>CART DATA</p>
-<table>      
-@php
-foreach($enquiry['cart'] as $k =>$v){
-    if(is_array($v) && count($v) > 0){
-        echo '<tr><td>Products</td><td></td></tr>';
-        foreach($v as $pk =>$pf){
-            if(is_array($pf) && count($pf) >0 ){
-                foreach($pf as $kk=>$vv)
-                echo '<tr><td>'.$kk.'</td><td>'.$vv.'</td></tr>';
-            }
-            
-        }
-    } elseif (! is_array($v)) {
-        echo '<tr><td>'.$k.'</td><td>'.$v.'</td></tr>';
-    }
-    
-}
-@endphp
-</table>
-
-
-<p>COSTS DATA</p>
 <table>
-@php
-foreach($enquiry['cost'] as $k =>$v){
-    echo '<tr><td>'.$k.'</td><td>'.$v.'</td></tr>';
-}
-@endphp
+    <tr><td>How did you hear about us:</td><td>{{ $enquiry['contact_data']['howhear']}}</td></tr>
+    <tr><td>Interest in PrePaying:</td><td>{{ $enquiry['prepayment_interest'] > 0 ? 'Yes' : 'No' }}</td></tr>
+</table>
+
+<p style="font-weight: bold; font-size:14pt">Products</p>
+<table width="600"> 
+    <tr>
+        <th width="40">Qty</th>
+        <th>Description</th>
+        <th width="90" align="left">Price</th>
+        <th width="90" align="left">Ext price ($)</th>
+    </tr>     
+@foreach($enquiry['products'] as $p)  
+        <tr>
+            <td>{{ $p['qty_ordered'] }}</td>
+            <td>{{ $p['description'] }}</td>
+            <td>{{ $p['price'] }}</td>
+            <td>{{ $p['ext_price'] }}</td>
+        </tr> 
+@endforeach
 </table>
 
 
-<p>PREMIUMS DATA</p>
+<p style="font-weight: bold; font-size:14pt">Costs summary</p>
 <table>
-@php
-foreach($enquiry['premiums'] as $k =>$v){
-    echo '<tr><td>'.$k.'</td><td>'.$v.'</td></tr>';
-}
-@endphp
+    <tr><td>Weekly($):</td><td>{{ $enquiry['costs']['weekly']}}</td></tr>
+    <tr><td>Fixed($):</td><td>{{ $enquiry['costs']['fixed']}}</td></tr>
 </table>
 
-<p>MISC DATA</p>
+
+<p style="font-weight: bold; font-size:14pt">Service locations and premiums</p>
 <table>
-    <tr><td>Service:</td><td>{{ $enquiry['service'] }}</td></tr>
-    <tr><td>Removal fee:</td><td>{{ $enquiry['removal_fee'] }}</td></tr>
-    <tr><td>Interest in PrePaying:</td><td>{{ $enquiry['prepayment_interest'] }}</td></tr>
+        <tr><td>Pickup location:</td><td>{{ $enquiry['pickup_location']->suburb }} </td></tr>
+        <tr><td>Return location:</td><td>{{ $enquiry['return_location']->suburb }} </td></tr>
+        <tr><td>Pickup($):</td><td>{{ $enquiry['premiums']['pickup']}}</td></tr>
+        <tr><td>Return($):</td><td>{{ $enquiry['premiums']['return']}}</td></tr>
 </table>
 
-
+@if($enquiry['service'] =='removal')
+<p style="font-weight: bold; font-size:14pt">Removal extras</p>
+<table>   
+    <tr><td>DIY Removal fee($):</td><td>{{ $enquiry['removal_fee'] }}</td></tr> 
+</table>
+@endif
 
 </body>
 </html>
-
