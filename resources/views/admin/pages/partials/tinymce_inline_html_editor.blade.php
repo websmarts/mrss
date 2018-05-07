@@ -1,5 +1,6 @@
 <!-- TinyMCE full HTML Inline Editor -->
 <script>
+  
   $(document).ready(function(){
     var editor_config = {
       inline: true,
@@ -8,6 +9,7 @@
       elementpath: false,
       forced_root_block : 'p',
       style_formats: [
+      {title: 'Bold text', inline: 'b'},
 	    {title: 'Table striped', selector: 'table',classes: 'table table-striped'}
 	  ],
 	  style_formats_merge: false,

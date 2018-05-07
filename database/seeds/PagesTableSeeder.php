@@ -20,6 +20,9 @@ class PagesTableSeeder extends Seeder
                 ['name' => 'section_2_blurb', 'content' => 'Save $1000s in removal fees!<br /> *Loading assistance also available', 'editor' => 'html'],
                 ['name' => 'section_1_image', 'content' => 'content', 'editor' => 'image'],
                 ['name' => 'section_2_image', 'content' => 'content', 'editor' => 'image'],
+                ['name' => 'section_3_heading', 'content' => 'Bigger Modules Better Value', 'editor' => 'text'],
+                ['name' => 'section_3_blurb', 'content' => 'You may notice that our storage Modules bigger', 'editor' => 'text'],
+                ['name' => 'section_3_image', 'content' => 'content', 'editor' => 'image'],
             ],
 
             'modules' => [

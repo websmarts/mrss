@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Page;
 use App\PageElement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AdminPagesController extends Controller
 {
@@ -16,7 +17,11 @@ class AdminPagesController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.pages.' . $pagename, ['page' => $page]);
+        // Slider images
+        $dir = public_path('/images/slides');
+        $slides = File::files($dir);
+
+        return view('admin.pages.' . $pagename, ['page' => $page,'slides'=>$slides]);
     }
 
     public function update(Request $request)
