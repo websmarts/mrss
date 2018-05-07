@@ -22,11 +22,11 @@ Route::get('modules', function () {
 Route::get('home', 'PagesController@index');
 Route::get('storage', 'PagesController@index')->name('storage');
 Route::get('removal', 'PagesController@index')->name('removal');
-Route::get('modules', 'PagesController@index');
-Route::get('contact', 'PagesController@index');
-Route::get('faqs', 'PagesController@index');
-Route::get('privacy', 'PagesController@index');
-Route::get('terms', 'PagesController@index');
+Route::get('modules', 'PagesController@index')->name('modules');
+Route::get('contact', 'PagesController@index')->name('contact');
+Route::get('faqs', 'PagesController@index')->name('faqs');
+Route::get('privacy', 'PagesController@index')->name('privacy');
+Route::get('terms', 'PagesController@index')->name('terms');
 
 Route::get('cart', 'CartController@index')->name('cart');
 
