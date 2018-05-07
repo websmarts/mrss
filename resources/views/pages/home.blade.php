@@ -20,7 +20,7 @@
       </div><!-- /.row -->
 
 
-<hr style="width:200px; border-top: 2px dotted #888;margin-top:50px;">
+      <div style="width:200px; border-top: 2px dotted #888;margin: auto; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2>{!! $page->element('section_2_heading')->content !!}</h2>
@@ -33,7 +33,7 @@
         </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 
-<hr style="width:200px; border-top: 2px dotted #888;margin-top:50px;">
+      <div style="width:200px; border-top: 2px dotted #888;margin: auto; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2>{!! $page->element('section_3_heading')->content !!}</h2>

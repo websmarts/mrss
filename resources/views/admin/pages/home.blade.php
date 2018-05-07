@@ -32,7 +32,7 @@
       </div><!-- /.row -->
 
 
-<hr style="width:200px; border-top: 2px dotted #888;margin-top:50px;">
+<div style="width:200px; border-top: 2px dotted #888;margin: auto; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2 name="element_{{ $page->element('section_2_heading')->id }}" class="text_editor editable" >{!! $page->element('section_2_heading')->content !!}</h2>
@@ -45,9 +45,9 @@
             data-preview="holder_{{$page->element('section_2_image')->id }}"
             src="{!! $page->element('section_2_image')->content !!}"
             alt="We Move Icon"
-            width="300" >
+            width="300" />
             <input id="element_{{$page->element('section_2_image')->id}}" class="lfm-input" type="hidden" name="filepath" value="{!! $page->element('section_2_image')->content !!}">
-
+          </div>
 
           <div  name="element_{{ $page->element('section_2_blurb')->id }}"  class="louder html_editor editable">{!! $page->element('section_2_blurb')->content !!}</div>
 
@@ -56,7 +56,7 @@
         </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 
-      <hr style="width:200px; border-top: 2px dotted #888;margin-top:50px;">
+<div style="width:200px; border-top: 2px dotted #888;margin: auto ; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2 name="element_{{ $page->element('section_3_heading')->id }}" class="text_editor editable" >{!! $page->element('section_3_heading')->content !!}</h2>
@@ -71,12 +71,12 @@
             alt="More Storage"
             width="300" >
             <input id="element_{{$page->element('section_3_image')->id}}" class="lfm-input" type="hidden" name="filepath" value="{!! $page->element('section_3_image')->content !!}">
-
+          </div>
 
           <div  name="element_{{ $page->element('section_3_blurb')->id }}"  class="louder html_editor editable">{!! $page->element('section_3_blurb')->content !!}</div>
 
-          <a href="{{ route('removal') }}" class="btn btn-default btn-lg" style="margin-top:15px" >How It Works</a>
-          <a href="{{ route('cart') }}" class="btn btn-primary btn-lg" style="margin-top:15px" >Price / Book Now &nbsp;&nbsp;<i class="fas fa-mouse-pointer"></i></a>
+          <a href="{{ route('modules') }}" class="btn btn-default btn-lg" style="margin-top:15px" >Module Specs You Need to Know</a>
+          
         </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 
