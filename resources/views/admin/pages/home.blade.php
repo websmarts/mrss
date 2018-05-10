@@ -73,7 +73,7 @@
             data-preview="holder_{{$page->element('section_3_image')->id }}"
             src="{!! $page->element('section_3_image')->content !!}"
             alt="More Storage"
-            width="300" >
+            width="100%" >
             <input id="element_{{$page->element('section_3_image')->id}}" class="lfm-input" type="hidden" name="filepath" value="{!! $page->element('section_3_image')->content !!}">
           </div>
 
