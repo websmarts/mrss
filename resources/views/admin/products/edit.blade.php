@@ -65,7 +65,7 @@
 			<div class="col-sm-9">
 				<input class="form-control" name="display_order" value="{{$product->display_order}}"/>
 			</div>
-			</fieldset>
+	</fieldset>
 
 			@foreach($product->options as $opt)
 			<fieldset style="margin-bottom:10px; padding-bottom: 10px; border-bottom: 1px dashed #888">
@@ -91,7 +91,7 @@
 				<p>Add a product option</p>
 				<label for="qty" class="col-sm-3 control-label">Quantity</label>
 				<div class="col-sm-9">
-					<input class="form-control" name="options[0][qty]" value="" "/>
+					<input class="form-control" name="options[0][qty]" value="" />
 				</div>
 
 				<label for="price" class="col-sm-3 control-label">Price ($)</label>
@@ -108,8 +108,13 @@
 
 
 
-			<div style="text-align: right;"><button href="#" class="btn btn-primary" style="margin-top:15px;">Save</button></div>
+			<div style="text-align: right;"><button type="submit" class="btn btn-primary" style="margin-top:15px;">Save</button></div>
+			
+			
+			
 </div>
+
+</form>
 @endsection
 
 @section('scripts')
