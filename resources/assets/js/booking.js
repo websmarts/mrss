@@ -42,8 +42,33 @@ const router = new VueRouter({
   routes // short for `routes: routes`
 })
 
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.slice(1)
+})
 
+Vue.filter('truncate', function (str, len) {
+  if(str.length > len){
+    return str.substring(0,len) + '...'
+  }
+  return str
+})
+
+
+
+
+// Dev settings
 Vue.config.productionTip = true
+Vue.config.devtools = true
+Vue.config.debug = true
+Vue.config.silent = false
+
+// production settings
+// Vue.config.productionTip = false
+// Vue.config.devtools = false
+// Vue.config.debug = false
+// Vue.config.silent = true
 
 /* eslint-disable no-new */
 new Vue({

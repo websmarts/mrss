@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cartage;
 use App\Location;
 use App\Product;
+use App\Chunk;
 
 class CartController extends Controller
 {
@@ -21,9 +22,14 @@ class CartController extends Controller
         $cartageOptions = Cartage::all();
         $cartage = json_encode($cartageOptions->groupBy('cartage_type')->sortBy('module_count')->toArray());
 
+        // Hear about dropdown options
+        $howHearOptionsData = Chunk::where('name','how_hear_options')->select('content')->get();
+        $howhearoptions = explode('|',$howHearOptionsData[0]['content']);
+
+
         //return response()->json($products->toArray());
 
         //dd($products);
-        return view("cart", compact("products", "locations", "cartage"));
+        return view("cart", compact("products", "locations", "cartage",'howhearoptions'));
     }
 }

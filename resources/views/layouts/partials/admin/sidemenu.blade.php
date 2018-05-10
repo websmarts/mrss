@@ -13,6 +13,10 @@
 	<a href="{{ route('admin.pages',['page'=>'contact']) }}">Contact</a>
 	<a href="{{ route('admin.pages',['page'=>'privacy']) }}">Privacy</a>
 	<a href="{{ route('admin.pages',['page'=>'terms']) }}">Terms</a>
+	<a href="{{ route('admin.pages',['page'=>'message_us']) }}">Message Us</a>
+	<a href="{{ route('admin.pages',['page'=>'access_your_storage']) }}">Access Your Storage</a>
+	<a href="{{ route('admin.pages',['page'=>'book_storage_return']) }}">Book Storage Return</a>
+	<a href="{{ route('admin.pages',['page'=>'thankyou']) }}">Thankyou</a>
 
 
 	<p>Chunks</p>

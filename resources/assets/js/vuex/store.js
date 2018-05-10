@@ -119,7 +119,7 @@ export default new Vuex.Store({
 				
 
 				 if (premium.pickup > -1 && premium.return > -1){ // -1 indicates user entered UNKNOWN for a location
-				   return cartage.cost_per_module  + (premium.pickup + premium.return)
+				   return (cartage.cost_per_module  + (premium.pickup + premium.return)) * product[0].qty
 				 } else {
 				   return 'POA'
 				 }

@@ -20,12 +20,12 @@ class ReceiveEnquiryController extends Controller
             'lastname' => 'required',
             'address' => 'required',
             'suburb' => 'required',
-            'postcode' => 'required',
-            'state' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            'postcode' => 'nullable|digits_between:3,4',
+            'state' => 'nullable',
+            'email' => 'required|email',
+            'phone' => 'required| min:8 |max:14',
             'howhear' => 'required',
-            'module_delivery_date' => 'required',
+            'module_delivery_date' => 'required|date|after:now',
             'comments' => '',
         ]);
 

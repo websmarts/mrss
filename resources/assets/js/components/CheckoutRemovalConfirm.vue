@@ -19,7 +19,7 @@
       </tr> 
       
       <tr v-for="product in extraProducts" :key="product.id">
-        <td> {{ product.name }} {{ product.description }}  X {{ product.qty_ordered }}</td>
+        <td> {{ product.name + ', '+ product.options[0].description | truncate(40) }}  X {{ product.qty_ordered }}</td>
        <td width="100" class="price">${{ product.ext_price.toFixed(2) }}</td>
       </tr>
   </template>
@@ -48,7 +48,14 @@ export default {
      return this.$store.getters.getCost;
     },
     extraProducts() {
-        return this.$store.getters.getCartProducts('extra')
+        let products =  this.$store.getters.getCartProducts('extra')
+        
+        products.forEach(function(product){
+          let P = _.filter(PRODUCTS,{id: product.product_id})
+          product.options = P[0].options
+			})
+        
+      return products
     },
     service() {
       return this.$store.state.service

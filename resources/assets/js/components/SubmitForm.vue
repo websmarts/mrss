@@ -56,10 +56,10 @@
           <el-option
             
             v-for="item in howhearOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-            :disabled="item.disabled">
+            :key="item"
+            :label="item"
+            :value="item"
+            >
           </el-option>
       </el-select>
       <div v-if="form.errors.has('module_delivery_date')">
@@ -71,9 +71,10 @@
     <div class="col-sm-4" >Preferred Module delivey date:</div>
      <div class="col-sm-7">
       <el-date-picker
-        @change="form.errors.clear('module_delivery_date')"
+        @change="deliveryDateChange" 
         name="module_delivery_date" 
         v-model="form.inputs.module_delivery_date"
+        minDate="new Date()"
         type="date"
         placeholder="Pick a day">
       </el-date-picker>
@@ -111,6 +112,12 @@ class Errors {
     
   }
 
+  setMessage(field,message){
+    
+      this.errors[field] = [message]
+    
+  }
+
   get(field) {
     if (this.errors.hasOwnProperty(field)) {
       return this.errors[field][0];
@@ -126,7 +133,7 @@ class Errors {
   }
 
   clear(field) {
-    console.log('Clearing field:',field)
+   // console.log('Clearing field:',field)
     if(field && this.errors.hasOwnProperty(field)){
       delete(this.errors[field])
       this.errors = Object.assign({},this.errors)
@@ -190,10 +197,7 @@ export default {
   data() {
     return {
       form: new Form(formFields),
-      howhearOptions: [
-        { label: "Google or internet search", value: "google" },
-        { label: "Social media", value: "social" }
-      ]
+      howhearOptions: HOWHEAROPTIONS
     };
   },
   methods: {
@@ -201,6 +205,23 @@ export default {
       this.form.cancel();
       this.$emit("cancel");
     },
+    deliveryDateChange(date)
+    {
+      //console.log('DELIVERY DATE CHANGE',date)
+      // if(date is in past then update to today)
+      this.form.errors.clear('module_delivery_date')
+
+      let now = new Date()
+      if(date < now ){
+        //alert('invalid date selected - delivery date must be in the future')
+        this.form.errors.setMessage('module_delivery_date','Delivery date must be in the future')
+        //alert('I repeat - invalid date selected - delivery date must be in the future')
+        this.form.inputs.module_delivery_date = now
+      }
+      
+      
+    },
+    
     submit() {
       // Save the data
 

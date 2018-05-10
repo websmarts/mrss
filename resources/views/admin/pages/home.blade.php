@@ -2,10 +2,14 @@
 
 @include('admin.pages.partials.menubar')
 
+@section('slides')
+@include('layouts.partials.carousel')
+@endsection
+
 @section('content')
 
 
-@include('layouts.partials.carousel')
+
 
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
@@ -32,7 +36,7 @@
       </div><!-- /.row -->
 
 
-<div style="width:200px; border-top: 2px dotted #888;margin: auto; margin-top:50px;"></div>
+    <div class="greyline" style="width:80%;margin: auto ; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2 name="element_{{ $page->element('section_2_heading')->id }}" class="text_editor editable" >{!! $page->element('section_2_heading')->content !!}</h2>
@@ -56,7 +60,7 @@
         </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 
-<div style="width:200px; border-top: 2px dotted #888;margin: auto ; margin-top:50px;"></div>
+    <div  class="greyline" style="width:80%; margin: auto; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2 name="element_{{ $page->element('section_3_heading')->id }}" class="text_editor editable" >{!! $page->element('section_3_heading')->content !!}</h2>
@@ -79,6 +83,23 @@
           
         </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
+
+     
+
+     
+      <div style="text-align:center;margin-top: 50px">
+        <img
+        class="lfm editable"
+        id="holder_{{ $page->element('section_4_image')->id }}"
+        data-input="element_{{$page->element('section_4_image')->id }}"
+        data-preview="holder_{{$page->element('section_4_image')->id }}"
+        src="{!! $page->element('section_4_image')->content !!}"
+        alt="Why people choose us"
+        width="100%" >
+        <input id="element_{{$page->element('section_4_image')->id}}" class="lfm-input" type="hidden" name="filepath" value="{!! $page->element('section_4_image')->content !!}">
+      </div>
+
+
 
 
 

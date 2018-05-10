@@ -2,6 +2,21 @@
   border-radius: 18px;
 }
 
+div.contact_button_container {
+  text-align: center;
+}
+
+div#contact_buttons {
+  margin: auto;
+  width: 80%;
+  max-width: 400px;
+}
+
+div#contact_buttons .btn {
+  width: 100%;
+  margin: auto;
+}
+
 .responsive {
   width: 100%;
   height: auto;
@@ -93,6 +108,45 @@
   border-bottom: 1px solid #555;
 }
 
+#testimonials p.heading {
+  font-size: 200%;
+  font-weight: bold;
+  padding: 15px;
+}
+
+#testimonials p.message {
+  font-family: times;
+  font-size: 120%;
+  font-weight: normal;
+  padding: 15px;
+}
+
+#testimonials p.who {
+  font-size: 100%;
+  font-family: times;
+  font-style: italic;
+  font-weight: 500;
+  padding: 20px 0 30px;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media screen and (max-width: 680px) {
+  .flex {
+    display: block;
+  }
+}
+
+.flex1 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
@@ -109,7 +163,16 @@ h6,
 .h4,
 .h5,
 .h6 {
-  color: #00629a;
+  color: #333;
+}
+
+.greyline {
+  min-height: 2px;
+  height: 4px;
+  border-radius: 7px;
+  background-color: #c7c7c7;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(0, 0, 0, 0.25);
+          box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .editable {
@@ -162,8 +225,6 @@ footer {
   margin-top: 26px;
   padding: 10px;
   text-align: center;
-  border-top: 3px solid #3a5f95;
-  border-bottom: 3px solid #3a5f95;
 }
 
 #booking-page {

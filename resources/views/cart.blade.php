@@ -15,6 +15,7 @@
 let LOCATIONS = JSON.parse(@json($locations));
 let PRODUCTS = JSON.parse(@json($products));
 let CARTAGE = JSON.parse(@json($cartage));
+let HOWHEAROPTIONS = @json($howhearoptions);
 </script>
 
 <script src="{{ mix('js/booking.js') }}"></script>

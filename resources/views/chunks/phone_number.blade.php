@@ -1,1 +1,1 @@
-1 800 123 456
+{{chunk('phone_number',$chunks)}}

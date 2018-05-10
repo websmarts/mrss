@@ -35,7 +35,7 @@
 
   <body>
 
-      <div class="container" style="min-width: 320px; max-width: 780px; background: #fff;">
+      <div  style="margin-left: auto; margin-right: auto ;min-width: 320px; max-width: 750px; background: #fff;">
 
         @yield('admin_menubar')
 
@@ -43,10 +43,15 @@
         @include('layouts.partials.masthead')
 
         @include('layouts.partials.navbar')
+
+        
+        
         <div id="content-wrapper">
             <a name="top"></a>
             @yield('content')
         </div>
+
+    
 
         <footer style="margin-top: 50px">
         @include('layouts.partials.footer')
@@ -66,8 +71,13 @@
     <script>
       $(document).ready(function(){
            $("#myCarousel").carousel({
-               
+               interval:4010
            });
+
+           $("#testimonials").carousel({
+              interval: 3000
+               
+              });
       });
     </script>
 

@@ -19,7 +19,7 @@ Route::get('modules', function () {
     return view("pages.modules");
 });
 
-Route::get('home', 'PagesController@index');
+Route::get('home', 'PagesController@index')->name('home');
 Route::get('storage', 'PagesController@index')->name('storage');
 Route::get('removal', 'PagesController@index')->name('removal');
 Route::get('modules', 'PagesController@index')->name('modules');
@@ -27,6 +27,11 @@ Route::get('contact', 'PagesController@index')->name('contact');
 Route::get('faqs', 'PagesController@index')->name('faqs');
 Route::get('privacy', 'PagesController@index')->name('privacy');
 Route::get('terms', 'PagesController@index')->name('terms');
+
+Route::get('message_us', 'PagesController@index')->name('message_us');
+Route::get('access_your_storage', 'PagesController@index')->name('access_your_storage');
+Route::get('book_storage_return', 'PagesController@index')->name('book_storage_return');
+Route::get('thankyou', 'PagesController@index')->name('thankyou');
 
 Route::get('cart', 'CartController@index')->name('cart');
 

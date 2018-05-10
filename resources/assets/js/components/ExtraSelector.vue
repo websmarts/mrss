@@ -8,9 +8,9 @@
     <div class="control" @click="expanded = !expanded"><span   class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
     <div class="body">
       <div class="body-top">
-        <div class="thumb"><img :src="product.image_path" class="responsive"></div>
+        <div class="thumb" v-if="!expanded"><img :src="product.image_path" class="responsive"></div>
 
-          <div class="description">
+          <div class="description" >
             {{ product.name }}<br />
             {{ product.options[0].description }}<br />
           </div>
@@ -30,10 +30,10 @@
 
           <div style="display: flex;">
             
-            <div style="flex:1" v-html="product.options[0].description"></div>
+            <div style="flex:1; margin-right:8px" v-html="product.notes"></div>
             <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
           </div>
-          <div v-html="product.notes"></div>
+         
 
         </div>
       </el-collapse-transition>
@@ -82,6 +82,7 @@ export default {
 
       var option = _.clone(this.product.options[0])
       option.qty_ordered = qty
+      option.name = this.product.name
       this.$store.dispatch('updateCartProducts', option)
     },
   }
@@ -110,6 +111,10 @@ export default {
 }
 .el-input-number__increase:hover, .el-input-number__decrease:hover {
   color:#eee;
+}
+
+.my-list-item-expanded {
+  padding-top:1em;
 }
 
 </style>

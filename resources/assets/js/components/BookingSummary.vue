@@ -4,17 +4,11 @@
   <div style="display: flex">
     <div style="flex: 3" v-if="this.$store.state.service =='storage'">
         <div style="display:flex" >
-          <div style="flex:2">Weekly fee</div><div style="flex:1">${{ costs.weekly.toFixed(2) }} pw</div>  
+          <div style="flex:2">Weekly fee</div><div style="flex:1">${{ costs.weekly.toFixed(2) }} </div>  
         </div>
          <div style="display:flex; margin-top:10px;">
         <div style="flex:2">Packing supplies &amp; extras</div><div style="flex:1">${{ costs.fixed.toFixed(2) }}</div>
       </div>
-        <div style="display:flex;margin-top:10px" >
-          <div style="flex:2">Delivery:<br />- {{ pickupSuburb }}</div><div style="flex:1">FREE</div>  
-        </div>
-        <div style="display:flex; margin-top:10px;">
-          <div style="flex:2">Return (at end of storage):<br />- {{ returnSuburb }}</div><div style="flex:1">${{ storageReturnFee  }}<br />per module</div>  
-        </div>
     </div>
 
     <div style="flex: 3" v-if="this.$store.state.service =='removal'">

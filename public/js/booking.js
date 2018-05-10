@@ -1781,12 +1781,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -1924,7 +1918,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.getters.getCost;
     },
     extraProducts: function extraProducts() {
-      return this.$store.getters.getCartProducts('extra');
+      var products = this.$store.getters.getCartProducts('extra');
+
+      products.forEach(function (product) {
+        var P = _.filter(PRODUCTS, { id: product.product_id });
+        product.options = P[0].options;
+      });
+
+      return products;
     },
     service: function service() {
       return this.$store.state.service;
@@ -2038,7 +2039,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       return this.$store.getters.getCost;
     },
     extraProducts: function extraProducts() {
-      return this.$store.getters.getCartProducts('extra');
+      var products = this.$store.getters.getCartProducts('extra');
+
+      products.forEach(function (product) {
+        var P = _.filter(PRODUCTS, { id: product.product_id });
+        product.options = P[0].options;
+      });
+
+      return products;
     },
     locationPremium: function locationPremium() {
       return this.$store.getters.getLocationPremium;
@@ -2183,6 +2191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var option = _.clone(this.product.options[0]);
       option.qty_ordered = qty;
+      option.name = this.product.name;
       this.$store.dispatch('updateCartProducts', option);
     }
   }
@@ -2230,13 +2239,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['product'],
   data: function data() {
     return {
-      expanded: false
+      expanded: true
 
     };
   },
@@ -2246,16 +2254,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.getters.getCartProductQuantity(this.product.id);
     },
     expandedClass: function expandedClass() {
-      if (this.expanded) {
-        return {
-          'glyphicon glyphicon-menu-down': true,
-          'glyphicon glyphicon-menu-right': false
-        };
-      }
-      return {
-        'glyphicon glyphicon-menu-down': false,
-        'glyphicon glyphicon-menu-right': true
-      };
+      // if(this.expanded){
+      //   return {
+      //       'glyphicon glyphicon-menu-down': true,
+      //       'glyphicon glyphicon-menu-right': false
+      //     }
+      // }
+      // return {
+      //       'glyphicon glyphicon-menu-down': false,
+      //       'glyphicon glyphicon-menu-right': true
+      //     }
     }
   },
   methods: {
@@ -2266,6 +2274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (qty > 0) {
         selectedOption = _.find(this.product.options, ['qty', qty]);
         selectedOption.qty_ordered = 1;
+        selectedOption.name = this.product.name;
       } else {
         selectedOption = { product_id: this.product.id, qty_ordered: 0 };
       }
@@ -2368,7 +2377,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['product'],
@@ -2404,6 +2412,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (qty > 0) {
         selectedOption = _.find(this.product.options, ['qty', qty]);
         selectedOption.qty_ordered = qty;
+        selectedOption.name = this.product.name;
       } else {
         selectedOption = { product_id: this.product.id, qty_ordered: 0 };
       }
@@ -2541,6 +2550,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (qty > 0) {
         selectedOption = _.find(this.product.options, ['qty', qty]);
         selectedOption.qty_ordered = qty;
+        selectedOption.name = this.product.name;
       } else {
         selectedOption = { product_id: this.product.id, qty_ordered: 0 };
       }
@@ -2663,6 +2673,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
 
 var Errors = function () {
   function Errors() {
@@ -2672,32 +2683,38 @@ var Errors = function () {
   }
 
   _createClass(Errors, [{
-    key: 'set',
+    key: "set",
     value: function set(errors) {
 
       this.errors = errors;
     }
   }, {
-    key: 'get',
+    key: "setMessage",
+    value: function setMessage(field, message) {
+
+      this.errors[field] = [message];
+    }
+  }, {
+    key: "get",
     value: function get(field) {
       if (this.errors.hasOwnProperty(field)) {
         return this.errors[field][0];
       }
     }
   }, {
-    key: 'has',
+    key: "has",
     value: function has(field) {
       return this.errors.hasOwnProperty(field);
     }
   }, {
-    key: 'count',
+    key: "count",
     value: function count() {
       return Object.keys(this.errors).length;
     }
   }, {
-    key: 'clear',
+    key: "clear",
     value: function clear(field) {
-      console.log('Clearing field:', field);
+      // console.log('Clearing field:',field)
       if (field && this.errors.hasOwnProperty(field)) {
         delete this.errors[field];
         this.errors = Object.assign({}, this.errors);
@@ -2719,7 +2736,7 @@ var Form = function () {
   }
 
   _createClass(Form, [{
-    key: 'update',
+    key: "update",
     value: function update(data) {
       for (var input in this.inputs) {
         if (data.hasOwnProperty(input)) {
@@ -2728,24 +2745,24 @@ var Form = function () {
       }
     }
   }, {
-    key: 'cancel',
+    key: "cancel",
     value: function cancel() {
       this.reset();
     }
   }, {
-    key: 'reset',
+    key: "reset",
     value: function reset() {
       for (var input in this.inputs) {
         this.inputs[input] = null;
       }
     }
   }, {
-    key: 'get',
+    key: "get",
     value: function get(input) {
       return this.inputs[input];
     }
   }, {
-    key: 'getData',
+    key: "getData",
     value: function getData() {
       return this.inputs;
     }
@@ -2772,7 +2789,7 @@ var formFields = {
   data: function data() {
     return {
       form: new Form(formFields),
-      howhearOptions: [{ label: "Google or internet search", value: "google" }, { label: "Social media", value: "social" }]
+      howhearOptions: HOWHEAROPTIONS
     };
   },
 
@@ -2780,6 +2797,19 @@ var formFields = {
     cancel: function cancel() {
       this.form.cancel();
       this.$emit("cancel");
+    },
+    deliveryDateChange: function deliveryDateChange(date) {
+      //console.log('DELIVERY DATE CHANGE',date)
+      // if(date is in past then update to today)
+      this.form.errors.clear('module_delivery_date');
+
+      var now = new Date();
+      if (date < now) {
+        //alert('invalid date selected - delivery date must be in the future')
+        this.form.errors.setMessage('module_delivery_date', 'Delivery date must be in the future');
+        //alert('I repeat - invalid date selected - delivery date must be in the future')
+        this.form.inputs.module_delivery_date = now;
+      }
     },
     submit: function submit() {
       var _this = this;
@@ -4356,7 +4386,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.my-list-item-expanded {\r\n  padding-top:1em;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -4371,7 +4401,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.el-input-number {\r\n  max-width:120px;\n}\n.el-input-number__increase,\r\n.el-input-number__decrease {\r\n  position: absolute;\r\n  z-index: 1;\r\n  top: 1px;\r\n  width: 40px;\r\n  height: auto;\r\n  text-align: center;\r\n  background: #00629A;\r\n  color: #fff;\r\n  font-weight: 800;\r\n  cursor: pointer;\r\n  font-size: 16px;\n}\n.el-input-number__increase:hover, .el-input-number__decrease:hover {\r\n  color:#eee;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.el-input-number {\r\n  max-width:120px;\n}\n.el-input-number__increase,\r\n.el-input-number__decrease {\r\n  position: absolute;\r\n  z-index: 1;\r\n  top: 1px;\r\n  width: 40px;\r\n  height: auto;\r\n  text-align: center;\r\n  background: #00629A;\r\n  color: #fff;\r\n  font-weight: 800;\r\n  cursor: pointer;\r\n  font-size: 16px;\n}\n.el-input-number__increase:hover, .el-input-number__decrease:hover {\r\n  color:#eee;\n}\n.my-list-item-expanded {\r\n  padding-top:1em;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -4386,7 +4416,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.my-list-item-expanded {\r\n  padding-top:1em;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -46026,12 +46056,15 @@ var render = function() {
         _vm._v(" "),
         _vm._l(_vm.extraProducts, function(product) {
           return _c("tr", { key: product.id }, [
-            _c("td", [
+            _c("td", { staticStyle: { "padding-bottom": "8px" } }, [
               _vm._v(
                 " " +
-                  _vm._s(product.name) +
-                  " " +
-                  _vm._s(product.description) +
+                  _vm._s(
+                    _vm._f("truncate")(
+                      product.name + ", " + product.options[0].description,
+                      40
+                    )
+                  ) +
                   "  X " +
                   _vm._s(product.qty_ordered)
               )
@@ -46493,12 +46526,8 @@ var render = function() {
                 },
                 _vm._l(_vm.howhearOptions, function(item) {
                   return _c("el-option", {
-                    key: item.value,
-                    attrs: {
-                      label: item.label,
-                      value: item.value,
-                      disabled: item.disabled
-                    }
+                    key: item,
+                    attrs: { label: item, value: item }
                   })
                 })
               ),
@@ -46532,14 +46561,11 @@ var render = function() {
               _c("el-date-picker", {
                 attrs: {
                   name: "module_delivery_date",
+                  minDate: "new Date()",
                   type: "date",
                   placeholder: "Pick a day"
                 },
-                on: {
-                  change: function($event) {
-                    _vm.form.errors.clear("module_delivery_date")
-                  }
-                },
+                on: { change: _vm.deliveryDateChange },
                 model: {
                   value: _vm.form.inputs.module_delivery_date,
                   callback: function($$v) {
@@ -46649,37 +46675,19 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "list-item" }, [
-      _c(
-        "div",
-        {
-          staticClass: "control",
-          on: {
-            click: function($event) {
-              _vm.expanded = !_vm.expanded
-            }
-          }
-        },
-        [
-          _c("span", {
-            staticClass: "glyphicon",
-            class: _vm.expandedClass,
-            attrs: { "aria-hidden": "true" }
-          })
-        ]
-      ),
+      _c("div", { staticClass: "control" }, [
+        _c("span", {
+          staticClass: "glyphicon",
+          class: _vm.expandedClass,
+          attrs: { "aria-hidden": "true" }
+        })
+      ]),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "body" },
         [
           _c("div", { staticClass: "body-top" }, [
-            _c("div", { staticClass: "thumb" }, [
-              _c("img", {
-                staticClass: "responsive",
-                attrs: { src: _vm.product.image_path }
-              })
-            ]),
-            _vm._v(" "),
             _c(
               "select",
               {
@@ -46704,7 +46712,7 @@ var render = function() {
                         _vm._s(opt.description) +
                           " ($" +
                           _vm._s(opt.price.toFixed(2)) +
-                          "pw each)"
+                          "pw )"
                       )
                     ]
                   )
@@ -46723,9 +46731,7 @@ var render = function() {
                     _c("div", { staticStyle: { display: "flex" } }, [
                       _c("div", {
                         staticStyle: { flex: "1" },
-                        domProps: {
-                          innerHTML: _vm._s(_vm.product.options[0].description)
-                        }
+                        domProps: { innerHTML: _vm._s(_vm.product.description) }
                       }),
                       _vm._v(" "),
                       _c("div", { staticStyle: { flex: "1" } }, [
@@ -46779,7 +46785,7 @@ var render = function() {
             _c("div", { staticStyle: { display: "flex" } }, [
               _c("div", { staticStyle: { flex: "2" } }, [_vm._v("Weekly fee")]),
               _c("div", { staticStyle: { flex: "1" } }, [
-                _vm._v("$" + _vm._s(_vm.costs.weekly.toFixed(2)) + " pw")
+                _vm._v("$" + _vm._s(_vm.costs.weekly.toFixed(2)) + " ")
               ])
             ]),
             _vm._v(" "),
@@ -46792,36 +46798,6 @@ var render = function() {
                 ]),
                 _c("div", { staticStyle: { flex: "1" } }, [
                   _vm._v("$" + _vm._s(_vm.costs.fixed.toFixed(2)))
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticStyle: { display: "flex", "margin-top": "10px" } },
-              [
-                _c("div", { staticStyle: { flex: "2" } }, [
-                  _vm._v("Delivery:"),
-                  _c("br"),
-                  _vm._v("- " + _vm._s(_vm.pickupSuburb))
-                ]),
-                _c("div", { staticStyle: { flex: "1" } }, [_vm._v("FREE")])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticStyle: { display: "flex", "margin-top": "10px" } },
-              [
-                _c("div", { staticStyle: { flex: "2" } }, [
-                  _vm._v("Return (at end of storage):"),
-                  _c("br"),
-                  _vm._v("- " + _vm._s(_vm.returnSuburb))
-                ]),
-                _c("div", { staticStyle: { flex: "1" } }, [
-                  _vm._v("$" + _vm._s(_vm.storageReturnFee)),
-                  _c("br"),
-                  _vm._v("per module")
                 ])
               ]
             )
@@ -46938,9 +46914,14 @@ var render = function() {
                   _c("td", [
                     _vm._v(
                       " " +
-                        _vm._s(product.name) +
-                        " " +
-                        _vm._s(product.description) +
+                        _vm._s(
+                          _vm._f("truncate")(
+                            product.name +
+                              ", " +
+                              product.options[0].description,
+                            40
+                          )
+                        ) +
                         "  X " +
                         _vm._s(product.qty_ordered)
                     )
@@ -47227,13 +47208,6 @@ var render = function() {
         { staticClass: "body" },
         [
           _c("div", { staticClass: "body-top" }, [
-            _c("div", { staticClass: "thumb" }, [
-              _c("img", {
-                staticClass: "responsive",
-                attrs: { src: _vm.product.image_path }
-              })
-            ]),
-            _vm._v(" "),
             _c(
               "select",
               {
@@ -47276,10 +47250,8 @@ var render = function() {
                   [
                     _c("div", { staticStyle: { display: "flex" } }, [
                       _c("div", {
-                        staticStyle: { flex: "1" },
-                        domProps: {
-                          innerHTML: _vm._s(_vm.product.options[0].description)
-                        }
+                        staticStyle: { flex: "1", "margin-right": "8px" },
+                        domProps: { innerHTML: _vm._s(_vm.product.notes) }
                       }),
                       _vm._v(" "),
                       _c("div", { staticStyle: { flex: "1" } }, [
@@ -47288,11 +47260,7 @@ var render = function() {
                           attrs: { src: _vm.product.image_path }
                         })
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", {
-                      domProps: { innerHTML: _vm._s(_vm.product.notes) }
-                    })
+                    ])
                   ]
                 )
               : _vm._e()
@@ -47348,12 +47316,14 @@ var render = function() {
         { staticClass: "body" },
         [
           _c("div", { staticClass: "body-top" }, [
-            _c("div", { staticClass: "thumb" }, [
-              _c("img", {
-                staticClass: "responsive",
-                attrs: { src: _vm.product.image_path }
-              })
-            ]),
+            !_vm.expanded
+              ? _c("div", { staticClass: "thumb" }, [
+                  _c("img", {
+                    staticClass: "responsive",
+                    attrs: { src: _vm.product.image_path }
+                  })
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "description" }, [
               _vm._v("\r\n            " + _vm._s(_vm.product.name)),
@@ -47399,10 +47369,8 @@ var render = function() {
                   [
                     _c("div", { staticStyle: { display: "flex" } }, [
                       _c("div", {
-                        staticStyle: { flex: "1" },
-                        domProps: {
-                          innerHTML: _vm._s(_vm.product.options[0].description)
-                        }
+                        staticStyle: { flex: "1", "margin-right": "8px" },
+                        domProps: { innerHTML: _vm._s(_vm.product.notes) }
                       }),
                       _vm._v(" "),
                       _c("div", { staticStyle: { flex: "1" } }, [
@@ -47411,11 +47379,7 @@ var render = function() {
                           attrs: { src: _vm.product.image_path }
                         })
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", {
-                      domProps: { innerHTML: _vm._s(_vm.product.notes) }
-                    })
+                    ])
                   ]
                 )
               : _vm._e()
@@ -47799,13 +47763,6 @@ var render = function() {
         { staticClass: "body" },
         [
           _c("div", { staticClass: "body-top" }, [
-            _c("div", { staticClass: "thumb" }, [
-              _c("img", {
-                staticClass: "responsive",
-                attrs: { src: _vm.product.image_path }
-              })
-            ]),
-            _vm._v(" "),
             _c(
               "select",
               {
@@ -47841,10 +47798,8 @@ var render = function() {
                   [
                     _c("div", { staticStyle: { display: "flex" } }, [
                       _c("div", {
-                        staticStyle: { flex: "1" },
-                        domProps: {
-                          innerHTML: _vm._s(_vm.product.options[0].description)
-                        }
+                        staticStyle: { flex: "1", "margin-right": "8px" },
+                        domProps: { innerHTML: _vm._s(_vm.product.notes) }
                       }),
                       _vm._v(" "),
                       _c("div", { staticStyle: { flex: "1" } }, [
@@ -47853,11 +47808,7 @@ var render = function() {
                           attrs: { src: _vm.product.image_path }
                         })
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", {
-                      domProps: { innerHTML: _vm._s(_vm.product.notes) }
-                    })
+                    ])
                   ]
                 )
               : _vm._e()
@@ -62805,7 +62756,30 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   routes: routes // short for `routes: routes`
 });
 
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('capitalize', function (value) {
+  if (!value) return '';
+  value = value.toString();
+  return value.charAt(0).toUpperCase() + value.slice(1);
+});
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('truncate', function (str, len) {
+  if (str.length > len) {
+    return str.substring(0, len) + '...';
+  }
+  return str;
+});
+
+// Dev settings
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.productionTip = true;
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.devtools = true;
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.debug = true;
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.silent = false;
+
+// production settings
+// Vue.config.productionTip = false
+// Vue.config.devtools = false
+// Vue.config.debug = false
+// Vue.config.silent = true
 
 /* eslint-disable no-new */
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -63633,7 +63607,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
 
 					if (premium.pickup > -1 && premium.return > -1) {
 						// -1 indicates user entered UNKNOWN for a location
-						return cartage.cost_per_module + (premium.pickup + premium.return);
+						return (cartage.cost_per_module + (premium.pickup + premium.return)) * product[0].qty;
 					} else {
 						return 'POA';
 					}

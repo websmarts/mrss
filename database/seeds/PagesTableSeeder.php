@@ -23,6 +23,7 @@ class PagesTableSeeder extends Seeder
                 ['name' => 'section_3_heading', 'content' => 'Bigger Modules Better Value', 'editor' => 'text'],
                 ['name' => 'section_3_blurb', 'content' => 'You may notice that our storage Modules bigger', 'editor' => 'text'],
                 ['name' => 'section_3_image', 'content' => 'content', 'editor' => 'image'],
+                ['name' => 'section_4_image', 'content' => 'content', 'editor' => 'image'],
             ],
 
             'modules' => [
@@ -55,6 +56,22 @@ class PagesTableSeeder extends Seeder
             ],
             'terms' => [
                 ['name' => 'page_heading', 'content' => 'Terms', 'editor' => 'text'],
+                ['name' => 'page_content', 'content' => 'Page content', 'editor' => 'html'],
+            ],
+            'message_us' => [
+                ['name' => 'page_heading', 'content' => 'Message Us', 'editor' => 'text'],
+                ['name' => 'page_content', 'content' => 'Page content', 'editor' => 'html'],
+            ],
+            'access_your_storage' => [
+                ['name' => 'page_heading', 'content' => 'Access Your Storage', 'editor' => 'text'],
+                ['name' => 'page_content', 'content' => 'Page content', 'editor' => 'html'],
+            ],
+            'book_storage_return' => [
+                ['name' => 'page_heading', 'content' => 'Book Storage Return', 'editor' => 'text'],
+                ['name' => 'page_content', 'content' => 'Page content', 'editor' => 'html'],
+            ],
+            'thankyou' => [
+                ['name' => 'page_heading', 'content' => 'Thank you for your enquiry', 'editor' => 'text'],
                 ['name' => 'page_content', 'content' => 'Page content', 'editor' => 'html'],
             ],
         ];

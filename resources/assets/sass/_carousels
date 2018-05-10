@@ -1,0 +1,21 @@
+#testimonials p.heading {
+    font-size:200%;
+    font-weight: bold;
+    padding:15px;
+}
+
+
+#testimonials p.message {
+    font-family: times;
+    font-size:120%;
+    font-weight: normal;
+    padding:15px;
+}
+
+#testimonials p.who {
+    font-size:100%;
+    font-family: times;
+    font-style: italic;
+    font-weight: 500;
+    padding:20px 0 30px;
+}

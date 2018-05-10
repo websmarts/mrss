@@ -6,7 +6,7 @@
       <div class="control" ><span class="glyphicon" v-bind:class="expandedClass" aria-hidden="true"></span></div>  
       <div class="body">
         <div class="body-top">
-          <div class="thumb"><img :src="product.image_path" class="responsive"></div>
+          
 
             <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
               <option value="0">Select ...</option>
@@ -20,11 +20,10 @@
 
             <div style="display: flex;">
               
-              <div style="flex:1" v-html="product.options[0].description"></div>
+              <div style="flex:1;margin-right: 8px" v-html="product.notes"></div>
               <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
             </div>
-            <div v-html="product.notes"></div>
-
+            
           </div>
         </el-collapse-transition>
       </div><!-- end body -->
@@ -69,6 +68,7 @@ export default {
       if(qty > 0){  
         selectedOption = _.find(this.product.options,['qty', qty])
         selectedOption.qty_ordered = qty
+        selectedOption.name = this.product.name
       } else {
         selectedOption = {product_id: this.product.id, qty_ordered: 0 }
       } 
@@ -83,6 +83,8 @@ export default {
 
 <style>
 
-
+.my-list-item-expanded {
+  padding-top:1em;
+}
 
 </style>

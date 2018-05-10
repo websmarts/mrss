@@ -1,3 +1,19 @@
 .btn.btn-rounded {
     border-radius: 18px;
   }
+
+  div.contact_button_container {
+    text-align: center;
+  }
+
+  div#contact_buttons{
+    margin: auto;
+    width:80%;
+    max-width:400px;
+  }
+
+  div#contact_buttons .btn {
+    width:100%;
+    margin: auto;
+  }
+

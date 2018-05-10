@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+
+
 @section('content')
 
 
@@ -20,7 +22,7 @@
       </div><!-- /.row -->
 
 
-      <div style="width:200px; border-top: 2px dotted #888;margin: auto; margin-top:50px;"></div>
+      <div class="greyline"  style="width:80%;margin: auto ; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2>{!! $page->element('section_2_heading')->content !!}</h2>
@@ -33,7 +35,7 @@
         </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 
-      <div style="width:200px; border-top: 2px dotted #888;margin: auto; margin-top:50px;"></div>
+      <div  class="greyline"  style="width:80%;margin: auto ; margin-top:50px;"></div>
 
       <div class="row" style="background: #fff; margin-top:10px;text-align: center">
         <h2>{!! $page->element('section_3_heading')->content !!}</h2>
@@ -45,6 +47,11 @@
           </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 
-
-
+      <div style="text-align: center;margin-top:50px"><img   src="{!! $page->element('section_4_image')->content !!}" alt="Why people choose us" width="100%" ></div>
+      
+      @include('layouts.partials.testimonials')
+      
+    <div style="margin-top:30px">
+      @include('layouts.partials.contact_buttons')
+    </div>
 @endsection

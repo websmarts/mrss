@@ -84,8 +84,11 @@
             <div style="width:180px">
                @include('layouts.partials.admin.sidemenu')
             </div>
-            <div style="width:700px;padding: 10px; background: #fff">
+            <div style="width:700px;background: #fff">
+                @yield('slides')
+                <div class="container>"
                 @yield('content')
+                </div>
             </div>
     </div>
 
