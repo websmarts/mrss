@@ -15,10 +15,8 @@
 
 .flex {
   display: flex;
-  @media screen and (max-width: 680px) {
-    
-    display: block;
-    
+  @media screen and (max-width: 680px) { 
+    display: block;  
   }
 }
 
@@ -39,7 +37,13 @@ body {
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
   //color: #00629a;
   color: #333;
+  @media screen and (max-width: 380px) { 
+    max-width:340px;
+    margin:0 auto;
+  }
 }
+
+
 
 .greyline {
   min-height: 2px;
