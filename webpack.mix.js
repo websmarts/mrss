@@ -16,6 +16,9 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/main.js', 'public/js')
    .js('resources/assets/js/booking.js', 'public/js')
+   .js('resources/assets/js/message_us.js', 'public/js')
+   .js('resources/assets/js/access_storage.js', 'public/js')
+   .js('resources/assets/js/book_return.js', 'public/js')
    .sass('resources/assets/sass/base.scss', 'public/css')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .version();

@@ -24,6 +24,7 @@ class PagesTableSeeder extends Seeder
                 ['name' => 'section_3_blurb', 'content' => 'You may notice that our storage Modules bigger', 'editor' => 'text'],
                 ['name' => 'section_3_image', 'content' => 'content', 'editor' => 'image'],
                 ['name' => 'section_4_image', 'content' => 'content', 'editor' => 'image'],
+                
             ],
 
             'modules' => [

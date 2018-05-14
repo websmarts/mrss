@@ -9,6 +9,7 @@
 <div name="element_{{ $page->element('page_content')->id }}" class="html_editor editable"> {!! $page->element('page_content')->content !!}
 </div>
 
+
 @endsection
 
 @section('scripts')

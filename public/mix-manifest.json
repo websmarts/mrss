@@ -1,8 +1,11 @@
 {
-    "/js/booking.js": "/js/booking.js?id=ed8595aae98ab811d6f6",
-    "/js/main.js": "/js/main.js?id=562352d7402ac40746a0",
-    "/css/base.css": "/css/base.css?id=f4edf0d737a12c6484b0",
-    "/css/app.css": "/css/app.css?id=1853e77bc110f832e1a3",
+    "/js/booking.js": "/js/booking.js?id=4cf4cd6ec645e3820bb9",
+    "/js/main.js": "/js/main.js?id=8a8d9008b0bb7768bcf1",
+    "/css/base.css": "/css/base.css?id=dd33e8b95c8d28980ab7",
+    "/css/app.css": "/css/app.css?id=ae9ce475eb28d02b13d6",
+    "/js/message_us.js": "/js/message_us.js?id=f6970b6a2dbd5574363a",
+    "/js/book_return.js": "/js/book_return.js?id=e93422c3325131a56cba",
+    "/js/access_storage.js": "/js/access_storage.js?id=4b20e32749cf73ed92b4",
     "/js/ie-emulation-modes-warning.js": "/js/ie-emulation-modes-warning.js?id=a40552917752e3b9dbf3",
     "/js/ie10-viewport-bug-workaround.js": "/js/ie10-viewport-bug-workaround.js?id=90e29070de7dcd28a451",
     "/css/ie10-viewport-bug-workaround.css": "/css/ie10-viewport-bug-workaround.css?id=631c61015480c581479c"

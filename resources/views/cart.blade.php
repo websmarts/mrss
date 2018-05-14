@@ -1,10 +1,13 @@
 @extends('layouts.default')
 
 @section('content')
+<div class="page_content_wrapper">
 {{-- dump($locations) --}}
 {{-- dump($products) --}}
 
 <app></app>
+
+</div>
 
 @endsection
 

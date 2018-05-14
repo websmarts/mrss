@@ -18,4 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/submit', 'ReceiveEnquiryController@index');
+Route::post('/message_us', 'MessageUsController@index');
+Route::post('/access_storage', 'AccessStorageController@index');
+Route::post('/book_return', 'BookReturnController@index');
 
