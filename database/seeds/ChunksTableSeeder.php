@@ -29,7 +29,13 @@ class ChunksTableSeeder extends Seeder
         Chunk::create([
             'name' => 'modules_page_name',
             'description' => 'The name used for the modules page',
-            'content' => 'Module Specifications',
+            'content' => 'Storage Calculator',
+
+        ]);
+        Chunk::create([
+            'name' => 'button_text_modules_page',
+            'description' => 'The text for the button on the home page linking to the storage calculator page',
+            'content' => 'Use The Storage Calculator',
 
         ]);
 

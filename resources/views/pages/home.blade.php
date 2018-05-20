@@ -43,7 +43,7 @@
           <div style="text-align: center"><img   src="{!! $page->element('section_3_image')->content !!}" alt="Our Storage Modules" width="100%" ></div>
           <div class="louder">{!! $page->element('section_3_blurb')->content !!}</div>
 
-          <a href="{{ route('modules') }}" class="btn btn-default btn-lg" style="margin-top:15px" >Module Specs You Need to Know</a>
+          <a href="{{ route('modules') }}" class="btn btn-default btn-lg" style="margin-top:15px" >{{chunk('button_text_modules_page',$chunks)}}</a>
           </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 

@@ -11,13 +11,18 @@
 |
  */
 
+//  Route::get('phpinfo', function() {
+//    echo phpinfo();
+//    exit;
+//  });
+
 Route::get('/', function () {
     return redirect('home');
 });
 
-Route::get('modules', function () {
-    return view("pages.modules");
-});
+// Route::get('modules', function () {
+//     return view("pages.modules");
+// });
 
 Route::get('home', 'PagesController@index')->name('home');
 Route::get('storage', 'PagesController@index')->name('storage');
@@ -42,7 +47,7 @@ Route::get('logout', function () {
     return redirect('/');
 });
 
-Route::name('admin')->prefix('admin')->group(function () {
+Route::middleware(['auth:web'])->name('admin')->prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index');
 
     Route::get('products', 'AdminProductsController@index')->name('.products');
@@ -66,12 +71,3 @@ Route::name('admin')->prefix('admin')->group(function () {
 
     Route::get('filemanager','AdminFileManagerController@index')->name('.filemanager');
 });
-
-Route::get('standalone', function () {
-    return view('admin.standalone');
-});
-
-Route::post('output', function () {
-    $content = request('content');
-    return view('admin.output', ['content' => $content]);
-})->name('submit');

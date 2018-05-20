@@ -11,5 +11,11 @@
 @endsection
 
 @section('scripts')
-<script src="{{ mix('js/book_return.js') }}"></script>
+
+<script>/* eslint-disable no-new */
+        new Vue({
+          el: '#app'
+        })
+</script>
+
 @endsection

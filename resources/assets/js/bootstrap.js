@@ -1,4 +1,6 @@
 
+
+
 window._ = require('lodash');
 
 /**
@@ -38,6 +40,77 @@ if (token) {
 }
 
 window.moment = require('moment')
+
+window.Vue = require('vue');
+
+import Element from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/en'
+
+
+//import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(Element, { locale })
+
+// Pricing and Booking
+Vue.component('ServiceSelector', require('./components/ServiceSelector.vue'))
+Vue.component('LocationSelector', require('./components/LocationSelector.vue'))
+Vue.component('StorageModuleSelector', require('./components/StorageModuleSelector.vue'))
+Vue.component('RemovalModuleSelector', require('./components/RemovalModuleSelector.vue'))
+Vue.component('ExtraSelector', require('./components/ExtraSelector.vue'))
+Vue.component('InsuranceSelector', require('./components/InsuranceSelector.vue'))
+Vue.component('BookingSummary', require('./components/BookingSummary.vue'))
+Vue.component('BookingSidebar', require('./components/BookingSidebar.vue'))
+Vue.component('BookingEnquiry', require('./components/BookingEnquiry.vue'))
+Vue.component('CheckoutRemovalConfirm', require('./components/CheckoutRemovalConfirm.vue'))
+Vue.component('CheckoutStorageConfirm', require('./components/CheckoutStorageConfirm.vue'))
+
+// Message Us
+import MessageUs from './components/MessageUsForm.vue'
+Vue.component('MessageUs',MessageUs )
+
+//Book Return
+import BookReturnForm from './components/BookReturnForm.vue'
+Vue.component('BookReturnForm', BookReturnForm)
+
+//Access Storage
+import AccessStorageForm from './components/AccessStorageForm.vue'
+Vue.component('AccessStorageForm', AccessStorageForm)
+
+
+
+
+Vue.filter('currency', function (cents) {
+    return '$'+(cents/100)
+})
+
+
+
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.slice(1)
+})
+
+Vue.filter('truncate', function (str, len) {
+  if(str.length > len){
+    return str.substring(0,len) + '...'
+  }
+  return str
+})
+
+
+
+
+// Dev settings
+Vue.config.productionTip = true
+Vue.config.devtools = true
+Vue.config.debug = true
+Vue.config.silent = false
+
+// production settings
+// Vue.config.productionTip = false
+// Vue.config.devtools = false
+// Vue.config.debug = false
+// Vue.config.silent = true
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

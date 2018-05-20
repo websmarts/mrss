@@ -13,5 +13,11 @@
 @endsection
 
 @section('scripts')
-<script src="{{ mix('js/access_storage.js') }}"></script>
+
+<script>/* eslint-disable no-new */
+        new Vue({
+          el: '#app'
+        })
+</script>
+
 @endsection

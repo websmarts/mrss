@@ -8,5 +8,10 @@ function flash($message, $status = 'info')
 function chunk($name, $chunkCollection)
 {
     $data = $chunkCollection->where('name', $name)->first();
-    return nl2br($data->content);
+    if($data){
+        return nl2br($data->content);
+    }
+
+    return 'Chunk name: '.$name.' not found';
+    
 }
