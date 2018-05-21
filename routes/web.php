@@ -16,13 +16,11 @@
 //    exit;
 //  });
 
-Route::get('/', function () {
-    return redirect('home');
-});
-
-// Route::get('modules', function () {
-//     return view("pages.modules");
+// Route::get('/', function () {
+//     return redirect('home');
 // });
+
+Route::get('/', 'HomeController@index');
 
 Route::get('home', 'PagesController@index')->name('home');
 Route::get('storage', 'PagesController@index')->name('storage');
@@ -42,10 +40,7 @@ Route::get('cart', 'CartController@index')->name('cart');
 
 Auth::routes();
 // Add GET route for logout option
-Route::get('logout', function () {
-    auth()->logout();
-    return redirect('/');
-});
+Route::get('logout', 'Auth\LoginController@logmeout');
 
 Route::middleware(['auth:web'])->name('admin')->prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index');
