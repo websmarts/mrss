@@ -90,9 +90,9 @@
   </div>
   
   
-  <div style="display:flex; justify-content: space-between; margin-top:20px">
+  <div style="display:flex; justify-content: space-around; margin-top:20px">
     <router-link class="btn btn-info btn-rounded" to="/">Back</router-link>
-    <button type="submit" class="btn btn-success btn-rounded" >Submit enquiry</button>
+    <button type="submit" class="btn btn-success btn-rounded" :class="{disabled: submitting_form}" >{{submit_button_text}}</button>
   </div>
   
 
@@ -197,7 +197,9 @@ export default {
   data() {
     return {
       form: new Form(formFields),
-      howhearOptions: HOWHEAROPTIONS
+      howhearOptions: HOWHEAROPTIONS,
+      submit_button_text: 'Submit enquiry',
+      submitting_form: false
     };
   },
   methods: {
@@ -241,6 +243,9 @@ export default {
         
       }
 
+      this.submitting_form = true
+      this.submit_button_text = "Please wait ..."
+
       // console.log('Submitting',data)
     
       axios.post('/api/submit', data)
@@ -248,12 +253,14 @@ export default {
           // console.log(response.data);
           //alert('Your details have been submitted')
 
-          window.location.replace = '/thankyou' // for now!
+          window.location.replace ('/thankyou') // for now!
 
           //this.hide()
           //return response.data;
         })
         .catch(error => {
+          this.submitting_form = false
+          this.submit_button_text = "Submit enquiry"
           // console.log(error.response)
           // console.log("DATA ERRORS", error.response.data.errors);
           // alert(error.response.data.message)

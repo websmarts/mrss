@@ -37,10 +37,10 @@
   </div>
   
   
-  <div style="display:flex; justify-content: space-between; margin-top:20px">
+  <div style="display:flex; justify-content: space-around; margin-top:20px">
  
-    <button type="submit" class="btn btn-success btn-rounded" >Submit</button>
-    <button type="reset" class="btn btn-success btn-rounded" >Clear details</button>
+    <button type="reset" class="btn btn-info btn-rounded" >Clear details</button>
+    <button type="submit" class="btn btn-success btn-rounded" :class="{disabled: submitting_form}">{{ submit_button_text}}</button>
   </div>
   
 
@@ -139,7 +139,9 @@ export default {
   data() {
     return {
       form: new Form(formFields),
-      max_message_length: 400
+      max_message_length: 400,
+      submitting_form: false,
+      submit_button_text: 'Submit'
      
     };
   },
@@ -172,20 +174,26 @@ export default {
         
       }
 
+      this.submitting_form = true
+      this.submit_button_text='Please wait ...'
+
       // console.log('Submitting',data)
     
       axios.post('/api/message_us', data)
         .then(response => {
-          // console.log(response.data);
-          // alert('Your details have been submitted')
+          //console.log(response.data);
+          //alert('Your details have been submitted')
 
-          window.location.replace = '/thankyou' // for now!
+          window.location.replace('/thankyou') // for now!
 
           //this.hide()
           //return response.data;
         })
         .catch(error => {
-          // console.log(error.response)
+          this.submitting_form = false
+          this.submit_button_text = "Submit"
+          
+          //console.log(error.response)
           // console.log("DATA ERRORS", error.response.data.errors);
           // alert(error.response.data.message)
           this.form.errors.set(error.response.data.errors);
