@@ -70,4 +70,7 @@ Route::middleware(['auth:web'])->name('admin')->prefix('admin')->group(function 
     Route::post('chunks', 'AdminChunksController@update')->name('.update.chunks');
 
     Route::get('filemanager','AdminFileManagerController@index')->name('.filemanager');
+
+    Route::get('password', 'AdminPasswordController@index')->name('.password');
+    Route::post('password', 'AdminPasswordController@update');
 });
