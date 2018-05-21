@@ -18,6 +18,12 @@ class ChunksTableSeeder extends Seeder
             'content' => '1 800 123 456',
 
         ]);
+        Chunk::create([
+            'name' => 'acn_number',
+            'description' => 'The company ACN number',
+            'content' => '123 456 789',
+
+        ]);
 
         Chunk::create([
             'name' => 'how_hear_options',
