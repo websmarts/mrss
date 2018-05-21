@@ -8,7 +8,7 @@
 <h1>Message-us enquiry</h1>
 
 
-<p>Add enquiry details</p>
+
 <table>
     <tr>
         <td>Name</td><td>{{ $enquiry['firstname'] }}  {{ $enquiry['lastname'] }}</td>

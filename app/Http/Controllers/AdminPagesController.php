@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\Chunk;
 use App\PageElement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -21,7 +22,9 @@ class AdminPagesController extends Controller
         $dir = public_path('/images/slides');
         $slides = File::files($dir);
 
-        return view('admin.pages.' . $pagename, ['page' => $page,'slides'=>$slides]);
+        $testimonials = $this->testimonials();
+
+        return view('admin.pages.' . $pagename, ['page' => $page,'slides'=>$slides,'testimonials'=>$testimonials]);
     }
 
     public function update(Request $request)
@@ -37,5 +40,19 @@ class AdminPagesController extends Controller
             }
         }
         return $request->all();
+    }
+
+    protected function testimonials()
+    {
+        $testimonialChunks = Chunk::where('name','testimonials')->select('content')->get();
+        $testimonialsData = explode('|',$testimonialChunks[0]['content']);
+        $testimonials = [];
+        foreach($testimonialsData as $t){
+            $fields = explode('::',$t);
+            if(is_array($fields) && count($fields) == 3 ){
+                $testimonials[] = ['heading'=>$fields[0],'message'=>$fields[1],'who'=>$fields[2]];
+            }            
+        }
+        return $testimonials;    
     }
 }

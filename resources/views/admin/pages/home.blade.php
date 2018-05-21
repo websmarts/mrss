@@ -99,6 +99,10 @@
         <input id="element_{{$page->element('section_4_image')->id}}" class="lfm-input" type="hidden" name="filepath" value="{!! $page->element('section_4_image')->content !!}">
       </div>
 
+      
+      
+      @include('layouts.partials.testimonials')
+
 
 
 

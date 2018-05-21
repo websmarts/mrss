@@ -177,9 +177,9 @@ export default {
       axios.post('/api/message_us', data)
         .then(response => {
           // console.log(response.data);
-          alert('Your details have been submitted')
+          // alert('Your details have been submitted')
 
-          window.location = '/thankyou' // for now!
+          window.location.replace = '/thankyou' // for now!
 
           //this.hide()
           //return response.data;
