@@ -47,7 +47,7 @@
 
 
 
-<div style="width:80%;margin: auto ; margin-top:50px;"></div>
+
 
        
 @include('layouts.partials.testimonials')
