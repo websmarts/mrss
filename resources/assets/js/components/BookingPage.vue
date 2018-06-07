@@ -13,7 +13,7 @@
 
       <div style="border: 1px solid #444; padding:10px; margin-bottom: 10px;margin-top: 15px;" v-show="service">
         <h4>Your Location</h4>
-        <el-select v-model="pickupLocation" filterable placeholder="Select pickup location">
+        <el-select class="placeholder-red" v-model="pickupLocation" filterable placeholder="Select pickup location">
           <el-option
             v-for="item in pickupLocations"
             :key="item.id"
@@ -37,7 +37,8 @@
         </location-selector> -->
 
         <h4>Your Return Location</h4>
-        <el-select v-model="returnLocation" filterable placeholder="Select return location">
+        <p style="font-size:85%">Where we return modules after your storage term or move. If you don&apos;t know the location yet select &apos;Unknown or Other&apos;</p>
+        <el-select class="placeholder-red"  v-model="returnLocation" filterable placeholder="Select return location">
           <el-option
             v-for="item in returnLocations"
             :key="item.id"
@@ -141,3 +142,4 @@ export default {
   }
 }
 </script>
+

@@ -376,6 +376,11 @@ form .row {
   
 }
 
+/** red placeholders **/
+.el-select.placeholder-red input.el-input__inner::placeholder {
+  color: red;
+}
+
 
 
 

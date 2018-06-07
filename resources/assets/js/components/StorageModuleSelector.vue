@@ -20,7 +20,10 @@
 
             <div style="display: flex;">
               
-              <div style="flex:1; margin-right: 8px" v-html="product.notes"></div>
+              <div style="flex:1; margin-right: 8px">
+                <div v-html="product.notes"></div>
+                <br ><a href="/modules" title="View Storage Calculator">Storage calculator</a>
+              </div>
               <div style="flex:1"><img :src="product.image_path" class="item-image-large"></div>
             </div>
             
