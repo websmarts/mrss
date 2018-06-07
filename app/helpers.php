@@ -15,3 +15,7 @@ function chunk($name, $chunkCollection)
     return 'Chunk name: '.$name.' not found';
     
 }
+
+function spacetodash($string){
+    return str_replace(' ','-',$string);
+}

@@ -1,1 +1,1 @@
-{{chunk('phone_number',$chunks)}}
+{{spacetodash(chunk('phone_number',$chunks))}}

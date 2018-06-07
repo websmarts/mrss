@@ -45,7 +45,7 @@
       </tr>    
     </table>
 
-    <p>For prepayments of 12 or 24 months, discounts of up tp 15% are available</p>
+    <p>For prepayments of 12 or 24 months, discounts of up to 15% are available</p>
     <p style="margin-top:12px;margin-bottom: 40px"><el-checkbox v-model="prepayment_interest"></el-checkbox> Tick to register your interest.</p>
  
   <div style="display:flex; justify-content: space-between; margin-top:20px;">

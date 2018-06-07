@@ -355,6 +355,27 @@ form .row {
     transition: 0.3s;
 }
 
+// Table style - remove border
+.table {
+  border: none;
+}
+.table-striped > tbody > tr {
+  border: 0px #ccc;
+}
+.table-striped > tbody > tr > td{
+  border: 0px #ccc;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #d8d8d8;
+  
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #fff;
+  
+}
+
 
 
 
