@@ -8,7 +8,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="We bring - You Load - We Store.   We guarantee to save you time and stress.   Better value, Friendly staff & Easy online bookings ...Make a booking Today!">
-    <meta name="author" content="">
+    <meta name="author" content="John R">
     <link rel="icon" href="favicon.ico">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -28,7 +28,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="{{ asset('/js/ie-emulation-modes-warning.js') }}"></script>
+    <!-- <script src="{{ asset('/js/ie-emulation-modes-warning.js') }}"></script> -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
   </head>
