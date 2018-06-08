@@ -20,10 +20,10 @@
         <td>Phone</td><td>{{ $enquiry['phone'] }}</td>
     </tr>
     <tr>
-        <td>Access date</td><td>{{ $enquiry['access_date'] }}</td>
+        <td>Preferred date</td><td>{{ date('d-m-Y'),strtotime($enquiry['access_date']) }}</td>
     </tr>
     <tr>
-        <td>Access time</td><td>{{ $enquiry['access_time'] }}</td>
+        <td>Preferred time</td><td>{{ $enquiry['access_time'] }}</td>
     </tr>
     <tr>
         <td>Message</td><td>{{ $enquiry['message'] }}</td>

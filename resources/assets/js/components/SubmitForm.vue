@@ -76,7 +76,8 @@
         v-model="form.inputs.module_delivery_date"
         minDate="new Date()"
         type="date"
-        placeholder="Pick a day">
+        placeholder="Pick a day"
+        :default-value="new Date()">
       </el-date-picker>
       <div v-if="form.errors.has('module_delivery_date')">
       <span style="color: red"  v-text="form.errors.get('module_delivery_date')"></span></div>
@@ -92,8 +93,11 @@
   
   <div style="display:flex; justify-content: space-around; margin-top:20px">
     <router-link class="btn btn-info btn-rounded" to="/">Back</router-link>
+    <div v-show="form.errors.hasErrors()"><span style="color: red">*** Correct form errors ***</span></div>
     <button type="submit" class="btn btn-success btn-rounded" :class="{disabled: submitting_form}" >{{submit_button_text}}</button>
   </div>
+
+  
   
 
 </form>
@@ -130,6 +134,10 @@ class Errors {
 
   count() {
     return Object.keys(this.errors).length
+  }
+
+  hasErrors() {
+    return this.count() > 0
   }
 
   clear(field) {
@@ -264,7 +272,13 @@ export default {
           // console.log(error.response)
           // console.log("DATA ERRORS", error.response.data.errors);
           // alert(error.response.data.message)
-          this.form.errors.set(error.response.data.errors);
+          
+          if(error.response.request.status == 422){
+            this.form.errors.set(error.response.data.errors);
+          } else {
+            // unprocessable error - hmmm what to do now
+            alert('Ooops ... an unexpected server error: ' + error.response.request.status + ' occured')
+          }
         });
     }
   }

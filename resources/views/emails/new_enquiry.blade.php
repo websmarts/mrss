@@ -21,22 +21,24 @@
 </table>
 
 <table>
+    <tr><td>Preferred date:</td><td>{{ date('d-m-Y', strtotime($enquiry['contact_data']['module_delivery_date']))}}</td></tr>
     <tr><td>How did you hear about us:</td><td>{{ $enquiry['contact_data']['howhear']}}</td></tr>
     <tr><td>Interest in PrePaying:</td><td>{{ $enquiry['prepayment_interest'] > 0 ? 'Yes' : 'No' }}</td></tr>
+    <tr><td>Comments:</td><td>{{ $enquiry['contact_data']['comments']}}</td></tr>
 </table>
 
 <p style="font-weight: bold; font-size:14pt">Products</p>
 <table width="600"> 
     <tr>
         <th width="40">Qty</th>
-        <th>Description</th>
+        <th>Name / Description</th>
         <th width="90" align="left">Price</th>
         <th width="90" align="left">Ext price ($)</th>
     </tr>     
 @foreach($enquiry['products'] as $p)  
         <tr>
             <td>{{ $p['qty_ordered'] }}</td>
-            <td>{{ $p['description'] }}</td>
+            <td>{{ $p['name'] }} / {{ $p['description'] }}</td>
             <td>{{ $p['price'] }}</td>
             <td>{{ $p['ext_price'] }}</td>
         </tr> 

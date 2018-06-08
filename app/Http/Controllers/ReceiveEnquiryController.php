@@ -54,12 +54,13 @@ class ReceiveEnquiryController extends Controller
 
 
         // $data['locations'] = Location::all();
-        // dd($request->all());
+        //dd($request->all());
         $data=[];
 
 
         // Prepart $request->cart
         $cartFields = [
+            'name',
             'description',
             'qty_ordered',
             'price',
@@ -76,6 +77,7 @@ class ReceiveEnquiryController extends Controller
         }
 
         $data['contact_data'] = $request->contact_data;
+
         $data['pickup_location'] = Location::find($request->cart['pickupLocation']);
         $data['return_location'] = Location::find($request->cart['returnLocation']);
         $data['products'] = $products;
@@ -86,6 +88,7 @@ class ReceiveEnquiryController extends Controller
         $data['prepayment_interest'] = $request->prepayment_interest;
 
         //dd($data);
+        
 
         Mail::to($to)->send(new \App\Mail\NewEnquiry($data));
     }

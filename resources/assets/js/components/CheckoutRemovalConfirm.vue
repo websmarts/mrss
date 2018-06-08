@@ -2,7 +2,7 @@
 <div>
     <h4>DIY Removal Summary</h4>
 
-<p style="text-align: right; padding-right: 8px; font-size:90%">Drop-off location: {{ pickupSuburb }}<br />Pickup location: {{ returnSuburb }}</p>
+<p style="text-align: right; padding-right: 8px; font-size:90%">Drop-off location: {{ pickupSuburb }}<br />Return location: {{ returnSuburb }}</p>
 
     <table class="table">
       <tr>
@@ -15,12 +15,13 @@
 
   <template v-if="extraProducts.length">
       <tr>
-        <td colspn="2"><span style="font-weight: 900;">Packing Supplies and Extras:</span></td>
+        <td><span style="font-weight: 900;">Packing Supplies and Extras:</span></td>
+        <td width="100">${{ costs.fixed.toFixed(2) }}</td>
       </tr> 
       
       <tr v-for="product in extraProducts" :key="product.id">
         <td> {{ product.name + ', '+ product.options[0].description | truncate(40) }}  X {{ product.qty_ordered }}</td>
-       <td width="100" class="price">${{ product.ext_price.toFixed(2) }}</td>
+       <td width="100" ></td>
       </tr>
   </template>
       

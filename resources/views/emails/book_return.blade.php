@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h1>Access storage enquiry</h1>
+<h1>Return storage enquiry</h1>
 
 
 
@@ -23,7 +23,7 @@
         <td>Phone</td><td>{{ $enquiry['phone'] }}</td>
     </tr>
     <tr>
-        <td>Return date</td><td>{{ $enquiry['return_date'] }}</td>
+        <td>Preferred date</td><td>{{ date('d-m-Y',strotime($enquiry['return_date'])) }}</td>
     </tr>
 
     <tr>

@@ -19,12 +19,13 @@
       <tr><td colspan="2">&nbsp;</td></tr>
 
       <tr>
-        <td colspn="2"><span style="font-weight: 900;">Packing Supplies and Extras:</span></td>
+        <td><span style="font-weight: 900;">Packing Supplies and Extras:</span></td>
+        <td width="100">${{ costs.fixed.toFixed(2) }}</td>
       </tr> 
       
       <tr v-for="product in extraProducts" :key="product.id">
         <td style="padding-bottom: 8px;"> {{ product.name + ', '+ product.options[0].description | truncate(40) }}  X {{ product.qty_ordered }}</td>
-        <td width="100" class="price">${{ product.ext_price.toFixed(2) }}</td>
+        <td width="100" ></td>
       </tr>
 
       <tr><td colspan="2">&nbsp;</td></tr>
@@ -41,7 +42,7 @@
       </tr> 
       <tr>
         <td> - {{ returnSuburb }}</td>
-        <td width="100" class="price">${{  storageReturnFee  }}<br />per module</td>
+        <td width="100" >${{  storageReturnFee  }}<br />per module</td>
       </tr>    
     </table>
 

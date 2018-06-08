@@ -50,7 +50,9 @@
         v-model="form.inputs.return_date"
         minDate="new Date()"
         type="date"
-        placeholder="Pick a day">
+        placeholder="Pick a day"
+        :default-value="new Date()"
+        @focus="form.errors.clear('return_date')">
       </el-date-picker>
       <div v-if="form.errors.has('return_date')">
       <span style="color: red"  v-text="form.errors.get('return_date')"></span></div>
@@ -80,6 +82,7 @@
 
   <div style="display:flex; justify-content: space-around; margin-top:20px">
     <button type="reset" class="btn btn-info btn-rounded" >Clear details</button>
+    <div v-show="form.errors.hasErrors()"><span style="color: red">*** Correct form errors ***</span></div>
     <button type="submit" class="btn btn-success btn-rounded" :class="{disabled: submitting_form}" >{{ submit_button_text}}</button>  
   </div>
   
@@ -119,9 +122,14 @@ class Errors {
   count() {
     return Object.keys(this.errors).length
   }
+  
+  hasErrors() {
+    return this.count() > 0
+  }
+
 
   clear(field) {
-   // console.log('Clearing field:',field)
+    console.log('Clearing field:',field)
     if(field && this.errors.hasOwnProperty(field)){
       delete(this.errors[field])
       this.errors = Object.assign({},this.errors)
@@ -208,7 +216,6 @@ export default {
     },
     
     
-    
     submit() {
       // Save the data
 
@@ -219,7 +226,11 @@ export default {
 
       let formdata = this.form.getData()
 
-      formdata.return_option = _.find(this.return_options,{value:formdata.return_option}).label
+      let selectedReturnOption = _.find(this.return_options,{value:formdata.return_option})
+      if(typeof(selectedReturnOption) !== 'undefined'){
+        formdata.return_option = selectedReturnOption.label
+      }
+      
 
       let data = {
         form_data: formdata,
@@ -243,10 +254,17 @@ export default {
         .catch(error => {
           this.submitting_form = false
           this.submit_button_text = "Submit"
-          // console.log(error.response)
+          // console.log(error.response.request.status)
           // console.log("DATA ERRORS", error.response.data.errors);
-          // alert(error.response.data.message)
-          this.form.errors.set(error.response.data.errors);
+          // alert('errors')
+          // If 422 response status then we process errors
+          if(error.response.request.status == 422){
+            this.form.errors.set(error.response.data.errors);
+          } else {
+            // unprocessable error - hmmm what to do now
+            alert('Ooops ... an unexpected server error: ' + error.response.request.status + ' occured')
+          }
+          
         });
     }
   }
