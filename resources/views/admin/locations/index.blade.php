@@ -7,6 +7,7 @@
 
 <form method="post" action="">
 	{{ csrf_field() }}
+	<button class="btn btn-primary" type="submit" style="margin-top:40px">Save</button>
 <table>
 	<thead>
 		<tr>
