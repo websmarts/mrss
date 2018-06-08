@@ -4741,6 +4741,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log('selectedOption', selectedOption);
 
       this.$store.dispatch('updateCartProducts', selectedOption);
+    },
+    changed: function changed() {
+      console.log('select changed');
     }
   }
 
@@ -99595,6 +99598,9 @@ var render = function() {
                 attrs: { placeholder: "Select ..." },
                 domProps: { value: _vm.cartQty },
                 on: {
+                  change: function($event) {
+                    _vm.changed()
+                  },
                   input: function($event) {
                     _vm.selectProduct($event.target.value)
                   }

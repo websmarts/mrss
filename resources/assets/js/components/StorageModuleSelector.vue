@@ -8,7 +8,7 @@
         <div class="body-top">
           
 
-            <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
+            <select :value="cartQty" @change="changed()" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
               <option value="0">Select ...</option>
               <option :value="opt.qty" v-for="opt in product.options" :key="opt.id">{{ opt.description }} (${{ (opt.price).toFixed(2) }}pw each)</option>
             </select>
@@ -83,6 +83,9 @@ export default {
       console.log('selectedOption',selectedOption)
 
       this.$store.dispatch('updateCartProducts', selectedOption)
+    },
+    changed(){
+      console.log('select changed')
     }  
   },
   
