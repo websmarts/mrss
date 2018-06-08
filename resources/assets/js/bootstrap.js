@@ -101,16 +101,16 @@ Vue.filter('truncate', function (str, len) {
 
 
 // Dev settings
-Vue.config.productionTip = true
-Vue.config.devtools = true
-Vue.config.debug = true
-Vue.config.silent = false
+// Vue.config.productionTip = true
+// Vue.config.devtools = true
+// Vue.config.debug = true
+// Vue.config.silent = false
 
 // production settings
-// Vue.config.productionTip = false
-// Vue.config.devtools = false
-// Vue.config.debug = false
-// Vue.config.silent = true
+Vue.config.productionTip = false
+Vue.config.devtools = false
+Vue.config.debug = false
+Vue.config.silent = true
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
