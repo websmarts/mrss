@@ -4738,6 +4738,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         selectedOption = { product_id: this.product.id, qty_ordered: 0 };
       }
 
+      console.log('selectedOption', selectedOption);
+
       this.$store.dispatch('updateCartProducts', selectedOption);
     }
   }
