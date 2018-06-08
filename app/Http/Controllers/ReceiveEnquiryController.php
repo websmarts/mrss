@@ -84,7 +84,7 @@ class ReceiveEnquiryController extends Controller
         $data['costs'] = $request->cost;
         $data['premiums'] = $request->premiums;
         $data['service'] = $request->service;
-        $data['removal'] = $request->removal_fee;
+        $data['removal_fee'] = $request->removal_fee;
         $data['prepayment_interest'] = $request->prepayment_interest;
 
         //dd($data);
