@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="">
+    <meta name="description" content="We bring - You Load - We Store.   We guarantee to save you time and stress.   Better value, Friendly staff & Easy online bookings ...Make a booking Today!">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
