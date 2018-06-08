@@ -4557,6 +4557,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['product'],
@@ -4596,6 +4598,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         selectedOption = { product_id: this.product.id, qty_ordered: 0 };
       }
+
+      console.log('updateCartProducts', selectedOption);
 
       this.$store.dispatch('updateCartProducts', selectedOption);
     }
@@ -4644,6 +4648,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     setService: function setService(service) {
+
       this.$store.commit('SET_SERVICE', service);
     }
   }
@@ -4741,9 +4746,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log('selectedOption', selectedOption);
 
       this.$store.dispatch('updateCartProducts', selectedOption);
-    },
-    changed: function changed() {
-      console.log('select changed');
     }
   }
 
@@ -8676,7 +8678,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .el-radio-group {\r\n  width: 100%;\r\n} */\r\n/* .is-bordered {\r\n  width: 45%;\r\n} */\n#service-selector .el-radio-group {\r\n display: -webkit-box;\r\n display: -ms-flexbox;\r\n display: flex;\r\n -webkit-box-pack: justify;\r\n     -ms-flex-pack: justify;\r\n         justify-content: space-between;\n}\n#service-selector .el-radio-group label {\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\r\n  /* border: 1px solid red; */\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .el-radio-group {\r\n  width: 100%;\r\n} */\r\n/* .is-bordered {\r\n  width: 45%;\r\n} */\n#service-selector .el-radio-group {\r\n display: -webkit-box;\r\n display: -ms-flexbox;\r\n display: flex;\r\n -webkit-box-pack: justify;\r\n     -ms-flex-pack: justify;\r\n         justify-content: space-between;\n}\n#service-selector .el-radio-group label {\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\r\n  /* border: 1px solid red; */\n}\r\n", ""]);
 
 // exports
 
@@ -98663,7 +98665,7 @@ var render = function() {
                 attrs: { placeholder: "Select ..." },
                 domProps: { value: _vm.cartQty },
                 on: {
-                  input: function($event) {
+                  change: function($event) {
                     _vm.selectProduct($event.target.value)
                   }
                 }
@@ -99599,9 +99601,6 @@ var render = function() {
                 domProps: { value: _vm.cartQty },
                 on: {
                   change: function($event) {
-                    _vm.changed()
-                  },
-                  input: function($event) {
                     _vm.selectProduct($event.target.value)
                   }
                 }
@@ -100289,7 +100288,7 @@ var render = function() {
             keydown: function($event) {
               _vm.keydown($event.target.value)
             },
-            input: function($event) {
+            change: function($event) {
               _vm.updateLocation($event.target.value)
             }
           }
@@ -100378,7 +100377,7 @@ var render = function() {
                 attrs: { placeholder: "Select ..." },
                 domProps: { value: _vm.cartQty },
                 on: {
-                  input: function($event) {
+                  change: function($event) {
                     _vm.selectProduct($event.target.value)
                   }
                 }

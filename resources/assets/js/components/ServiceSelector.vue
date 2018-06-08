@@ -1,7 +1,7 @@
 <template>
 <div>
   <div id="service-selector">
-    <el-radio-group :value="service" @input="setService" >
+    <el-radio-group :value="service"  @input="setService">
       <el-radio   label="storage" border>Storage</el-radio>
       <el-radio   label="removal" border>DIY Removal</el-radio>
     </el-radio-group>
@@ -32,8 +32,10 @@ export default {
   },
   methods: {
     setService(service) {
+     
       this.$store.commit('SET_SERVICE',service);
-    },
+    }
+    
   },
 
   

@@ -48,6 +48,7 @@
     <div class="col-sm-7" ><el-input  name="phone" v-model="form.inputs.phone"></el-input>
     <span style="color: red" v-if="form.errors.has('phone')" v-text="form.errors.get('phone')"></span></div>
   </div>
+  
 
   <div class="row">
     <div class="col-sm-4">How did you hear about us?*</div>

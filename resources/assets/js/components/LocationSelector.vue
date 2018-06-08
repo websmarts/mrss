@@ -2,7 +2,7 @@
 <div>
   
   <slot></slot>
-  <select class="form-control" :value="value.id" @keydown="keydown($event.target.value)" @input="updateLocation($event.target.value)">
+  <select class="form-control" :value="value.id" @keydown="keydown($event.target.value)" @change="updateLocation($event.target.value)">
     <option value="0">Select location ...</option>
     <option v-for="location in locations()" :value="location.id" v-html="location.suburb"></option>
   </select>

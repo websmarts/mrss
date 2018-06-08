@@ -8,10 +8,12 @@
         <div class="body-top">
           
 
-            <select :value="cartQty" @input="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
+            <select :value="cartQty" @change="selectProduct($event.target.value)" class="form-control" placeholder="Select ...">
               <option value="0">Select ...</option>
               <option :value="opt.qty" v-for="opt in product.options" :key="opt.id">{{ opt.description }}</option>
             </select>
+
+        
         </div><!-- end body-top -->
         
         <el-collapse-transition>
@@ -76,6 +78,8 @@ export default {
       } else {
         selectedOption = {product_id: this.product.id, qty_ordered: 0 }
       } 
+
+      console.log('updateCartProducts', selectedOption)
 
       this.$store.dispatch('updateCartProducts', selectedOption)
     }  
