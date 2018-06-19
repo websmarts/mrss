@@ -23,7 +23,7 @@
         <td>Phone</td><td>{{ $enquiry['phone'] }}</td>
     </tr>
     <tr>
-        <td>Preferred date</td><td>{{ date('d-m-Y',strotime($enquiry['return_date'])) }}</td>
+        <td>Preferred date</td><td>{{ date('d-m-Y',strtotime($enquiry['return_date'])) }}</td>
     </tr>
 
     <tr>
