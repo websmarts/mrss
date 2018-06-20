@@ -72,7 +72,7 @@
         <tr><td>Return location:</td><td>{{ $enquiry['return_location']->suburb }} </td></tr>
         @if($enquiry['service'] =='storage')
             <tr><td>Pickup($):</td><td>{{ number_format($enquiry['premiums']['pickup'],2) }}</td></tr>
-            <tr><td>Return($):</td><td>{{ number_formayt($enquiry['premiums']['return'],2) }}</td></tr>
+            <tr><td>Return($):</td><td>{{ number_format($enquiry['premiums']['return'],2) }}</td></tr>
         @endif
 </table>
 

@@ -100,7 +100,8 @@ class ReceiveEnquiryController extends Controller
                     return $item;
                 }
             });
-
+            
+            $sortedProducts = $products;
         }
 
         //dd($products);
@@ -110,7 +111,7 @@ class ReceiveEnquiryController extends Controller
 
         $data['pickup_location'] = Location::find($request->cart['pickupLocation']);
         $data['return_location'] = Location::find($request->cart['returnLocation']);
-        $data['products'] = $products;
+        $data['products'] = $sortedProducts;
         $data['costs'] = $request->cost;
         $data['premiums'] = $request->premiums;
         $data['service'] = $request->service;
