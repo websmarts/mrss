@@ -388,6 +388,11 @@ form .row {
   font-weight: 700;
 }
 
+/** hide any empty h2 tags **/
+.page_content_wrapper h2:empty {
+  display: none;
+}
+
 
 
 
