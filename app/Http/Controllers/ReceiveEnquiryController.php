@@ -64,17 +64,47 @@ class ReceiveEnquiryController extends Controller
             'description',
             'qty_ordered',
             'price',
-            'ext_price'
+            'ext_price',
+            'product_id',
+            'display_order'
         ];
+
+        //dd($request->cart['products']);
 
         $products = [];
         foreach($request->cart['products'] as $p){
+
             foreach($p as $key => $val){
                 if(in_array($key,$cartFields)){
+
                     $products[$p['id']][$key] = $val;
+
                 }       
             }
         }
+
+        $sortedProducts = collect($products)->sortByDesc('display_order');
+
+        // If service is removal then hack to change the incorrect price and ext_price 
+        // fields for the modules product entry
+        // This is needed because client changed pricing strategy for removal products
+        // so we ned to ignore the product price for removal modules
+        if($request->service == 'removal'){
+            // find and update the module price and ext price
+            $products = $sortedProducts->map( function($item,$key) use (&$request) {
+                if($item['product_id'] == 2){
+                    $item['price'] = $request->removal_fee;
+                    $item['ext_price']= $request->removal_fee;
+                    return $item;
+                } else {
+                    return $item;
+                }
+            });
+
+        }
+
+        //dd($products);
+
 
         $data['contact_data'] = $request->contact_data;
 
@@ -87,7 +117,7 @@ class ReceiveEnquiryController extends Controller
         $data['removal_fee'] = $request->removal_fee;
         $data['prepayment_interest'] = $request->prepayment_interest;
 
-        //dd($data);
+        // dd($data);
         
 
         Mail::to($to)->send(new \App\Mail\NewEnquiry($data));

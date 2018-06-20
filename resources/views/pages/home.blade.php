@@ -20,6 +20,8 @@
   </div><!-- /.col-lg-12 -->
 </div><!-- /.row -->
 
+<div  class="greyline"  style="width:80%;margin: auto ; margin-top:50px;"></div>
+
 <div style="background: #fff; margin-top:10px;text-align: center">
   <h2>{!! $page->element('section_2_heading')->content !!}</h2>
   <div>

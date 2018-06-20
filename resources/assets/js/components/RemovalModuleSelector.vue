@@ -79,7 +79,7 @@ export default {
         selectedOption = {product_id: this.product.id, qty_ordered: 0 }
       } 
 
-      console.log('updateCartProducts', selectedOption)
+      //console.log('updateCartProducts', selectedOption)
 
       this.$store.dispatch('updateCartProducts', selectedOption)
     }  
